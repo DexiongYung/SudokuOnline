@@ -80,9 +80,7 @@ public class SudokuGenerator {
         int xPosition = currentPos % gridDimensions;
         int yPosition = currentPos / gridDimensions;
 
-        checkHorizontalConflict(sudokuGrid,xPosition, yPosition);
-
-        return false;
+        return (checkVerticalConflict(sudokuGrid, xPosition, yPosition) && checkHorizontalConflict(sudokuGrid,xPosition, yPosition));
     }
 
     /**
