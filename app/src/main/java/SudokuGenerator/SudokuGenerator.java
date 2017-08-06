@@ -80,9 +80,15 @@ public class SudokuGenerator {
         int xPosition = currentPos % gridDimensions;
         int yPosition = currentPos / gridDimensions;
 
-        return (checkVerticalConflict(sudokuGrid, xPosition, yPosition) && checkHorizontalConflict(sudokuGrid,xPosition, yPosition));
+        return (checkVerticalConflict(sudokuGrid, xPosition, yPosition) && checkHorizontalConflict(sudokuGrid,xPosition, yPosition)
+        && checkRegionConflict(sudokuGrid, xPosition, yPosition));
     }
 
+    private boolean checkRegionConflict(final int[][] sudokuGrid, final int xpos, final int ypos){
+
+        //!!!
+        return false;
+    }
     /**
      * Checks to see if there are conflicting duplicates on the same horizontal axis
      * @param sudokuGrid    - whole Sudoku grid

@@ -9,7 +9,7 @@ import java.util.Collections;
  * Not my code taken from github.com/mfgravesjr to create Sudoku puzzle
  */
 
-public class FullGridSudokuGenerator {
+public class SudokuGeneratorV2 {
     private int[] grid;
     /**
      * Generates a valid 9 by 9 Sudoku grid with 1 through 9 appearing only once in every box, row, and column
