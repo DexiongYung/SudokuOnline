@@ -11,9 +11,7 @@ public class SudokuGenerator {
     private static SudokuGenerator instance;
     private ArrayList<ArrayList<Integer>> available = new ArrayList<>();
     public int gridDimensions = 9;
-
     private Random randomGenerator = new Random();
-
     private SudokuGenerator(){}
 
     public static SudokuGenerator getInstance(){
@@ -35,9 +33,19 @@ public class SudokuGenerator {
                 int i = randomGenerator.nextInt(available.get(currentPos).size());
                 int number = available.get(currentPos).get(i);
 
+                if(!checkConflict(sudokuGrid, currentPos)) {
+                    int xPos = currentPos % 9;
+                    int yPos = currentPos / 9;
 
-            }
-            else {
+                    sudokuGrid[xPos][yPos] = number;
+
+                    available.get(currentPos).remove(i);
+
+                    currentPos++;
+                }else{
+                    available.get(currentPos).remove(i);
+                }
+            }else {
                 for(int i = 1 ; i <= gridDimensions ; i++){
                     available.get(currentPos).add(i);
                 }
@@ -55,9 +63,9 @@ public class SudokuGenerator {
     private void clearGrid(int[][] sudokuGrid){
         available.clear();
 
-        for(int i = 0 ; i < gridDimensions ; i++){
-            for(int m = 0 ; m < gridDimensions ; m++){
-                sudokuGrid[i][m] = -1;
+        for(int x = 0 ; x < gridDimensions ; x++){
+            for(int y = 0 ; y < gridDimensions ; y++){
+                sudokuGrid[x][y] = -1;
             }
         }
 
@@ -80,15 +88,31 @@ public class SudokuGenerator {
         int xPosition = currentPos % gridDimensions;
         int yPosition = currentPos / gridDimensions;
 
-        return (checkVerticalConflict(sudokuGrid, xPosition, yPosition) && checkHorizontalConflict(sudokuGrid,xPosition, yPosition)
-        && checkRegionConflict(sudokuGrid, xPosition, yPosition));
+        return (checkVerticalConflict(sudokuGrid, xPosition, yPosition) || checkHorizontalConflict(sudokuGrid,xPosition, yPosition)
+        || checkRegionConflict(sudokuGrid, xPosition, yPosition, sudokuGrid[xPosition][yPosition]));
     }
 
-    private boolean checkRegionConflict(final int[][] sudokuGrid, final int xpos, final int ypos){
+    /**
+     * Checks if has repeating number in the region it belongs
+     * @param sudokuGrid
+     * @param xpos
+     * @param ypos
+     * @return
+     */
+    private boolean checkRegionConflict(final int[][] sudokuGrid, final int xpos, final int ypos, int number){
+        int xRegion = xpos / 3;
+        int yRegion = ypos / 3;
 
-        //!!!
+        for(int x = xRegion ; x < xRegion * 3 + 3 ; x++){
+            for(int y = yRegion ; y < yRegion * 3 + 3 ; y++){
+                if(number == sudokuGrid[x][y])
+                    return true;
+            }
+        }
+
         return false;
     }
+
     /**
      * Checks to see if there are conflicting duplicates on the same horizontal axis
      * @param sudokuGrid    - whole Sudoku grid
@@ -97,7 +121,7 @@ public class SudokuGenerator {
      * @return  true if there are duplicates of the same number on the same horizontal axis
      */
     private boolean checkHorizontalConflict(final int[][] sudokuGrid, final int xPos, final int yPos){
-        for(int x = 0 ; x < gridDimensions ; x++){
+        for(int x = 0 ; x < xPos - 1 ; x++){
             if (x != xPos) {
                 if(sudokuGrid[x][yPos] == sudokuGrid[xPos][yPos])
                     return true;
@@ -115,7 +139,7 @@ public class SudokuGenerator {
      * @return  true if there is duplicates of the same number on the same vertical axis
      */
     private boolean checkVerticalConflict(final int[][] sudokuGrid, final int xPos, final int yPos){
-        for(int y = 0 ; y < gridDimensions ; y++){
+        for(int y = 0 ; y < yPos - 1 ; y++){
             if (y != yPos) {
                 if(sudokuGrid[xPos][y] == sudokuGrid[xPos][yPos])
                     return true;

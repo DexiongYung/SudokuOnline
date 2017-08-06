@@ -22,14 +22,24 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedStateInstance){
         super.onCreate(savedStateInstance);
 
+        //Instantiating buttons
         back_button = (Button) findViewById(R.id.back_button);
         extremely_easy_button = (Button) findViewById(R.id.extremely_easy_button);
         easy_button = (Button) findViewById(R.id.easy_button);
         medium_button = (Button) findViewById(R.id.medium_button);
         difficult_button = (Button) findViewById(R.id.difficult_button);
         evil_button = (Button) findViewById(R.id.evil_button);
+
+        //Setting listeners to buttons
+        back_button.setOnClickListener(this);
+        extremely_easy_button.setOnClickListener(this);
+        easy_button.setOnClickListener(this);
+        medium_button.setOnClickListener(this);
+        difficult_button.setOnClickListener(this);
+        evil_button.setOnClickListener(this);
     }
 
+    //Click listener
     @Override
     public void onClick(View v) {
         if(v == back_button){

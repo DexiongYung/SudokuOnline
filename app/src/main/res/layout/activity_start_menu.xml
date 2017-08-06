@@ -34,13 +34,23 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Single Player"
-            android:id="@+id/single_player_button"/>
+            android:id="@+id/single_player_button"
+            android:backgroundTint="@color/colorPrimary"/>
 
         <Button
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Multiplayer"
-            android:id="@+id/multiplayer_button"/>
+            android:id="@+id/multiplayer_button"
+            android:backgroundTint="@color/colorAccent"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="exit"
+            android:id="@+id/exit_button"
+            android:backgroundTint="@color/chocolate"
+            />
 
     </LinearLayout>
 
