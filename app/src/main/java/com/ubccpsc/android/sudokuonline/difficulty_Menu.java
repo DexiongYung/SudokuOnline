@@ -21,6 +21,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedStateInstance){
         super.onCreate(savedStateInstance);
+        setContentView(R.layout.difficulty_selection);
 
         //Instantiating buttons
         back_button = (Button) findViewById(R.id.back_button);

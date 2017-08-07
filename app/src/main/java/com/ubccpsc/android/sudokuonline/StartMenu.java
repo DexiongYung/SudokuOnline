@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import SudokuGenerator.SudokuGenerator;
-
 public class StartMenu extends AppCompatActivity implements View.OnClickListener{
     private Button single_player_button;
     private Button multiplayer_button;
@@ -18,7 +16,6 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_menu);
 
-        SudokuGenerator.getInstance();
 
         //Instantiate buttons
         single_player_button = (Button) findViewById(R.id.single_player_button);
