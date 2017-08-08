@@ -6,7 +6,7 @@ package SudokuGenerator;
 
 public class GameEngine {
     private static GameEngine instance;
-    private int[][] Sudoku;
+    private int[] Sudoku;
 
     private GameEngine(){}
 
@@ -17,9 +17,9 @@ public class GameEngine {
         return instance;
     }
 
-    public int[][] getSudoku(){
+    public int[] getSudoku(){
         return Sudoku;
     }
 
-    public void setSudoku(int[][] sudoku) {this.Sudoku = sudoku;}
+    public void setSudoku(int[] sudoku) {this.Sudoku = sudoku;}
 }

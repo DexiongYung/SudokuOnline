@@ -17,26 +17,12 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.grid);
 
         int[] Sudoku = SudokuGenerator.getInstance().generateGrid();
-        int [][] actual_grid = convert1DTo2D(Sudoku);
-        GameEngine.getInstance().setSudoku(actual_grid);
+        GameEngine.getInstance().setSudoku(Sudoku);
 
     }
 
     @Override
     public void onClick(View v) {
 
-    }
-
-    public int[][] convert1DTo2D(int[] arr){
-        int[][] new2D = new int[9][9];
-        int index = 0;
-        for(int x = 0 ; x < 9 ; x++){
-            for(int y = 0 ; y < 9 ; y++){
-                new2D[x][y] = arr[index];
-                index++;
-            }
-        }
-
-        return new2D;
     }
 }

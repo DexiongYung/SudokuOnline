@@ -48,9 +48,7 @@ public class SudokuGridViewAdapter extends BaseAdapter{
         }
 
         SudokuCell cell = (SudokuCell) v;
-        int x = position % 9;
-        int y = position / 9;
-        cell.setNumber(GameEngine.getInstance().getSudoku()[x][y]);
+        cell.setNumber(GameEngine.getInstance().getSudoku()[position]);
 
         return v;
     }
