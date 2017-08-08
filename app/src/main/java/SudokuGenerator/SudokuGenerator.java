@@ -11,11 +11,24 @@ import java.util.Collections;
 
 public class SudokuGenerator {
     private int[] grid;
+    private static SudokuGenerator instance;
+
+    private SudokuGenerator(){
+
+    }
+
+    public static SudokuGenerator getInstance(){
+        if(instance == null){
+            instance = new SudokuGenerator();
+        }
+        return instance;
+    }
     /**
      * Generates a valid 9 by 9 Sudoku grid with 1 through 9 appearing only once in every box, row, and column
      *
      * @return an array of size 81 containing the grid
      */
+
 
     public int[] generateGrid() {
         ArrayList<Integer> arr = new ArrayList<Integer>(9);
