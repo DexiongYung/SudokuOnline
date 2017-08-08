@@ -16,8 +16,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
 
-        int[] Sudoku = SudokuGenerator.getInstance().generateGrid();
-        GameEngine.getInstance().setSudoku(Sudoku);
+        GameEngine.getInstance().createGrid(this);
 
     }
 
