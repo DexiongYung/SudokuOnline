@@ -10,7 +10,6 @@ import View.GameGrid;
 
 public class GameEngine {
     private static GameEngine instance;
-
     private GameGrid grid = null;
 
     private GameEngine(){}

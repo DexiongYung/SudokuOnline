@@ -31,9 +31,7 @@ public class GameGrid {
         return Sudoku;
     }
 
-    public SudokuCell getItem(int x, int y){
-        return Sudoku[x][y];
-    }
+    public SudokuCell getItem(int x, int y){ return Sudoku[x][y]; }
 
     public SudokuCell getItem(int position){
         int x = position % 9;

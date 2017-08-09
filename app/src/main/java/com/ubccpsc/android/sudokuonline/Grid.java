@@ -34,7 +34,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
             case 3:{numRemoved = randomGenerator.nextInt(31 - 28) + 28;}
             case 4:{numRemoved = randomGenerator.nextInt(27 - 22) + 22;}
         }
-        
+
         GameEngine.getInstance().createGrid(this);
 
     }
