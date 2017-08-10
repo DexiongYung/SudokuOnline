@@ -1,4 +1,4 @@
-package View;
+package View.SudokuGrid;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -28,7 +28,7 @@ public class BaseSudokuCell extends View {
         invalidate();
     }
 
-    public int getVaue(){
+    public int getValue(){
         return value;
     }
 }

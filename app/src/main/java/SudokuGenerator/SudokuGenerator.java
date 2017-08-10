@@ -2,6 +2,7 @@ package SudokuGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 
 /**
@@ -12,6 +13,7 @@ import java.util.Collections;
 public class SudokuGenerator {
     private int[] grid;
     private static SudokuGenerator instance;
+    private Random rand = new Random();
 
     private SudokuGenerator(){
 
@@ -181,6 +183,20 @@ public class SudokuGenerator {
         for (int i = 0; i < 81; i++) {
             System.out.print("[" + grid[i] + "] " + (i % 9 == 8 ? "\n" : ""));
         }
+    }
+
+    public int[][] removeElements(int[][] Sudoku){
+        int i = 0;
+        while(i<30){
+            int x = rand.nextInt(9);
+            int y = rand.nextInt(9);
+
+            if(Sudoku[x][y] != 0){
+                Sudoku[x][y] = 0;
+                i++;
+            }
+        }
+        return Sudoku;
     }
 
     /**

@@ -1,8 +1,6 @@
-package View;
+package View.SudokuGrid;
 
 import android.content.Context;
-
-import SudokuGenerator.GameEngine;
 
 /**
  * Created by Adi on 2017-08-07.

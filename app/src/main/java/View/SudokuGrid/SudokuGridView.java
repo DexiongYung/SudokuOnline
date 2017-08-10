@@ -1,4 +1,4 @@
-package View;
+package View.SudokuGrid;
 
 import android.app.Activity;
 import android.content.Context;

@@ -2,7 +2,7 @@ package SudokuGenerator;
 
 import android.content.Context;
 
-import View.GameGrid;
+import View.SudokuGrid.GameGrid;
 
 /**
  * Created by Dylan on 2017-08-07.
@@ -25,6 +25,7 @@ public class GameEngine {
         int[] Sudoku = SudokuGenerator.getInstance().generateGrid();
         grid = new GameGrid(context);
         int[][] actualGrid = convert1DTo2D(Sudoku);
+        actualGrid = SudokuGenerator.getInstance().removeElements(actualGrid);
         grid.setGrid(actualGrid);
     }
 

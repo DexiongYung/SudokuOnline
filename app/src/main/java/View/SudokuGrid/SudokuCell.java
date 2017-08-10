@@ -1,13 +1,10 @@
-package View;
+package View.SudokuGrid;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.view.View;
 
 /**
  * Created by Dylan on 2017-08-07.
@@ -35,9 +32,10 @@ public class SudokuCell extends BaseSudokuCell {
         mPaint.setStyle(Paint.Style.FILL);
 
         Rect bounds = new Rect();
-        mPaint.getTextBounds(String.valueOf(getVaue()) , 0 , String.valueOf(getVaue()).length() , bounds);
-
-        canvas.drawText(String.valueOf(getVaue()), (getWidth() - bounds.width()) / 2 , (getHeight() + bounds.height()) / 2, mPaint);
+        mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
+        if(getValue() != 0){
+            canvas.drawText(String.valueOf(getValue()), (getWidth() - bounds.width()) / 2 , (getHeight() + bounds.height()) / 2, mPaint);
+        }
     }
 
     private void drawLines(Canvas canvas){
