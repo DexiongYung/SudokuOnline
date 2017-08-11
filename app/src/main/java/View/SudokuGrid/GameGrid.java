@@ -37,4 +37,8 @@ public class GameGrid {
 
         return Sudoku[x][y];
     }
+
+    public void setItem(int x, int y, int number){
+        Sudoku[x][y].setValue(number);
+    }
 }

@@ -12,6 +12,8 @@ public class GameEngine {
     private static GameEngine instance;
     private GameGrid grid = null;
 
+    private int selectedPosX = -1, selectedPosY = -1;
+
     private GameEngine(){}
 
     public static GameEngine getInstance(){
@@ -33,6 +35,11 @@ public class GameEngine {
         return grid;
     }
 
+    public void setSelectedPosition(int x, int y){
+        selectedPosX = x;
+        selectedPosY = y;
+    }
+
     public int[][] convert1DTo2D(int[] arr){
         int[][] new2D = new int[9][9];
         int index = 0;
@@ -44,5 +51,11 @@ public class GameEngine {
         }
 
         return new2D;
+    }
+
+    public void setNumber(int number){
+        if(selectedPosX != -1 && selectedPosY != -1){
+            grid.setItem(selectedPosX,selectedPosY,number);
+        }
     }
 }
