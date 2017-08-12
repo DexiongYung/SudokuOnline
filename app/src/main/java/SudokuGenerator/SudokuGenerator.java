@@ -15,9 +15,7 @@ public class SudokuGenerator {
     private static SudokuGenerator instance;
     private Random rand = new Random();
 
-    private SudokuGenerator(){
-
-    }
+    private SudokuGenerator(){}
 
     public static SudokuGenerator getInstance(){
         if(instance == null){

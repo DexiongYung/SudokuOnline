@@ -20,7 +20,11 @@ public class GameGrid {
     public void setGrid(int[][] grid){
         for(int x = 0; x<9; x++){
             for (int y = 0; y<9; y++){
-                Sudoku[x][y].setValue(grid[x][y]);
+                Sudoku[x][y].setInitValue(grid[x][y]);
+
+                if(grid[x][y] != 0) {
+                    Sudoku[x][y].setNotModifiable();
+                }
             }
         }
     }
