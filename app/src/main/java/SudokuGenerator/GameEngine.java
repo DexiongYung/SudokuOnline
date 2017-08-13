@@ -14,8 +14,6 @@ import View.SudokuGrid.SudokuCell;
 public class GameEngine {
     private static GameEngine instance;
     private GameGrid grid = null;
-    private SudokuCell[][] temp = null;
-
     private int selectedPosX = -1, selectedPosY = -1;
 
     private GameEngine(){}
@@ -46,16 +44,12 @@ public class GameEngine {
     }
 
     public void deleteGrid(){
-        for(int x = 0 ; x < 9 ; x++){
-            for(int y = 0 ; y < 9 ; y++){
-                grid.setItem(x , y , 0);
-            }
+        while(!UndoRedoStorage.getInstance().undoEmpty()){
+            tuple3 temp = UndoRedoStorage.getInstance().callUndo();
+            int x = temp.getX_coordinate();
+            int y = temp.getY_coordinate();
+            grid.setItem(x ,y , 0);
         }
-
-        this.temp = this.grid.getGrid();
-
-        tuple3 t = new tuple3(-1, -1, -1);
-        UndoRedoStorage.getInstance().addToUndo(t);
     }
 
     public int[][] convert1DTo2D(int[] arr){
@@ -67,38 +61,30 @@ public class GameEngine {
                 index++;
             }
         }
-
         return new2D;
     }
 
     public void redoSetter(){
         if(!UndoRedoStorage.getInstance().redoEmpty()){
             tuple3 temp = UndoRedoStorage.getInstance().callRedo();
-
-            if(temp.getX_coordinate() == -1)
-                grid.replaceGrid(this.temp);
-            else
-                grid.setItem(temp.getX_coordinate() , temp.getY_coordinate() , temp.getNumber());
+            grid.setItem(temp.getX_coordinate() , temp.getY_coordinate() , temp.getNumber());
         }
     }
 
     public void undoSetter(){
         if(!UndoRedoStorage.getInstance().undoEmpty()){
             tuple3 temp = UndoRedoStorage.getInstance().callUndo();
-
-            if(temp.getX_coordinate() == -1)
-                grid.replaceGrid(this.temp);
-            else
-                grid.setItem(temp.getX_coordinate(), temp.getY_coordinate(), 0);
+            grid.setItem(temp.getX_coordinate(), temp.getY_coordinate(), 0);
         }
     }
 
-    public void setNumber(int number){
-        if(selectedPosX != -1 && selectedPosY != -1){
-            grid.setItem(selectedPosX,selectedPosY,number);
+    public void setNumber(int number) {
+        if (selectedPosX != -1 && selectedPosY != -1) {
+            grid.setItem(selectedPosX, selectedPosY, number);
 
             tuple3 v = new tuple3(selectedPosX, selectedPosY, number);
             UndoRedoStorage.getInstance().addToUndo(v);
         }
+        grid.checkGame();
     }
 }

@@ -26,4 +26,8 @@ public class tuple3 {
     public int getNumber(){
         return number;
     }
+
+    public boolean equal(tuple3 a, tuple3 b) {
+        return (a.getX_coordinate() == b.getY_coordinate()) && (a.getY_coordinate() == b.getY_coordinate()) && (a.getNumber() == b.getNumber());
+    }
 }

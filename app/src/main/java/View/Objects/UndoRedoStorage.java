@@ -23,7 +23,13 @@ public class UndoRedoStorage {
         return instance;
     }
 
-    public void addToUndo(tuple3 v){Undo.push(v);}
+    public void addToUndo(tuple3 v){
+        if(!Undo.empty()){
+            if(Undo.peek() != v)
+                Undo.push(v);}
+        else
+            Undo.push(v);
+    }
 
     public boolean redoEmpty(){
         return Redo.empty();

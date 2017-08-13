@@ -1,6 +1,9 @@
 package View.SudokuGrid;
 
 import android.content.Context;
+import android.widget.Toast;
+
+import SudokuGenerator.SudokuChecker;
 
 /**
  * Created by Adi on 2017-08-07.
@@ -8,8 +11,11 @@ import android.content.Context;
 
 public class GameGrid {
     private SudokuCell[][] Sudoku = new SudokuCell[9][9];
+    private int[][] SudokuArray = new int[9][9];
+    private Context context;
 
     public GameGrid(Context context){
+        this.context = context;
         for(int x = 0; x<9; x++){
             for (int y = 0; y<9; y++){
                 Sudoku[x][y] = new SudokuCell(context);
@@ -27,10 +33,9 @@ public class GameGrid {
                 }
             }
         }
-    }
 
-    public void replaceGrid(SudokuCell[][] grid){
-        this.Sudoku = grid;}
+        SudokuArray = grid;
+    }
 
     public SudokuCell[][] getGrid(){
         return Sudoku;
@@ -47,5 +52,11 @@ public class GameGrid {
 
     public void setItem(int x, int y, int number){
         Sudoku[x][y].setValue(number);
+        SudokuArray[x][y] = number;
+    }
+
+    public void checkGame(){
+        if(SudokuChecker.getInstance().checkSudoku(SudokuArray))
+            Toast.makeText(context, "You solved the Sudoku puzzle!", Toast.LENGTH_LONG).show();
     }
 }
