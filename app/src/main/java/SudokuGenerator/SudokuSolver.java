@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class SudokuSolver {
 
     int[][] sudoku_board=new int[9][9]; //copy of given sudoku
-    boolean [][] digit_used_row = new boolean [9][10]; //row constraint
-    boolean [][] digit_used_col = new boolean [9][10]; //column constraint
-    boolean [][][] digit_used_area = new boolean [3][3][10]; //3*3 grid space constraint
+    boolean [][] digit_used_row = new boolean [9][9]; //row constraint
+    boolean [][] digit_used_col = new boolean [9][9]; //column constraint
+    boolean [][][] digit_used_area = new boolean [3][3][9]; //3*3 grid space constraint
     ArrayList<int[]> toDoArc = new ArrayList<int[]>(); //store next changeable arc
     int depth; //the blank cell remaining
 
@@ -25,7 +25,7 @@ public class SudokuSolver {
 
     public void initialize(int [][] board){
         for(int i =0;i<9;i++){
-            for(int j = 0;j<10;j++) {
+            for(int j = 1;j<10;j++) {
                 digit_used_row[i][j] = false;
                 digit_used_col[i][j] = false;
                 digit_used_area[i/3][i%3][j] = false;
