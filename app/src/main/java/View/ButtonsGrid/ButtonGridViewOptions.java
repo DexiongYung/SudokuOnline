@@ -11,22 +11,18 @@ import android.widget.GridView;
 
 import com.ubccpsc.android.sudokuonline.R;
 
-import java.util.jar.Attributes;
-
-import SudokuGenerator.GameEngine;
-
 /**
- * Created by Adi on 2017-08-09.
+ * Created by Dylan on 2017-08-12.
  */
 
-public class ButtonsGridView extends GridView {
-    public ButtonsGridView(Context context, AttributeSet attrs){
+public class ButtonGridViewOptions extends GridView{
+    public ButtonGridViewOptions(Context context, AttributeSet attrs){
         super(context, attrs);
         ButtonsGridViewAdapter gridViewAdapter = new ButtonsGridViewAdapter(context);
         setAdapter(gridViewAdapter);
     }
 
-    class ButtonsGridViewAdapter extends BaseAdapter{
+    class ButtonsGridViewAdapter extends BaseAdapter {
 
         private Context context;
 
@@ -36,7 +32,7 @@ public class ButtonsGridView extends GridView {
 
         @Override
         public int getCount() {
-            return 9;
+            return 4;
         }
 
         @Override
@@ -48,6 +44,7 @@ public class ButtonsGridView extends GridView {
         public long getItemId(int position) {
             return position;
         }
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -61,9 +58,19 @@ public class ButtonsGridView extends GridView {
                 btn.setTextSize(10);
                 btn.setId(position);
 
-                if(position < 9){
-                    btn.setText(String.valueOf(position + 1));
-                    btn.setNumber(position + 1, position);
+                if (position == 0){
+                    btn.setText("DEL");
+                    btn.setNumber(0 , 9);
+                }
+                else if(position == 1) {
+                    btn.setText("UNDO");
+                }
+                else if(position == 2){
+                    btn.setText("REDO");
+                }
+                else {
+                    btn.setText("DEL GRID");
+                    btn.setNumber(0, 20);
                 }
 
                 return btn;

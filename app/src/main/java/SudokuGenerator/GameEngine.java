@@ -23,11 +23,11 @@ public class GameEngine {
         return instance;
     }
 
-    public void createGrid(Context context){
+    public void createGrid(Context context, int numberRemoved){
         int[] Sudoku = SudokuGenerator.getInstance().generateGrid();
         grid = new GameGrid(context);
         int[][] actualGrid = convert1DTo2D(Sudoku);
-        actualGrid = SudokuGenerator.getInstance().removeElements(actualGrid);
+        actualGrid = SudokuGenerator.getInstance().removeElements(actualGrid, numberRemoved);
         grid.setGrid(actualGrid);
     }
 
@@ -38,6 +38,14 @@ public class GameEngine {
     public void setSelectedPosition(int x, int y){
         selectedPosX = x;
         selectedPosY = y;
+    }
+
+    public void deleteGrid(){
+        for(int x = 0 ; x < 9 ; x++){
+            for(int y = 0 ; y < 9 ; y++){
+                grid.setItem(x , y , 0);
+            }
+        }
     }
 
     public int[][] convert1DTo2D(int[] arr){

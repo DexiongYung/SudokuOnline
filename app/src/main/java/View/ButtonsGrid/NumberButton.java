@@ -15,6 +15,7 @@ import SudokuGenerator.GameEngine;
 public class NumberButton extends AppCompatButton implements View.OnClickListener {
 
     private int number;
+    private int index;
 
     public NumberButton(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -23,13 +24,16 @@ public class NumberButton extends AppCompatButton implements View.OnClickListene
 
     @Override
     public void onClick(View v){
-        GameEngine.getInstance().setNumber(number);
+        if(index < 9)
+            GameEngine.getInstance().setNumber(number);
+        else if(index == 9)
+            GameEngine.getInstance().setNumber(number);
+        else
+            GameEngine.getInstance().deleteGrid();
     }
 
-    public void setNumber(int number){
+    public void setNumber(int number, int index){
         this.number = number;
+        this.index = index;
     }
-
-
-
 }

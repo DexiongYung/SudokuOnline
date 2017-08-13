@@ -28,14 +28,24 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         int numRemoved = 0;
 
         switch(level) {
-            case 0:{numRemoved = randomGenerator.nextInt(60 - 50) + 50;}
-            case 1:{numRemoved = randomGenerator.nextInt(49 - 36) + 36;}
-            case 2:{numRemoved = randomGenerator.nextInt(35 - 32) + 32;}
-            case 3:{numRemoved = randomGenerator.nextInt(31 - 28) + 28;}
-            case 4:{numRemoved = randomGenerator.nextInt(27 - 22) + 22;}
+            case 0:{
+                numRemoved = 81 - (randomGenerator.nextInt(60 - 50) + 50);
+                break;}
+            case 1:{
+                numRemoved = 81 - (randomGenerator.nextInt(49 - 36) + 36);
+                break;}
+            case 2:{
+                numRemoved = 81 - (randomGenerator.nextInt(35 - 32) + 32);
+                break;}
+            case 3:{
+                numRemoved = 81 - (randomGenerator.nextInt(31 - 28) + 28);
+                break;}
+            case 4:{
+                numRemoved = 81 - (randomGenerator.nextInt(27 - 22) + 22);
+                break;}
         }
 
-        GameEngine.getInstance().createGrid(this);
+        GameEngine.getInstance().createGrid(this, numRemoved);
 
     }
 

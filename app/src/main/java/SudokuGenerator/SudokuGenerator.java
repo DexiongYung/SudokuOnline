@@ -183,9 +183,9 @@ public class SudokuGenerator {
         }
     }
 
-    public int[][] removeElements(int[][] Sudoku){
+    public int[][] removeElements(int[][] Sudoku, int number){
         int i = 0;
-        while(i<30){
+        while(i < number){
             int x = rand.nextInt(9);
             int y = rand.nextInt(9);
 
