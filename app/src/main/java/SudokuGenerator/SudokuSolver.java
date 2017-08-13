@@ -60,7 +60,6 @@ public class SudokuSolver {
     public int[][] solve(int[][] board) {
         initialize(board);
         generator();
-        //System.out.println("\n"+SudokuUtil.formatBoard(sudoku_board));
         boolean next_blank_valid= next_blank(sudoku_board);
         if(next_blank_valid){
             depth--;
