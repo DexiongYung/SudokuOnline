@@ -29,6 +29,9 @@ public class GameGrid {
         }
     }
 
+    public void replaceGrid(SudokuCell[][] grid){
+        this.Sudoku = grid;}
+
     public SudokuCell[][] getGrid(){
         return Sudoku;
     }

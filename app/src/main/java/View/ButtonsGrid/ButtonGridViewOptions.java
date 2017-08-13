@@ -64,9 +64,11 @@ public class ButtonGridViewOptions extends GridView{
                 }
                 else if(position == 1) {
                     btn.setText("UNDO");
+                    btn.setNumber(0, 10);
                 }
                 else if(position == 2){
                     btn.setText("REDO");
+                    btn.setNumber(0, 11);
                 }
                 else {
                     btn.setText("DEL GRID");

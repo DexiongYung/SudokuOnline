@@ -3,6 +3,9 @@ package SudokuGenerator;
 import android.content.Context;
 
 import View.SudokuGrid.GameGrid;
+import View.Objects.UndoRedoStorage;
+import View.Objects.tuple3;
+import View.SudokuGrid.SudokuCell;
 
 /**
  * Created by Dylan on 2017-08-07.
@@ -11,6 +14,7 @@ import View.SudokuGrid.GameGrid;
 public class GameEngine {
     private static GameEngine instance;
     private GameGrid grid = null;
+    private SudokuCell[][] temp = null;
 
     private int selectedPosX = -1, selectedPosY = -1;
 
@@ -29,6 +33,7 @@ public class GameEngine {
         int[][] actualGrid = convert1DTo2D(Sudoku);
         actualGrid = SudokuGenerator.getInstance().removeElements(actualGrid, numberRemoved);
         grid.setGrid(actualGrid);
+        UndoRedoStorage.getInstance();
     }
 
     public GameGrid getGrid(){
@@ -46,6 +51,11 @@ public class GameEngine {
                 grid.setItem(x , y , 0);
             }
         }
+
+        this.temp = this.grid.getGrid();
+
+        tuple3 t = new tuple3(-1, -1, -1);
+        UndoRedoStorage.getInstance().addToUndo(t);
     }
 
     public int[][] convert1DTo2D(int[] arr){
@@ -61,9 +71,34 @@ public class GameEngine {
         return new2D;
     }
 
+    public void redoSetter(){
+        if(!UndoRedoStorage.getInstance().redoEmpty()){
+            tuple3 temp = UndoRedoStorage.getInstance().callRedo();
+
+            if(temp.getX_coordinate() == -1)
+                grid.replaceGrid(this.temp);
+            else
+                grid.setItem(temp.getX_coordinate() , temp.getY_coordinate() , temp.getNumber());
+        }
+    }
+
+    public void undoSetter(){
+        if(!UndoRedoStorage.getInstance().undoEmpty()){
+            tuple3 temp = UndoRedoStorage.getInstance().callUndo();
+
+            if(temp.getX_coordinate() == -1)
+                grid.replaceGrid(this.temp);
+            else
+                grid.setItem(temp.getX_coordinate(), temp.getY_coordinate(), 0);
+        }
+    }
+
     public void setNumber(int number){
         if(selectedPosX != -1 && selectedPosY != -1){
             grid.setItem(selectedPosX,selectedPosY,number);
+
+            tuple3 v = new tuple3(selectedPosX, selectedPosY, number);
+            UndoRedoStorage.getInstance().addToUndo(v);
         }
     }
 }
