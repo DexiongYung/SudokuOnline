@@ -23,6 +23,10 @@ public class BaseSudokuCell extends View {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
 
+    public boolean isModifiable() {
+        return modifiable;
+    }
+
     public void setNotModifiable(){
         modifiable = false;
     }

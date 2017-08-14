@@ -64,6 +64,10 @@ public class SudokuCell extends BaseSudokuCell {
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setTextSize(60);
             mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
+
+            if (!isModifiable())
+                mPaint.setColor(Color.BLUE);
+
             canvas.drawText(String.valueOf(getValue()), (getWidth() - bounds.width()) / 2 , (getHeight() + bounds.height()) / 2, mPaint);
         }
     }
