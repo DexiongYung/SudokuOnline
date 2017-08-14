@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sudokuGridView"
-        android:numColumns="6"/>
+        android:numColumns="5" />
 
     <View.ButtonsGrid.ButtonsGridViewOptions
         android:id="@+id/buttonsgridviewoptions"
