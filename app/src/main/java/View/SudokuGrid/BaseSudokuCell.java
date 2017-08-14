@@ -5,6 +5,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import SudokuGenerator.GameEngine;
+
 /**
  * Created by Adi on 2017-08-07.
  */
@@ -38,30 +40,16 @@ public class BaseSudokuCell extends View {
 
     public void setValue(int value){
         if(modifiable) {
-            if((getArrayList().isEmpty()) && (this.value != -1)){
-                if(this.value == 0){
-                    this.value = value;
-                }
-                else if((0 < value) && (this.value != value)){
-                    possibleValues.add(this.value);
-                    possibleValues.add(value);
-                    this.value = -1;
-                }
-                else{
-                    possibleValues.clear();
-                    this.value = value;
-                }
-            }
-            else {
-                if(value == 0){
-                    possibleValues.clear();
-                    this.value = 0;
-                }
-                else if(possibleValues.contains(value)){
-                    possibleValues.remove(possibleValues.indexOf(value));
-                }
+            if (GameEngine.getInstance().getDraftModeSetting()) {
+                if (possibleValues.contains(value))
+                    possibleValues.remove(value);
                 else
                     possibleValues.add(value);
+
+                this.value = -1;
+            }
+            else {
+                this.value = value;
             }
         }
         invalidate();

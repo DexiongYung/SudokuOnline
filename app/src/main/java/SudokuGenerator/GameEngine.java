@@ -12,6 +12,7 @@ public class GameEngine {
     private static GameEngine instance;
     private GameGrid grid = null;
     private int selectedPosX = -1, selectedPosY = -1;
+    private boolean draftMode = false;
 
     private GameEngine(){}
 
@@ -59,6 +60,14 @@ public class GameEngine {
         grid.checkGame();
     }
 
+    public void draftModeSetter() {
+        draftMode = !draftMode;
+    }
+
+    public boolean getDraftModeSetting() {
+        return draftMode;
+    }
+
     public int[] getRowToHighlight(int position){
         int[] rowArray = new int[9];
         int row = position / 9;
@@ -83,4 +92,5 @@ public class GameEngine {
 
         return rowArray;
     }
+
 }
