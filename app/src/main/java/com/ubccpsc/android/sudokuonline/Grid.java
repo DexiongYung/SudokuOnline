@@ -7,7 +7,6 @@ import android.view.View;
 
 import java.util.Random;
 
-import SudokuGenerator.SudokuGenerator;
 import SudokuGenerator.GameEngine;
 
 /**

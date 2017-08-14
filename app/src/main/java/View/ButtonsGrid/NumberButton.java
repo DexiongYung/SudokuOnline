@@ -3,9 +3,7 @@ package View.ButtonsGrid;
 import android.content.Context;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import SudokuGenerator.GameEngine;
 
@@ -25,6 +23,8 @@ public class NumberButton extends AppCompatButton implements View.OnClickListene
     @Override
     public void onClick(View v){
         if(index < 9)
+            GameEngine.getInstance().setNumber(number);
+        else if(index == 9)
             GameEngine.getInstance().setNumber(number);
     }
 

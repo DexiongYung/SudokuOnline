@@ -2,10 +2,7 @@ package SudokuGenerator;
 
 import android.content.Context;
 
-import java.util.Stack;
-
 import View.SudokuGrid.GameGrid;
-import View.SudokuGrid.SudokuCell;
 
 /**
  * Created by Dylan on 2017-08-07.

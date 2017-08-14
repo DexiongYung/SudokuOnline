@@ -11,16 +11,12 @@ import android.widget.GridView;
 
 import com.ubccpsc.android.sudokuonline.R;
 
-import java.util.jar.Attributes;
-
-import SudokuGenerator.GameEngine;
-
 /**
  * Created by Adi on 2017-08-09.
  */
 
-public class ButtonsGridView extends GridView {
-    public ButtonsGridView(Context context, AttributeSet attrs){
+public class ButtonsGridViewOptions extends GridView {
+    public ButtonsGridViewOptions(Context context, AttributeSet attrs){
         super(context, attrs);
         ButtonsGridViewAdapter gridViewAdapter = new ButtonsGridViewAdapter(context);
         setAdapter(gridViewAdapter);
@@ -36,7 +32,7 @@ public class ButtonsGridView extends GridView {
 
         @Override
         public int getCount() {
-            return 9;
+            return 4;
         }
 
         @Override
@@ -61,9 +57,9 @@ public class ButtonsGridView extends GridView {
                 btn.setTextSize(10);
                 btn.setId(position);
 
-                if(position < 9){
-                    btn.setText(String.valueOf(position + 1));
-                    btn.setNumber(position + 1, position);
+                if(position == 0){
+                    btn.setText(String.valueOf("Del"));
+                    btn.setNumber(0, 9);
                 }
 
                 return btn;
@@ -72,3 +68,4 @@ public class ButtonsGridView extends GridView {
         }
     }
 }
+

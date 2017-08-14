@@ -12,12 +12,18 @@
         android:horizontalSpacing="0dp"
         android:verticalSpacing="0dp"> </View.SudokuGrid.SudokuGridView>
 
-    <View.ButtonsGrid.ButtonsGridView
+    <View.ButtonsGrid.ButtonsGridViewNumbers
         android:id="@+id/buttonsgridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sudokuGridView"
         android:numColumns="6"/>
 
+    <View.ButtonsGrid.ButtonsGridViewOptions
+        android:id="@+id/buttonsgridviewoptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonsgridview"
+        android:numColumns="4" />
 
 </RelativeLayout>

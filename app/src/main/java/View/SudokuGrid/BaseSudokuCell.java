@@ -1,9 +1,6 @@
 package View.SudokuGrid;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -37,19 +34,27 @@ public class BaseSudokuCell extends View {
 
     public void setValue(int value){
         if(modifiable) {
-            if(getArrayList().isEmpty() && this.value != -1){
-                if(this.value == 0)
+            if((getArrayList().isEmpty()) && (this.value != -1)){
+                if(this.value == 0){
                     this.value = value;
-                else if(this.value != value){
+                }
+                else if((0 < value) && (this.value != value)){
                     possibleValues.add(this.value);
                     possibleValues.add(value);
                     this.value = -1;
                 }
+                else{
+                    possibleValues.clear();
+                    this.value = value;
+                }
             }
             else {
-                if(possibleValues.contains(value)){
-                    this.value = value;
+                if(value == 0){
                     possibleValues.clear();
+                    this.value = 0;
+                }
+                else if(possibleValues.contains(value)){
+                    possibleValues.remove(possibleValues.indexOf(value));
                 }
                 else
                     possibleValues.add(value);
