@@ -2,7 +2,6 @@ package View.ButtonsGrid;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +74,6 @@ public class ButtonsGridViewOptions extends GridView {
                     case 3: {
                         btn.setText("Draft");
                         btn.setNumber(0, 12);
-                        btn.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         break;
                     }
                 }
