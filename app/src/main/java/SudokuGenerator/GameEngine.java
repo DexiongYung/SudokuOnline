@@ -61,4 +61,29 @@ public class GameEngine {
         }
         grid.checkGame();
     }
+
+    public int[] getRowToHighlight(int position){
+        int[] rowArray = new int[9];
+        int row = position / 9;
+        int start = row * 9;
+
+        for(int i = 0; i<rowArray.length; i++){
+            rowArray[i] = start;
+            start++;
+        }
+
+        return rowArray;
+    }
+
+    public int[] getColumnToHighlight(int position){
+        int[] rowArray = new int[9];
+        int col = position % 9;
+
+        for(int i = 0; i<rowArray.length; i++){
+            rowArray[i] = col;
+            col+= 9;
+        }
+
+        return rowArray;
+    }
 }
