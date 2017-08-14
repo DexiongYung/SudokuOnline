@@ -31,15 +31,6 @@ public class GameEngine {
         grid.setGrid(actualGrid);
     }
 
-    public GameGrid getGrid(){
-        return grid;
-    }
-
-    public void setSelectedPosition(int x, int y){
-        selectedPosX = x;
-        selectedPosY = y;
-    }
-
     public int[][] convert1DTo2D(int[] arr){
         int[][] new2D = new int[9][9];
         int index = 0;
@@ -50,6 +41,15 @@ public class GameEngine {
             }
         }
         return new2D;
+    }
+
+    public GameGrid getGrid() {
+        return grid;
+    }
+
+    public void setSelectedPosition(int x, int y) {
+        selectedPosX = x;
+        selectedPosY = y;
     }
 
     public void setNumber(int number) {

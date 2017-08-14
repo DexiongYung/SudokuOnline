@@ -13,7 +13,7 @@ import SudokuGenerator.GameEngine;
 
 public class BaseSudokuCell extends View {
     private int value;
-    private ArrayList<Integer> possibleValues = new ArrayList<Integer>();
+    private ArrayList<Integer> draft = new ArrayList<Integer>();
     private boolean modifiable = true;
 
     public BaseSudokuCell(Context context) {
@@ -33,37 +33,43 @@ public class BaseSudokuCell extends View {
         modifiable = false;
     }
 
-    public void setInitValue(int value){
+    public void setInitialValue(int value) {
         this.value = value;
         invalidate();
+    }
+
+    public int getValue() {
+        return value;
     }
 
     public void setValue(int value){
         if(modifiable) {
             if (GameEngine.getInstance().getDraftModeSetting()) {
-                if (possibleValues.contains(value)) {
-                    possibleValues.remove(possibleValues.indexOf(value));
+                if (draft.contains(value)) {
+                    draft.remove(draft.indexOf(value));
 
-                    if (possibleValues.isEmpty())
+                    if (draft.isEmpty())
                         this.value = 0;
+                    else
+                        this.value = -1;
+                } else {
+                    draft.add(value);
+                    this.value = -1;
                 }
-                else
-                    possibleValues.add(value);
-
-                this.value = -1;
             }
             else {
                 this.value = value;
+                draft.clear();
             }
         }
         invalidate();
     }
 
-    public int getValue(){
-        return value;
+    public ArrayList<Integer> getDraft() {
+        return draft;
     }
 
-    public ArrayList<Integer> getArrayList(){
-        return possibleValues;
+    public boolean draftEmpty() {
+        return draft.isEmpty();
     }
 }

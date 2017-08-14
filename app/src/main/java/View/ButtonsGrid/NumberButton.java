@@ -1,6 +1,8 @@
 package View.ButtonsGrid;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
@@ -26,8 +28,17 @@ public class NumberButton extends AppCompatButton implements View.OnClickListene
             GameEngine.getInstance().setNumber(number);
         else if(index == 9)
             GameEngine.getInstance().setNumber(number);
-        else if (index == 12) {
+        else if (index == 10) {
+
+        } else if (index == 11) {
+
+        } else {
             GameEngine.getInstance().draftModeSetter();
+
+            if (GameEngine.getInstance().getDraftModeSetting())
+                v.getBackground().setColorFilter(Color.rgb(255, 182, 193), PorterDuff.Mode.ADD);
+            else
+                v.getBackground().clearColorFilter();
         }
     }
 

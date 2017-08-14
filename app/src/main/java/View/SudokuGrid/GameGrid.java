@@ -23,10 +23,14 @@ public class GameGrid {
         }
     }
 
+    public SudokuCell[][] getGrid() {
+        return Sudoku;
+    }
+
     public void setGrid(int[][] grid){
         for(int x = 0; x<9; x++){
             for (int y = 0; y<9; y++){
-                Sudoku[x][y].setInitValue(grid[x][y]);
+                Sudoku[x][y].setInitialValue(grid[x][y]);
 
                 if(grid[x][y] != 0) {
                     Sudoku[x][y].setNotModifiable();
@@ -34,10 +38,6 @@ public class GameGrid {
             }
         }
         SudokuArray = grid;
-    }
-
-    public SudokuCell[][] getGrid(){
-        return Sudoku;
     }
 
     public SudokuCell getItem(int x, int y){ return Sudoku[x][y]; }

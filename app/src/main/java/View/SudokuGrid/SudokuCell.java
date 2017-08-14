@@ -36,7 +36,7 @@ public class SudokuCell extends BaseSudokuCell {
         {
             mPaint.setTextSize(20);
             mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
-            ArrayList<Integer> list = getArrayList();
+            ArrayList<Integer> list = getDraft();
 
             for(int i = 0 ; i < list.size(); i++){
                 if(list.get(i) == 1){

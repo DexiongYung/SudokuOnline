@@ -65,10 +65,12 @@ public class ButtonsGridViewOptions extends GridView {
                     }
                     case 1: {
                         btn.setText("Undo");
+                        btn.setNumber(0, 10);
                         break;
                     }
                     case 2: {
                         btn.setText("Redo");
+                        btn.setNumber(0, 11);
                         break;
                     }
                     case 3: {
