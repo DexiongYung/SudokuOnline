@@ -33,7 +33,6 @@ public class GameGrid {
                 }
             }
         }
-
         SudokuArray = grid;
     }
 
@@ -52,7 +51,11 @@ public class GameGrid {
 
     public void setItem(int x, int y, int number){
         Sudoku[x][y].setValue(number);
-        SudokuArray[x][y] = number;
+
+        if (Sudoku[x][y].getValue() == -1)
+            SudokuArray[x][y] = -1;
+        else
+            SudokuArray[x][y] = number;
     }
 
     public void checkGame(){

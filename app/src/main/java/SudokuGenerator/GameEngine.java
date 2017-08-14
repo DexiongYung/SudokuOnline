@@ -2,9 +2,9 @@ package SudokuGenerator;
 
 import android.content.Context;
 
+import java.util.Stack;
+
 import View.SudokuGrid.GameGrid;
-import View.Objects.UndoRedoStorage;
-import View.Objects.tuple3;
 import View.SudokuGrid.SudokuCell;
 
 /**
@@ -31,7 +31,6 @@ public class GameEngine {
         int[][] actualGrid = convert1DTo2D(Sudoku);
         actualGrid = SudokuGenerator.getInstance().removeElements(actualGrid, numberRemoved);
         grid.setGrid(actualGrid);
-        UndoRedoStorage.getInstance();
     }
 
     public GameGrid getGrid(){
@@ -41,15 +40,6 @@ public class GameEngine {
     public void setSelectedPosition(int x, int y){
         selectedPosX = x;
         selectedPosY = y;
-    }
-
-    public void deleteGrid(){
-        while(!UndoRedoStorage.getInstance().undoEmpty()){
-            tuple3 temp = UndoRedoStorage.getInstance().callUndo();
-            int x = temp.getX_coordinate();
-            int y = temp.getY_coordinate();
-            grid.setItem(x ,y , 0);
-        }
     }
 
     public int[][] convert1DTo2D(int[] arr){
@@ -64,26 +54,10 @@ public class GameEngine {
         return new2D;
     }
 
-    public void redoSetter(){
-        if(!UndoRedoStorage.getInstance().redoEmpty()){
-            tuple3 temp = UndoRedoStorage.getInstance().callRedo();
-            grid.setItem(temp.getX_coordinate() , temp.getY_coordinate() , temp.getNumber());
-        }
-    }
-
-    public void undoSetter(){
-        if(!UndoRedoStorage.getInstance().undoEmpty()){
-            tuple3 temp = UndoRedoStorage.getInstance().callUndo();
-            grid.setItem(temp.getX_coordinate(), temp.getY_coordinate(), 0);
-        }
-    }
-
     public void setNumber(int number) {
         if (selectedPosX != -1 && selectedPosY != -1) {
             grid.setItem(selectedPosX, selectedPosY, number);
 
-            tuple3 v = new tuple3(selectedPosX, selectedPosY, number);
-            UndoRedoStorage.getInstance().addToUndo(v);
         }
         grid.checkGame();
     }

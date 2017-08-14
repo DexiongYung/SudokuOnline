@@ -26,15 +26,6 @@ public class NumberButton extends AppCompatButton implements View.OnClickListene
     public void onClick(View v){
         if(index < 9)
             GameEngine.getInstance().setNumber(number);
-        else if(index == 9)
-            GameEngine.getInstance().setNumber(number);
-        else if(index == 10) {
-            GameEngine.getInstance().undoSetter();
-        }
-        else if(index == 11)
-            GameEngine.getInstance().redoSetter();
-        else
-            GameEngine.getInstance().deleteGrid();
     }
 
     public void setNumber(int number, int index){

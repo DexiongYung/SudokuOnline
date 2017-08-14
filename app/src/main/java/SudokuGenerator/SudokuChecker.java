@@ -40,7 +40,7 @@ public class SudokuChecker {
             for(int y = yRegion * 3 ; y < yRegion * 3 + 3 ; y++){
                 for(int x2 = x ; x2 < xRegion * 3 + 3 ; x2++){
                     for(int y2 = y ; y2 < yRegion * 3 + 3 ; y2++){
-                        if(((x2 != x || y2 != y) && (sudoku[x][y] == sudoku[x2][y2])) || (sudoku[x][y] == 0)) {
+                        if(((x2 != x || y2 != y) && (sudoku[x][y] == sudoku[x2][y2])) || (sudoku[x][y] == 0) || (sudoku[x][y] == -1)) {
                             return false;
                         }
                     }
@@ -55,7 +55,7 @@ public class SudokuChecker {
         for(int x = 0 ; x < 9 ; x++){
             HashSet<Integer> holder = new HashSet<Integer>();
             for(int y = 0 ; y < 9 ; y++){
-                if(sudoku[x][y] == 0)
+                if(sudoku[x][y] == 0 || sudoku[x][y] == -1)
                     return false;
 
                 if(holder.contains(sudoku[x][y]))
@@ -71,7 +71,7 @@ public class SudokuChecker {
         for(int y = 0 ; y < 9 ; y++){
             HashSet<Integer> holder = new HashSet<Integer>();
             for(int x = 0 ; x < 9 ; x++){
-                if(sudoku[x][y] == 0)
+                if(sudoku[x][y] == 0 || sudoku[x][y] == -1)
                     return false;
 
                 if(holder.contains(sudoku[x][y]))
