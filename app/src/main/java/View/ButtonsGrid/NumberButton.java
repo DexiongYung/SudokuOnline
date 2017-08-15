@@ -29,7 +29,7 @@ public class NumberButton extends AppCompatButton implements View.OnClickListene
         else if(index == 9)
             GameEngine.getInstance().setNumber(number);
         else if (index == 10) {
-
+            GameEngine.getInstance().undoFunction();
         } else if (index == 11) {
 
         } else {

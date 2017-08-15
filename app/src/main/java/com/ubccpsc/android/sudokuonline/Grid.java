@@ -45,7 +45,6 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         }
 
         GameEngine.getInstance().createGrid(this, numRemoved);
-
     }
 
     @Override

@@ -40,8 +40,6 @@ public class GameGrid {
         SudokuArray = grid;
     }
 
-    public SudokuCell getItem(int x, int y){ return Sudoku[x][y]; }
-
     public SudokuCell getItem(int position){
         int x = position % 9;
         int y = position / 9;
@@ -59,7 +57,8 @@ public class GameGrid {
     }
 
     public void checkGame(){
-        if(SudokuChecker.getInstance().checkSudoku(SudokuArray))
-            Toast.makeText(context, "You solved the Sudoku puzzle!", Toast.LENGTH_LONG).show();
+        if (SudokuChecker.getInstance().checkSudoku(SudokuArray)) {
+            Toast.makeText(context, "CONGRATS! You solved the Sudoku puzzle!", Toast.LENGTH_LONG).show();
+        }
     }
 }
