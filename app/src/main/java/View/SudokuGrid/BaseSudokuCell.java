@@ -42,8 +42,7 @@ public class BaseSudokuCell extends View {
 
     public void setInitialValue(int value) {
         this.value = value;
-        ArrayList<Integer> temp = new ArrayList<Integer>();
-        undoStack.push(new tuple(getValue(), temp));
+        undoStack.push(new tuple(getValue(), new ArrayList<Integer>()));
         invalidate();
     }
 

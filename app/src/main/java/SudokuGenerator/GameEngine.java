@@ -1,6 +1,7 @@
 package SudokuGenerator;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ public class GameEngine {
     private boolean draftMode;
     private Stack<xyStorage> undoStorage = new Stack<xyStorage>();
     private Stack<xyStorage> redoStorage = new Stack<xyStorage>();
+    private ArrayList<xyStorage> highlightDuplucatesPosition = new ArrayList<>();
 
     public GameEngine() {
     }
@@ -58,15 +60,37 @@ public class GameEngine {
     public void setSelectedPosition(int x, int y) {
         selectedPosX = x;
         selectedPosY = y;
+        highlightDuplicates(selectedPosX, selectedPosY);
     }
 
     public void setNumber(int number) {
         if (selectedPosX != -1 && selectedPosY != -1) {
             grid.setItem(selectedPosX, selectedPosY, number);
+            highlightDuplicates(selectedPosX, selectedPosY);
             undoStorage.push(new xyStorage(selectedPosX, selectedPosY));
             redoStorage.empty();
         }
         grid.checkGame();
+    }
+
+    public void highlightDuplicates(int xPos, int yPos) {
+        for (int i = 0; i < highlightDuplucatesPosition.size(); i++) {
+            int x = highlightDuplucatesPosition.get(i).getX();
+            int y = highlightDuplucatesPosition.get(i).getY();
+            getGrid().getGrid()[x][y].setBackgroundColor(Color.WHITE);
+        }
+
+        if ((getGrid().getGrid()[xPos][yPos].getValue() != 0) && (getGrid().getGrid()[xPos][yPos].getValue() != -1)) {
+            highlightDuplucatesPosition.clear();
+            for (int x = 0; x < 9; x++) {
+                for (int y = 0; y < 9; y++) {
+                    if (getGrid().getGrid()[x][y].getValue() == getGrid().getGrid()[xPos][yPos].getValue()) {
+                        getGrid().getGrid()[x][y].setBackgroundColor(Color.parseColor("#89cff0"));
+                        highlightDuplucatesPosition.add(new xyStorage(x, y));
+                    }
+                }
+            }
+        }
     }
 
     public void undoFunction() {
@@ -136,18 +160,6 @@ public class GameEngine {
         }
 
         return rowArray;
-    }
-
-    public ArrayList<Integer> getDuplicatesToHighlight(int position) {
-        ArrayList<Integer> duplicatesHolder = new ArrayList<>();
-
-        for (int i = 0; i < 81; i++) {
-            if (grid.getItem(i).getValue() == grid.getItem(position).getValue()) {
-                duplicatesHolder.add(i);
-            }
-        }
-
-        return duplicatesHolder;
     }
 
     public class xyStorage {
