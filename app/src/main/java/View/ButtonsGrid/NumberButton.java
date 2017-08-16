@@ -31,7 +31,7 @@ public class NumberButton extends AppCompatButton implements View.OnClickListene
         else if (index == 10) {
             GameEngine.getInstance().undoFunction();
         } else if (index == 11) {
-
+            GameEngine.getInstance().redoFunction();
         } else {
             GameEngine.getInstance().draftModeSetter();
 

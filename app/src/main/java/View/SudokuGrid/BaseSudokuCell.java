@@ -15,10 +15,10 @@ import View.SudokuGrid.UndoRedo.tuple;
 
 public class BaseSudokuCell extends View {
     private int value;
-    private ArrayList<Integer> draft = new ArrayList<Integer>();
+    private ArrayList<Integer> draft = new ArrayList<>();
     private boolean modifiable = true;
-    private Stack<tuple> undoStack = new Stack<tuple>();
-    private Stack<tuple> redoStack = new Stack<tuple>();
+    private Stack<tuple> undoStack = new Stack<>();
+    private Stack<tuple> redoStack = new Stack<>();
 
     public BaseSudokuCell(Context context) {
         super(context);
@@ -61,43 +61,53 @@ public class BaseSudokuCell extends View {
                 } else {
                     draft.add(value);
                 }
+                pushUndoStack(this.value);
             }
             else {
                 this.value = value;
                 draft.clear();
+                pushUndoStack(value);
             }
             redoStack.empty();
-
-            ArrayList<Integer> temp = new ArrayList<Integer>();
-            for (int i = 0; i < draft.size(); i++) {
-                temp.add(draft.get(i));
-            }
-            int val = this.value;
-            undoStack.push(new tuple(val, temp));
-        }
-        invalidate();
-    }
-
-    public void undo() {
-        if (!undoStack.isEmpty()) {
-            redoStack.push(undoStack.pop());
-
-            if (!undoStack.isEmpty()) {
-                tuple temp = undoStack.pop();
-                redoStack.push(temp);
-                setValue(temp.getValue());
-                setDraft(temp.getDraft());
-            }
         }
         invalidate();
     }
 
     public ArrayList<Integer> getDraft() {
-        ArrayList<Integer> temp = this.draft;
-        return temp;
+        return this.draft;
     }
 
-    public void setDraft(ArrayList<Integer> a) {
-        this.draft = a;
+    public void redo() {
+        if (!redoStack.isEmpty()) {
+            tuple t = redoStack.pop();
+            undoStack.push(t);
+
+            this.value = t.getValue();
+            this.draft = t.getDraft();
+        }
+        invalidate();
+    }
+
+    public void pushUndoStack(int value) {
+        ArrayList<Integer> temp = new ArrayList<>();
+
+        for (int i = 0; i < draft.size(); i++)
+            temp.add(draft.get(i));
+
+        undoStack.push(new tuple(value, temp));
+    }
+
+    public void undo() {
+        if (!undoStack.isEmpty()) {
+            tuple t = undoStack.pop();
+            redoStack.push(t);
+
+            if (!undoStack.isEmpty()) {
+                tuple temp = undoStack.peek();
+                this.value = temp.getValue();
+                this.draft = temp.getDraft();
+            }
+        }
+        invalidate();
     }
 }

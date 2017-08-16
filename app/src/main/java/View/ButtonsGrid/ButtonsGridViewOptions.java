@@ -11,8 +11,6 @@ import android.widget.GridView;
 
 import com.ubccpsc.android.sudokuonline.R;
 
-import SudokuGenerator.GameEngine;
-
 /**
  * Created by Adi on 2017-08-09.
  */
@@ -24,11 +22,11 @@ public class ButtonsGridViewOptions extends GridView {
         setAdapter(gridViewAdapter);
     }
 
-    class ButtonsGridViewAdapter extends BaseAdapter{
+    private class ButtonsGridViewAdapter extends BaseAdapter {
 
         private Context context;
 
-        public ButtonsGridViewAdapter(Context context){
+        private ButtonsGridViewAdapter(Context context) {
             this.context = context;
         }
 
@@ -73,10 +71,6 @@ public class ButtonsGridViewOptions extends GridView {
                     case 2: {
                         btn.setText("Redo");
                         btn.setNumber(0, 11);
-                        if (GameEngine.getInstance().redoStorageEmpty())
-                            btn.setEnabled(false);
-                        else
-                            btn.setEnabled(true);
                         break;
                     }
                     case 3: {

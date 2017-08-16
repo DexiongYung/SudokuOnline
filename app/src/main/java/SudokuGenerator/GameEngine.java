@@ -6,6 +6,7 @@ import android.graphics.Color;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import SudokuGenerator.Objects.xyStorage;
 import View.SudokuGrid.GameGrid;
 
 /**
@@ -17,8 +18,8 @@ public class GameEngine {
     private GameGrid grid = null;
     private int selectedPosX = -1, selectedPosY = -1;
     private boolean draftMode;
-    private Stack<xyStorage> undoStorage = new Stack<xyStorage>();
-    private Stack<xyStorage> redoStorage = new Stack<xyStorage>();
+    private Stack<xyStorage> undoStorage = new Stack<>();
+    private Stack<xyStorage> redoStorage = new Stack<>();
     private ArrayList<xyStorage> highlightDuplicatesPosition = new ArrayList<>();
     private ArrayList<xyStorage> highlightRowsPosition = new ArrayList<>();
     private ArrayList<xyStorage> hightlightColsPosition = new ArrayList<>();
@@ -27,14 +28,14 @@ public class GameEngine {
     private GameEngine() {
     }
 
-    public static GameEngine getInstance(){
-        if(instance == null)
+    public static GameEngine getInstance() {
+        if (instance == null)
             instance = new GameEngine();
 
         return instance;
     }
 
-    public void createGrid(Context context, int numberRemoved){
+    public void createGrid(Context context, int numberRemoved) {
         //Create 2D int Array of Sudoku Grid
         int[][] Sudoku = SudokuGenerator.getInstance().generateGrid();
         Sudoku = SudokuGenerator.getInstance().removeElements(Sudoku, numberRemoved);
@@ -193,7 +194,16 @@ public class GameEngine {
     public void undoFunction() {
         if (!undoStorage.isEmpty()) {
             xyStorage temp = undoStorage.pop();
+            redoStorage.push(temp);
             grid.getGrid()[temp.getX()][temp.getY()].undo();
+        }
+    }
+
+    public void redoFunction() {
+        if (!redoStorage.isEmpty()) {
+            xyStorage t = redoStorage.pop();
+            undoStorage.push(t);
+            grid.getGrid()[t.getX()][t.getY()].redo();
         }
     }
 
@@ -213,25 +223,5 @@ public class GameEngine {
 
     public boolean getDraftModeSetting() {
         return draftMode;
-    }
-
-
-    //COORDINATE STORAGE
-    private class xyStorage {
-        private int x;
-        private int y;
-
-        private xyStorage(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        private int getY() {
-            return y;
-        }
-
-        private int getX() {
-            return x;
-        }
     }
 }

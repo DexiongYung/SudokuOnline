@@ -1,6 +1,7 @@
 package View.SudokuGrid;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.Toast;
 
 import SudokuGenerator.SudokuChecker;
@@ -28,16 +29,18 @@ public class GameGrid {
     }
 
     public void setGrid(int[][] grid){
+        SudokuArray = grid;
+
         for(int x = 0; x<9; x++){
             for (int y = 0; y<9; y++){
                 Sudoku[x][y].setInitialValue(grid[x][y]);
+                Sudoku[x][y].setBackgroundColor(Color.WHITE);
 
                 if(grid[x][y] != 0) {
                     Sudoku[x][y].setNotModifiable();
                 }
             }
         }
-        SudokuArray = grid;
     }
 
     public SudokuCell getItem(int position){
@@ -50,10 +53,7 @@ public class GameGrid {
     public void setItem(int x, int y, int number){
         Sudoku[x][y].setValue(number);
 
-        if (Sudoku[x][y].getValue() == -1)
-            SudokuArray[x][y] = -1;
-        else
-            SudokuArray[x][y] = number;
+        SudokuArray[x][y] = Sudoku[x][y].getValue();
     }
 
     public void checkGame(){
