@@ -110,6 +110,8 @@ public class GameEngine {
                 }
             }
         }
+
+        getGrid().getGrid()[xPos][yPos].setBackgroundColor(Color.parseColor("#ffb6c1"));
     }
 
     public void findRegion(int xPos, int yPos) {
