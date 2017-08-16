@@ -48,7 +48,6 @@ public class GameEngine {
         grid.setGrid(Sudoku);
     }
 
-
     //Grid related functions
     public GameGrid getGrid() {
         return grid;
@@ -69,7 +68,6 @@ public class GameEngine {
         }
         grid.checkGame();
     }
-
 
     //HIGHLIGHTING RELEVANT CELLS
     private void highlightCells(int xPos, int yPos) {
@@ -191,11 +189,13 @@ public class GameEngine {
         }
     }
 
+    //undo and redo functions
     public void undoFunction() {
         if (!undoStorage.isEmpty()) {
             xyStorage temp = undoStorage.pop();
             redoStorage.push(temp);
             grid.getGrid()[temp.getX()][temp.getY()].undo();
+            highlightCells(selectedPosX, selectedPosY);
         }
     }
 
@@ -204,17 +204,9 @@ public class GameEngine {
             xyStorage t = redoStorage.pop();
             undoStorage.push(t);
             grid.getGrid()[t.getX()][t.getY()].redo();
+            highlightCells(selectedPosX, selectedPosY);
         }
     }
-
-    public boolean undoStorageEmpty() {
-        return undoStorage.isEmpty();
-    }
-
-    public boolean redoStorageEmpty() {
-        return redoStorage.isEmpty();
-    }
-
 
     //DRAFT MODE
     public void draftModeSetter() {
