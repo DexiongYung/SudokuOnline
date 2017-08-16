@@ -24,7 +24,7 @@ public class GameEngine {
     private ArrayList<xyStorage> hightlightColsPosition = new ArrayList<>();
     private ArrayList<xyStorage> highlightRegionPosition = new ArrayList<>();
 
-    public GameEngine() {
+    private GameEngine() {
     }
 
     public static GameEngine getInstance(){
@@ -35,26 +35,19 @@ public class GameEngine {
     }
 
     public void createGrid(Context context, int numberRemoved){
-        int[] Sudoku = SudokuGenerator.getInstance().generateGrid();
-        grid = new GameGrid(context);
-        int[][] actualGrid = convert1DTo2D(Sudoku);
-        actualGrid = SudokuGenerator.getInstance().removeElements(actualGrid, numberRemoved);
+        //Create 2D int Array of Sudoku Grid
+        int[][] Sudoku = SudokuGenerator.getInstance().generateGrid();
+        Sudoku = SudokuGenerator.getInstance().removeElements(Sudoku, numberRemoved);
+
+        //Set draftMode to false on new grid generation
         draftMode = false;
-        grid.setGrid(actualGrid);
+
+        //Generate on screen grid
+        grid = new GameGrid(context);
+        grid.setGrid(Sudoku);
     }
 
-    private int[][] convert1DTo2D(int[] arr) {
-        int[][] new2D = new int[9][9];
-        int index = 0;
-        for(int x = 0 ; x < 9 ; x++){
-            for(int y = 0 ; y < 9 ; y++){
-                new2D[x][y] = arr[index];
-                index++;
-            }
-        }
-        return new2D;
-    }
-
+    //Grid related functions
     public GameGrid getGrid() {
         return grid;
     }
@@ -75,7 +68,8 @@ public class GameEngine {
         grid.checkGame();
     }
 
-    public void highlightCells(int xPos, int yPos) {
+    //HIGHLIGHTING RELEVANT CELLS
+    private void highlightCells(int xPos, int yPos) {
         for (int i = 0; i < highlightRowsPosition.size(); i++) {
             getGrid().getGrid()[highlightRowsPosition.get(i).getX()][highlightRowsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
             getGrid().getGrid()[hightlightColsPosition.get(i).getX()][hightlightColsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
@@ -114,7 +108,7 @@ public class GameEngine {
         getGrid().getGrid()[xPos][yPos].setBackgroundColor(Color.parseColor("#ffb6c1"));
     }
 
-    public void findRegion(int xPos, int yPos) {
+    private void findRegion(int xPos, int yPos) {
         int box_Y = yPos / 3;
         int box_X = xPos / 3;
 
@@ -209,6 +203,7 @@ public class GameEngine {
         return redoStorage.isEmpty();
     }
 
+    //DRAFT MODE
     public void draftModeSetter() {
         draftMode = !draftMode;
     }
@@ -217,20 +212,21 @@ public class GameEngine {
         return draftMode;
     }
 
-    public class xyStorage {
+    //COORDINATE STORAGE
+    private class xyStorage {
         private int x;
         private int y;
 
-        public xyStorage(int x, int y) {
+        private xyStorage(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
-        public int getY() {
+        private int getY() {
             return y;
         }
 
-        public int getX() {
+        private int getX() {
             return x;
         }
     }

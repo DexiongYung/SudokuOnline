@@ -11,8 +11,8 @@ import java.util.Random;
  */
 
 public class SudokuGenerator {
-    private int[] grid;
     private static SudokuGenerator instance;
+    private int[] grid;
     private Random rand = new Random();
 
     private SudokuGenerator(){}
@@ -23,6 +23,77 @@ public class SudokuGenerator {
         }
         return instance;
     }
+
+    /**
+     * Prints a visual representation of a 9x9 Sudoku grid
+     *
+     * @param grid an array with length 81 to be printed
+     */
+    public static void printGrid(int[] grid) {
+        if (grid.length != 81)
+            throw new IllegalArgumentException("The grid must be a single-dimension grid of length 81");
+        for (int i = 0; i < 81; i++) {
+            System.out.print("[" + grid[i] + "] " + (i % 9 == 8 ? "\n" : ""));
+        }
+    }
+
+    /**
+     * Tests an int array of length 81 to see if it is a valid Sudoku grid. i.e. 1 through 9 appearing once each in every row, column, and box
+     *
+     * @param grid an array with length 81 to be tested
+     * @return a boolean representing if the grid is valid
+     */
+    public static boolean isPerfect(int[] grid) {
+        if (grid.length != 81)
+            throw new IllegalArgumentException("The grid must be a single-dimension grid of length 81");
+
+        //tests to see if the grid is perfect
+
+        //for every box
+        for (int i = 0; i < 9; i++) {
+            boolean[] registered = new boolean[10];
+            registered[0] = true;
+            int boxOrigin = (i * 3) % 9 + ((i * 3) / 9) * 27;
+            for (int j = 0; j < 9; j++) {
+                int boxStep = boxOrigin + (j / 3) * 9 + (j % 3);
+                int boxNum = grid[boxStep];
+                registered[boxNum] = true;
+            }
+            for (boolean b : registered)
+                if (!b) return false;
+        }
+
+        //for every row
+        for (int i = 0; i < 9; i++) {
+            boolean[] registered = new boolean[10];
+            registered[0] = true;
+            int rowOrigin = i * 9;
+            for (int j = 0; j < 9; j++) {
+                int rowStep = rowOrigin + j;
+                int rowNum = grid[rowStep];
+                registered[rowNum] = true;
+            }
+            for (boolean b : registered)
+                if (!b) return false;
+        }
+
+        //for every column
+        for (int i = 0; i < 9; i++) {
+            boolean[] registered = new boolean[10];
+            registered[0] = true;
+            int colOrigin = i;
+            for (int j = 0; j < 9; j++) {
+                int colStep = colOrigin + j * 9;
+                int colNum = grid[colStep];
+                registered[colNum] = true;
+            }
+            for (boolean b : registered)
+                if (!b) return false;
+        }
+
+        return true;
+    }
+
     /**
      * Generates a valid 9 by 9 Sudoku grid with 1 through 9 appearing only once in every box, row, and column
      *
@@ -30,7 +101,7 @@ public class SudokuGenerator {
      */
 
 
-    public int[] generateGrid() {
+    public int[][] generateGrid() {
         ArrayList<Integer> arr = new ArrayList<Integer>(9);
         grid = new int[81];
         for (int i = 1; i <= 9; i++) arr.add(i);
@@ -167,20 +238,7 @@ public class SudokuGenerator {
 
         if (!isPerfect(grid)) throw new RuntimeException("ERROR: Imperfect grid generated.");
 
-        return grid;
-    }
-
-    /**
-     * Prints a visual representation of a 9x9 Sudoku grid
-     *
-     * @param grid an array with length 81 to be printed
-     */
-    public static void printGrid(int[] grid) {
-        if (grid.length != 81)
-            throw new IllegalArgumentException("The grid must be a single-dimension grid of length 81");
-        for (int i = 0; i < 81; i++) {
-            System.out.print("[" + grid[i] + "] " + (i % 9 == 8 ? "\n" : ""));
-        }
+        return convert1DTo2D(grid);
     }
 
     public int[][] removeElements(int[][] Sudoku, int number){
@@ -197,61 +255,17 @@ public class SudokuGenerator {
         return Sudoku;
     }
 
-    /**
-     * Tests an int array of length 81 to see if it is a valid Sudoku grid. i.e. 1 through 9 appearing once each in every row, column, and box
-     *
-     * @param grid an array with length 81 to be tested
-     * @return a boolean representing if the grid is valid
-     */
-    public static boolean isPerfect(int[] grid) {
-        if (grid.length != 81)
-            throw new IllegalArgumentException("The grid must be a single-dimension grid of length 81");
-
-        //tests to see if the grid is perfect
-
-        //for every box
-        for (int i = 0; i < 9; i++) {
-            boolean[] registered = new boolean[10];
-            registered[0] = true;
-            int boxOrigin = (i * 3) % 9 + ((i * 3) / 9) * 27;
-            for (int j = 0; j < 9; j++) {
-                int boxStep = boxOrigin + (j / 3) * 9 + (j % 3);
-                int boxNum = grid[boxStep];
-                registered[boxNum] = true;
+    //Convert from 1D to 2D
+    private int[][] convert1DTo2D(int[] arr) {
+        int[][] new2D = new int[9][9];
+        int index = 0;
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                new2D[x][y] = arr[index];
+                index++;
             }
-            for (boolean b : registered)
-                if (!b) return false;
         }
-
-        //for every row
-        for (int i = 0; i < 9; i++) {
-            boolean[] registered = new boolean[10];
-            registered[0] = true;
-            int rowOrigin = i * 9;
-            for (int j = 0; j < 9; j++) {
-                int rowStep = rowOrigin + j;
-                int rowNum = grid[rowStep];
-                registered[rowNum] = true;
-            }
-            for (boolean b : registered)
-                if (!b) return false;
-        }
-
-        //for every column
-        for (int i = 0; i < 9; i++) {
-            boolean[] registered = new boolean[10];
-            registered[0] = true;
-            int colOrigin = i;
-            for (int j = 0; j < 9; j++) {
-                int colStep = colOrigin + j * 9;
-                int colNum = grid[colStep];
-                registered[colNum] = true;
-            }
-            for (boolean b : registered)
-                if (!b) return false;
-        }
-
-        return true;
+        return new2D;
     }
 }
 
