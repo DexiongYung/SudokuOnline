@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 import View.SudokuGrid.GameGrid;
@@ -20,7 +19,10 @@ public class GameEngine {
     private boolean draftMode;
     private Stack<xyStorage> undoStorage = new Stack<xyStorage>();
     private Stack<xyStorage> redoStorage = new Stack<xyStorage>();
-    private ArrayList<xyStorage> highlightDuplucatesPosition = new ArrayList<>();
+    private ArrayList<xyStorage> highlightDuplicatesPosition = new ArrayList<>();
+    private ArrayList<xyStorage> highlightRowsPosition = new ArrayList<>();
+    private ArrayList<xyStorage> hightlightColsPosition = new ArrayList<>();
+    private ArrayList<xyStorage> highlightRegionPosition = new ArrayList<>();
 
     public GameEngine() {
     }
@@ -60,35 +62,132 @@ public class GameEngine {
     public void setSelectedPosition(int x, int y) {
         selectedPosX = x;
         selectedPosY = y;
-        highlightDuplicates(selectedPosX, selectedPosY);
+        highlightCells(x, y);
     }
 
     public void setNumber(int number) {
         if (selectedPosX != -1 && selectedPosY != -1) {
             grid.setItem(selectedPosX, selectedPosY, number);
-            highlightDuplicates(selectedPosX, selectedPosY);
+            highlightCells(selectedPosX, selectedPosY);
             undoStorage.push(new xyStorage(selectedPosX, selectedPosY));
             redoStorage.empty();
         }
         grid.checkGame();
     }
 
-    public void highlightDuplicates(int xPos, int yPos) {
-        for (int i = 0; i < highlightDuplucatesPosition.size(); i++) {
-            int x = highlightDuplucatesPosition.get(i).getX();
-            int y = highlightDuplucatesPosition.get(i).getY();
-            getGrid().getGrid()[x][y].setBackgroundColor(Color.WHITE);
+    public void highlightCells(int xPos, int yPos) {
+        for (int i = 0; i < highlightRowsPosition.size(); i++) {
+            getGrid().getGrid()[highlightRowsPosition.get(i).getX()][highlightRowsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
+            getGrid().getGrid()[hightlightColsPosition.get(i).getX()][hightlightColsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
+            getGrid().getGrid()[highlightRegionPosition.get(i).getX()][highlightRegionPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
         }
 
-        if ((getGrid().getGrid()[xPos][yPos].getValue() != 0) && (getGrid().getGrid()[xPos][yPos].getValue() != -1)) {
-            highlightDuplucatesPosition.clear();
-            for (int x = 0; x < 9; x++) {
-                for (int y = 0; y < 9; y++) {
+        for (int i = 0; i < highlightDuplicatesPosition.size(); i++)
+            getGrid().getGrid()[highlightDuplicatesPosition.get(i).getX()][highlightDuplicatesPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
+
+        highlightRowsPosition.clear();
+        hightlightColsPosition.clear();
+        highlightRegionPosition.clear();
+        highlightDuplicatesPosition.clear();
+
+        findRegion(xPos, yPos);
+
+        for (int i = 0; i < 9; i++) {
+            getGrid().getGrid()[i][yPos].setBackgroundColor(Color.parseColor("#ffffe0"));
+            hightlightColsPosition.add(new xyStorage(i, yPos));
+            getGrid().getGrid()[xPos][i].setBackgroundColor(Color.parseColor("#ffffe0"));
+            highlightRowsPosition.add(new xyStorage(xPos, i));
+            getGrid().getGrid()[highlightRegionPosition.get(i).getX()][highlightRegionPosition.get(i).getY()].setBackgroundColor(Color.parseColor("#ffffe0"));
+        }
+
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                if ((getGrid().getGrid()[x][y].getValue() != 0) && (getGrid().getGrid()[x][y].getValue() != -1)) {
                     if (getGrid().getGrid()[x][y].getValue() == getGrid().getGrid()[xPos][yPos].getValue()) {
                         getGrid().getGrid()[x][y].setBackgroundColor(Color.parseColor("#89cff0"));
-                        highlightDuplucatesPosition.add(new xyStorage(x, y));
+                        highlightDuplicatesPosition.add(new xyStorage(x, y));
                     }
                 }
+            }
+        }
+    }
+
+    public void findRegion(int xPos, int yPos) {
+        int box_Y = yPos / 3;
+        int box_X = xPos / 3;
+
+        switch (box_X + 3 * box_Y + 1) {
+            case 1: {
+                for (int x = 0; x < 3; x++) {
+                    for (int y = 0; y < 3; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
+            }
+            case 2: {
+                for (int x = 3; x < 6; x++) {
+                    for (int y = 0; y < 3; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
+            }
+            case 3: {
+                for (int x = 6; x < 9; x++) {
+                    for (int y = 0; y < 3; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
+            }
+            case 4: {
+                for (int x = 0; x < 3; x++) {
+                    for (int y = 3; y < 6; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
+            }
+            case 5: {
+                for (int x = 3; x < 6; x++) {
+                    for (int y = 3; y < 6; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
+            }
+            case 6: {
+                for (int x = 6; x < 9; x++) {
+                    for (int y = 3; y < 6; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
+            }
+            case 7: {
+                for (int x = 0; x < 3; x++) {
+                    for (int y = 6; y < 9; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
+            }
+            case 8: {
+                for (int x = 3; x < 6; x++) {
+                    for (int y = 6; y < 9; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
+            }
+            case 9: {
+                for (int x = 6; x < 9; x++) {
+                    for (int y = 6; y < 9; y++) {
+                        highlightRegionPosition.add(new xyStorage(x, y));
+                    }
+                }
+                break;
             }
         }
     }
@@ -114,52 +213,6 @@ public class GameEngine {
 
     public boolean getDraftModeSetting() {
         return draftMode;
-    }
-
-    public int[] getRowToHighlight(int position){
-        int[] rowArray = new int[9];
-        int row = position / 9;
-        int start = row * 9;
-
-        for(int i = 0; i<rowArray.length; i++){
-            rowArray[i] = start;
-            start++;
-        }
-
-        return rowArray;
-    }
-
-    public ArrayList<Integer> getRegionToHighlight(int position) {
-        ArrayList<Integer> region1 = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 9, 10, 11, 18, 19, 20));
-        ArrayList<Integer> region2 = new ArrayList<Integer>(Arrays.asList(3, 4, 5, 12, 13, 14, 21, 22, 23));
-        ArrayList<Integer> region3 = new ArrayList<Integer>(Arrays.asList(6, 7, 8, 15, 16, 17, 24, 25, 26));
-        ArrayList<Integer> region4 = new ArrayList<Integer>(Arrays.asList(27, 28, 29, 36, 37, 38, 45, 46, 47));
-        ArrayList<Integer> region5 = new ArrayList<Integer>(Arrays.asList(30, 31, 32, 39, 40, 41, 48, 49, 50));
-        ArrayList<Integer> region6 = new ArrayList<Integer>(Arrays.asList(33, 34, 35, 42, 43, 44, 51, 52, 53));
-        ArrayList<Integer> region7 = new ArrayList<Integer>(Arrays.asList(54, 55, 56, 63, 64, 65, 72, 73, 74));
-        ArrayList<Integer> region8 = new ArrayList<Integer>(Arrays.asList(57, 58, 59, 66, 67, 68, 75, 76, 77));
-        ArrayList<Integer> region9 = new ArrayList<Integer>(Arrays.asList(60, 61, 62, 69, 70, 71, 78, 79, 80));
-
-        ArrayList<Integer>[] storage = new ArrayList[]{region1, region2, region3, region4, region5, region6, region7, region8, region9};
-
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i].contains(position))
-                return storage[i];
-        }
-
-        return null;
-    }
-
-    public int[] getColumnToHighlight(int position){
-        int[] rowArray = new int[9];
-        int col = position % 9;
-
-        for(int i = 0; i<rowArray.length; i++){
-            rowArray[i] = col;
-            col+= 9;
-        }
-
-        return rowArray;
     }
 
     public class xyStorage {
