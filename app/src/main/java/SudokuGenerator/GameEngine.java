@@ -71,6 +71,7 @@ public class GameEngine {
 
     //HIGHLIGHTING RELEVANT CELLS
     private void highlightCells(int xPos, int yPos) {
+        //Sets rows, columns, regions and duplicates to white
         for (int i = 0; i < highlightRowsPosition.size(); i++) {
             getGrid().getGrid()[highlightRowsPosition.get(i).getX()][highlightRowsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
             getGrid().getGrid()[hightlightColsPosition.get(i).getX()][hightlightColsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
@@ -80,13 +81,16 @@ public class GameEngine {
         for (int i = 0; i < highlightDuplicatesPosition.size(); i++)
             getGrid().getGrid()[highlightDuplicatesPosition.get(i).getX()][highlightDuplicatesPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
 
+        //Clears highlight info since they've been set to white
         highlightRowsPosition.clear();
         hightlightColsPosition.clear();
         highlightRegionPosition.clear();
         highlightDuplicatesPosition.clear();
 
+        //sets hightlightRegionPosition
         findRegion(xPos, yPos);
 
+        //Changes color of all row and column shared in (x,y) coordinate and region
         for (int i = 0; i < 9; i++) {
             getGrid().getGrid()[i][yPos].setBackgroundColor(Color.parseColor("#ffffe0"));
             hightlightColsPosition.add(new xyStorage(i, yPos));
@@ -106,6 +110,7 @@ public class GameEngine {
             }
         }
 
+        //sets (x,y) position to light pink to signify it's the cell currently selected
         getGrid().getGrid()[xPos][yPos].setBackgroundColor(Color.parseColor("#ffb6c1"));
     }
 
