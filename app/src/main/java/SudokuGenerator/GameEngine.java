@@ -47,6 +47,7 @@ public class GameEngine {
         grid.setGrid(Sudoku);
     }
 
+
     //Grid related functions
     public GameGrid getGrid() {
         return grid;
@@ -67,6 +68,7 @@ public class GameEngine {
         }
         grid.checkGame();
     }
+
 
     //HIGHLIGHTING RELEVANT CELLS
     private void highlightCells(int xPos, int yPos) {
@@ -203,6 +205,7 @@ public class GameEngine {
         return redoStorage.isEmpty();
     }
 
+
     //DRAFT MODE
     public void draftModeSetter() {
         draftMode = !draftMode;
@@ -211,6 +214,7 @@ public class GameEngine {
     public boolean getDraftModeSetting() {
         return draftMode;
     }
+
 
     //COORDINATE STORAGE
     private class xyStorage {

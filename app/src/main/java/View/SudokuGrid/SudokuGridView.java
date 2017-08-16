@@ -16,7 +16,6 @@ import SudokuGenerator.GameEngine;
 
 public class SudokuGridView extends GridView {
     private Context context;
-    private int nPrevSelGridItem = -1;
 
     public SudokuGridView(final Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -32,8 +31,7 @@ public class SudokuGridView extends GridView {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int x = position % 9;
                 int y = position / 9;
-
-                GameEngine.getInstance().setSelectedPosition(x,y);
+                GameEngine.getInstance().setSelectedPosition(x, y);
             }
         });
     }
