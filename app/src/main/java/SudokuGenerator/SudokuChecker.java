@@ -9,13 +9,13 @@ import java.util.HashSet;
 public class SudokuChecker {
     private static SudokuChecker instance;
 
-    public SudokuChecker(){}
+    private SudokuChecker() {
+    }
 
     public static SudokuChecker getInstance(){
         if(instance == null){
             instance = new SudokuChecker();
         }
-
         return instance;
     }
 
@@ -31,7 +31,6 @@ public class SudokuChecker {
                 }
             }
         }
-
         return true;
     }
 
@@ -47,13 +46,12 @@ public class SudokuChecker {
                 }
             }
         }
-
         return true;
     }
 
     private boolean checkVertical(int[][] sudoku) {
         for(int x = 0 ; x < 9 ; x++){
-            HashSet<Integer> holder = new HashSet<Integer>();
+            HashSet<Integer> holder = new HashSet<>();
             for(int y = 0 ; y < 9 ; y++){
                 if(sudoku[x][y] == 0 || sudoku[x][y] == -1)
                     return false;
@@ -69,7 +67,7 @@ public class SudokuChecker {
 
     private boolean checkHorizontal(int[][] sudoku) {
         for(int y = 0 ; y < 9 ; y++){
-            HashSet<Integer> holder = new HashSet<Integer>();
+            HashSet<Integer> holder = new HashSet<>();
             for(int x = 0 ; x < 9 ; x++){
                 if(sudoku[x][y] == 0 || sudoku[x][y] == -1)
                     return false;

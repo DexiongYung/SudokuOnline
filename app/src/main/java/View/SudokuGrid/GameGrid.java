@@ -52,7 +52,6 @@ public class GameGrid {
 
     public void setItem(int x, int y, int number){
         Sudoku[x][y].setValue(number);
-
         SudokuArray[x][y] = Sudoku[x][y].getValue();
     }
 
