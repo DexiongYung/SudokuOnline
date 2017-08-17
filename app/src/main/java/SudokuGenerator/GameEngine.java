@@ -64,7 +64,7 @@ public class GameEngine {
             grid.setItem(selectedPosX, selectedPosY, number);
             highlightCells(selectedPosX, selectedPosY);
             undoStorage.push(new xyCoordinates(selectedPosX, selectedPosY));
-            redoStorage.empty();
+            redoStorage.clear();
         }
         grid.checkGame();
     }

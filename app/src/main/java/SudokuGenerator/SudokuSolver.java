@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class SudokuSolver {
 
-    int[][] sudoku_board=new int[9][9]; //copy of given sudoku
+    int[][] sudoku_board = new int[9][9]; //copy of given sudoku
     boolean [][] digit_used_row = new boolean [9][9]; //row constraint
     boolean [][] digit_used_col = new boolean [9][9]; //column constraint
     boolean [][][] digit_used_area = new boolean [3][3][9]; //3*3 grid space constraint
@@ -162,20 +162,20 @@ public class SudokuSolver {
     }
 
     public int[][] generator(){
-        int [][]soduku = new int [9][9];
+        int[][] sudoku = new int[9][9];
         for (int i = 0; i<9;i++) {
             for (int j = 0; j < 9; j++) {
                 while   (true)  {
                     int x = 1+(int)Math.random()*8;
                     for(int k = 0;k<8;k++) {
-                        if (x!= soduku[i][k] && x!= soduku[k][j]){
-                            soduku[i][j] =x;
+                        if (x != sudoku[i][k] && x != sudoku[k][j]) {
+                            sudoku[i][j] = x;
                             break;
                         }
                     }
                 }
             }
         }
-        return soduku;
+        return sudoku;
     }
 }
