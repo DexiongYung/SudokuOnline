@@ -61,14 +61,13 @@ public class BaseSudokuCell extends View {
                 } else {
                     draft.add(value);
                 }
-                pushUndoStack(this.value);
             }
             else {
                 this.value = value;
                 draft.clear();
-                pushUndoStack(value);
             }
-            redoStack.empty();
+            pushUndoStack(this.value);
+            redoStack.clear();
         }
         invalidate();
     }
