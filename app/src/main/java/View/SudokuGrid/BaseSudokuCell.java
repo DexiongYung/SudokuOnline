@@ -19,6 +19,8 @@ public class BaseSudokuCell extends View {
     private boolean modifiable = true;
     private Stack<tuple> undoStack = new Stack<>();
     private Stack<tuple> redoStack = new Stack<>();
+    private int x;
+    private int y;
 
     public BaseSudokuCell(Context context) {
         super(context);
@@ -68,8 +70,8 @@ public class BaseSudokuCell extends View {
             }
             pushUndoStack(this.value);
             redoStack.clear();
+            invalidate();
         }
-        invalidate();
     }
 
     public ArrayList<Integer> getDraft() {
@@ -83,8 +85,8 @@ public class BaseSudokuCell extends View {
 
             this.value = t.getValue();
             this.draft = t.getDraft();
+            invalidate();
         }
-        invalidate();
     }
 
     public void pushUndoStack(int value) {
@@ -108,5 +110,21 @@ public class BaseSudokuCell extends View {
             }
         }
         invalidate();
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getXCoordinate() {
+        return this.x;
+    }
+
+    public int getYCoordinate() {
+        return this.y;
     }
 }
