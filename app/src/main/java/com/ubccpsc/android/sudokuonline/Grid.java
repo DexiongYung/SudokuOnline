@@ -2,7 +2,6 @@ package com.ubccpsc.android.sudokuonline;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,9 +17,6 @@ import SudokuGenerator.GameEngine;
  */
 
 public class Grid extends AppCompatActivity implements View.OnClickListener {
-
-    private String[] mPlanetTitles;
-    private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
 
@@ -91,7 +87,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     private void addDrawerItems() {
         String[] osArray = { "Home", "Increase Difficulty", "Decrease Difficulty", "New Game", "Clear Grid" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
     }
 }
