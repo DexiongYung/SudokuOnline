@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -52,16 +51,13 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                         finish();
                         break;}
                     case 4:{
-
+                        GameEngine.getInstance().clearGrid();
                         break;}
                 }
             }
         });
 
-
-
         Intent myIntent = getIntent();
-
         int level = myIntent.getIntExtra("level", 0);
 
         Random randomGenerator = new Random();

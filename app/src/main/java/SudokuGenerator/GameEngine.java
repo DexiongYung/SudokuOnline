@@ -49,7 +49,7 @@ public class GameEngine {
     }
 
     //Grid related functions
-    public GameGrid getGrid() {
+    public GameGrid getGameGrid() {
         return grid;
     }
 
@@ -60,7 +60,7 @@ public class GameEngine {
     }
 
     public void setNumber(int number) {
-        if ((selectedPosX != -1) && (selectedPosY != -1) && (getGrid().getGrid()[selectedPosX][selectedPosY].isModifiable())) {
+        if ((selectedPosX != -1) && (selectedPosY != -1) && (getGameGrid().getSudokuCellGrid()[selectedPosX][selectedPosY].isModifiable())) {
             grid.setItem(selectedPosX, selectedPosY, number);
             highlightCells(selectedPosX, selectedPosY);
             undoStorage.push(new xyCoordinates(selectedPosX, selectedPosY));
@@ -73,13 +73,13 @@ public class GameEngine {
     private void highlightCells(int xPos, int yPos) {
         //Sets rows, columns, regions and duplicates to white
         for (int i = 0; i < highlightRowsPosition.size(); i++) {
-            getGrid().getGrid()[highlightRowsPosition.get(i).getX()][highlightRowsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
-            getGrid().getGrid()[hightlightColsPosition.get(i).getX()][hightlightColsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
-            getGrid().getGrid()[highlightRegionPosition.get(i).getX()][highlightRegionPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
+            getGameGrid().getSudokuCellGrid()[highlightRowsPosition.get(i).getX()][highlightRowsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
+            getGameGrid().getSudokuCellGrid()[hightlightColsPosition.get(i).getX()][hightlightColsPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
+            getGameGrid().getSudokuCellGrid()[highlightRegionPosition.get(i).getX()][highlightRegionPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
         }
 
         for (int i = 0; i < highlightDuplicatesPosition.size(); i++)
-            getGrid().getGrid()[highlightDuplicatesPosition.get(i).getX()][highlightDuplicatesPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
+            getGameGrid().getSudokuCellGrid()[highlightDuplicatesPosition.get(i).getX()][highlightDuplicatesPosition.get(i).getY()].setBackgroundColor(Color.WHITE);
 
         //Clears highlight info since they've been set to white
         highlightRowsPosition.clear();
@@ -92,18 +92,18 @@ public class GameEngine {
 
         //Changes color of all row and column shared in (x,y) coordinate and region
         for (int i = 0; i < 9; i++) {
-            getGrid().getGrid()[i][yPos].setBackgroundColor(Color.parseColor("#ffffe0"));
+            getGameGrid().getSudokuCellGrid()[i][yPos].setBackgroundColor(Color.parseColor("#ffffe0"));
             hightlightColsPosition.add(new xyCoordinates(i, yPos));
-            getGrid().getGrid()[xPos][i].setBackgroundColor(Color.parseColor("#ffffe0"));
+            getGameGrid().getSudokuCellGrid()[xPos][i].setBackgroundColor(Color.parseColor("#ffffe0"));
             highlightRowsPosition.add(new xyCoordinates(xPos, i));
-            getGrid().getGrid()[highlightRegionPosition.get(i).getX()][highlightRegionPosition.get(i).getY()].setBackgroundColor(Color.parseColor("#ffffe0"));
+            getGameGrid().getSudokuCellGrid()[highlightRegionPosition.get(i).getX()][highlightRegionPosition.get(i).getY()].setBackgroundColor(Color.parseColor("#ffffe0"));
         }
 
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
-                if ((getGrid().getGrid()[x][y].getValue() != 0) && (getGrid().getGrid()[x][y].getValue() != -1)) {
-                    if (getGrid().getGrid()[x][y].getValue() == getGrid().getGrid()[xPos][yPos].getValue()) {
-                        getGrid().getGrid()[x][y].setBackgroundColor(Color.parseColor("#89cff0"));
+                if ((getGameGrid().getSudokuCellGrid()[x][y].getValue() != 0) && (getGameGrid().getSudokuCellGrid()[x][y].getValue() != -1)) {
+                    if (getGameGrid().getSudokuCellGrid()[x][y].getValue() == getGameGrid().getSudokuCellGrid()[xPos][yPos].getValue()) {
+                        getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.parseColor("#89cff0"));
                         highlightDuplicatesPosition.add(new xyCoordinates(x, y));
                     }
                 }
@@ -111,7 +111,7 @@ public class GameEngine {
         }
 
         //sets (x,y) position to light pink to signify it's the cell currently selected
-        getGrid().getGrid()[xPos][yPos].setBackgroundColor(Color.parseColor("#ffb6c1"));
+        getGameGrid().getSudokuCellGrid()[xPos][yPos].setBackgroundColor(Color.parseColor("#ffb6c1"));
     }
 
     private void findRegion(int xPos, int yPos) {
@@ -199,7 +199,7 @@ public class GameEngine {
         if (!undoStorage.isEmpty()) {
             xyCoordinates temp = undoStorage.pop();
             redoStorage.push(temp);
-            grid.getGrid()[temp.getX()][temp.getY()].undo();
+            grid.getSudokuCellGrid()[temp.getX()][temp.getY()].undo();
             highlightCells(selectedPosX, selectedPosY);
         }
     }
@@ -208,7 +208,7 @@ public class GameEngine {
         if (!redoStorage.isEmpty()) {
             xyCoordinates t = redoStorage.pop();
             undoStorage.push(t);
-            grid.getGrid()[t.getX()][t.getY()].redo();
+            grid.getSudokuCellGrid()[t.getX()][t.getY()].redo();
             highlightCells(selectedPosX, selectedPosY);
         }
     }
@@ -220,5 +220,37 @@ public class GameEngine {
 
     public boolean getDraftModeSetting() {
         return draftMode;
+    }
+
+    //Clear Grid
+    public void clearGrid() {
+        undoStorage.clear();
+        redoStorage.clear();
+
+        for (int i = 0; i < 9; i++) {
+            clearHighlightsHelper(highlightRegionPosition, i);
+            clearHighlightsHelper(highlightRowsPosition, i);
+            clearHighlightsHelper(hightlightColsPosition, i);
+        }
+
+        for (int i = 0; i < highlightDuplicatesPosition.size(); i++) {
+            clearHighlightsHelper(highlightDuplicatesPosition, i);
+        }
+
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                if (grid.getSudokuCellGrid()[x][y].isModifiable()) {
+                    grid.getSudokuCellGrid()[x][y].emptyUndoRedoStack();
+                    grid.getSudokuCellGrid()[x][y].emptyDraft();
+                    grid.getSudokuCellGrid()[x][y].setValue(0);
+                }
+            }
+        }
+    }
+
+    public void clearHighlightsHelper(ArrayList<xyCoordinates> a, int index) {
+        int x = a.get(index).getX();
+        int y = a.get(index).getY();
+        getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.WHITE);
     }
 }

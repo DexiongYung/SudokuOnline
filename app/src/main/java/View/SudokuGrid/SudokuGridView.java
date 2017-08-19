@@ -65,7 +65,7 @@ public class SudokuGridView extends GridView {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return GameEngine.getInstance().getGrid().getItem(position);
+            return GameEngine.getInstance().getGameGrid().getItem(position);
         }
     }
 }

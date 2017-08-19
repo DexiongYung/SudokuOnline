@@ -24,7 +24,7 @@ public class GameGrid {
         }
     }
 
-    public SudokuCell[][] getGrid() {
+    public SudokuCell[][] getSudokuCellGrid() {
         return Sudoku;
     }
 

@@ -112,6 +112,15 @@ public class BaseSudokuCell extends View {
         invalidate();
     }
 
+    public void emptyUndoRedoStack() {
+        undoStack.clear();
+        redoStack.clear();
+    }
+
+    public void emptyDraft() {
+        this.draft.clear();
+    }
+
     public void setX(int x) {
         this.x = x;
     }
