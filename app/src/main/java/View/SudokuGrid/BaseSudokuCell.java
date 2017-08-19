@@ -19,6 +19,8 @@ public class BaseSudokuCell extends View {
     private boolean modifiable = true;
     private Stack<tuple> undoStack = new Stack<>();
     private Stack<tuple> redoStack = new Stack<>();
+    private int x;
+    private int y;
 
     public BaseSudokuCell(Context context) {
         super(context);
@@ -53,14 +55,14 @@ public class BaseSudokuCell extends View {
     public void setValue(int value){
         if(modifiable) {
             if (GameEngine.getInstance().getDraftModeSetting()) {
-                this.value = -1;
-                if (draft.contains(value)) {
-                    draft.remove(draft.indexOf(value));
-                } else if (value == 0) {
+                if (value == 0)
                     draft.clear();
+                else if (draft.contains(value)) {
+                    draft.remove(draft.indexOf(value));
                 } else {
                     draft.add(value);
                 }
+                this.value = -1;
             }
             else {
                 this.value = value;
@@ -68,8 +70,8 @@ public class BaseSudokuCell extends View {
             }
             pushUndoStack(this.value);
             redoStack.clear();
+            invalidate();
         }
-        invalidate();
     }
 
     public ArrayList<Integer> getDraft() {
@@ -83,8 +85,8 @@ public class BaseSudokuCell extends View {
 
             this.value = t.getValue();
             this.draft = t.getDraft();
+            invalidate();
         }
-        invalidate();
     }
 
     public void pushUndoStack(int value) {
@@ -108,5 +110,21 @@ public class BaseSudokuCell extends View {
             }
         }
         invalidate();
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getXCoordinate() {
+        return this.x;
+    }
+
+    public int getYCoordinate() {
+        return this.y;
     }
 }

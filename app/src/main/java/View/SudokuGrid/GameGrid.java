@@ -35,6 +35,8 @@ public class GameGrid {
             for (int y = 0; y<9; y++){
                 Sudoku[x][y].setInitialValue(grid[x][y]);
                 Sudoku[x][y].setBackgroundColor(Color.WHITE);
+                Sudoku[x][y].setX(x);
+                Sudoku[x][y].setY(y);
 
                 if(grid[x][y] != 0) {
                     Sudoku[x][y].setNotModifiable();
