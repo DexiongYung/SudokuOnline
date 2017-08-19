@@ -53,14 +53,14 @@ public class BaseSudokuCell extends View {
     public void setValue(int value){
         if(modifiable) {
             if (GameEngine.getInstance().getDraftModeSetting()) {
-                this.value = -1;
-                if (draft.contains(value)) {
-                    draft.remove(draft.indexOf(value));
-                } else if (value == 0) {
+                if (value == 0)
                     draft.clear();
+                else if (draft.contains(value)) {
+                    draft.remove(draft.indexOf(value));
                 } else {
                     draft.add(value);
                 }
+                this.value = -1;
             }
             else {
                 this.value = value;

@@ -60,13 +60,13 @@ public class GameEngine {
     }
 
     public void setNumber(int number) {
-        if (selectedPosX != -1 && selectedPosY != -1) {
+        if ((selectedPosX != -1) && (selectedPosY != -1) && (getGrid().getGrid()[selectedPosX][selectedPosY].isModifiable())) {
             grid.setItem(selectedPosX, selectedPosY, number);
             highlightCells(selectedPosX, selectedPosY);
             undoStorage.push(new xyCoordinates(selectedPosX, selectedPosY));
             redoStorage.clear();
+            grid.checkGame();
         }
-        grid.checkGame();
     }
 
     //HIGHLIGHTING RELEVANT CELLS
