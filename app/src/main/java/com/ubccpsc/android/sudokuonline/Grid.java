@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 
 import java.util.Random;
 
@@ -26,6 +27,28 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
         mDrawerList = (ListView)findViewById(R.id.navList);
+        NumberPicker np = (NumberPicker) findViewById(R.id.np);
+
+        //Set the minimum value of NumberPicker
+        np.setMinValue(1);
+        //Specify the maximum value/number of NumberPicker
+        np.setMaxValue(9);
+
+        //Gets whether the selector wheel wraps when reaching the min/max value.
+        np.setWrapSelectorWheel(true);
+
+        //Set a value change listener for NumberPicker
+        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                //Display the newly selected number from picker
+                GameEngine.getInstance().setNumber(newVal);
+            }
+        });
+
+
+
+
         // Set the adapter for the list view
         addDrawerItems();
 
