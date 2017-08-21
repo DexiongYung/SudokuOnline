@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 
 import java.util.Random;
 
@@ -26,6 +27,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
         mDrawerList = (ListView)findViewById(R.id.navList);
+
         // Set the adapter for the list view
         addDrawerItems();
 
