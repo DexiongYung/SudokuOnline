@@ -224,25 +224,27 @@ public class GameEngine {
 
     //Clear Grid
     public void clearGrid() {
-        undoStorage.clear();
-        redoStorage.clear();
+        if (!highlightRegionPosition.isEmpty() && !highlightRowsPosition.isEmpty() && !hightlightColsPosition.isEmpty()) {
+            undoStorage.clear();
+            redoStorage.clear();
 
-        for (int i = 0; i < 9; i++) {
-            clearHighlightsHelper(highlightRegionPosition, i);
-            clearHighlightsHelper(highlightRowsPosition, i);
-            clearHighlightsHelper(hightlightColsPosition, i);
-        }
+            for (int i = 0; i < 9; i++) {
+                clearHighlightsHelper(highlightRegionPosition, i);
+                clearHighlightsHelper(highlightRowsPosition, i);
+                clearHighlightsHelper(hightlightColsPosition, i);
+            }
 
-        for (int i = 0; i < highlightDuplicatesPosition.size(); i++) {
-            clearHighlightsHelper(highlightDuplicatesPosition, i);
-        }
+            for (int i = 0; i < highlightDuplicatesPosition.size(); i++) {
+                clearHighlightsHelper(highlightDuplicatesPosition, i);
+            }
 
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                if (grid.getSudokuCellGrid()[x][y].isModifiable()) {
-                    grid.getSudokuCellGrid()[x][y].emptyUndoRedoStack();
-                    grid.getSudokuCellGrid()[x][y].emptyDraft();
-                    grid.getSudokuCellGrid()[x][y].setValue(0);
+            for (int x = 0; x < 9; x++) {
+                for (int y = 0; y < 9; y++) {
+                    if (grid.getSudokuCellGrid()[x][y].isModifiable()) {
+                        grid.getSudokuCellGrid()[x][y].emptyUndoRedoStack();
+                        grid.getSudokuCellGrid()[x][y].emptyDraft();
+                        grid.getSudokuCellGrid()[x][y].setValue(0);
+                    }
                 }
             }
         }
