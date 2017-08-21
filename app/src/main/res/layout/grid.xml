@@ -22,22 +22,21 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/sudokuGridView">
-
+            android:layout_below="@id/sudokuGridView"
+            android:gravity="center">
             <View.ButtonsGrid.ButtonsGridViewNumbers
                 android:id="@+id/buttonsgridview"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:numColumns="3" />
 
             <View.ButtonsGrid.ButtonsGridViewOptions
                 android:id="@+id/buttonsgridviewoptions"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="-9dp"
-                android:layout_marginTop="-5dp"
-                android:layout_toRightOf="@id/buttonsgridview"
-                android:numColumns="1" />
+                android:layout_height="match_parent"
+                android:layout_below="@id/buttonsgridview"
+                android:layout_marginTop="-7dp"
+                android:numColumns="4" />
         </RelativeLayout>
     </RelativeLayout>
 
