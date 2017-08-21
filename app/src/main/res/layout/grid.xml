@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,24 +15,30 @@
             android:id="@+id/sudokuGridView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="9"
             android:horizontalSpacing="0dp"
+            android:numColumns="9"
             android:verticalSpacing="0dp"> </View.SudokuGrid.SudokuGridView>
 
-        <View.ButtonsGrid.ButtonsGridViewNumbers
-            android:id="@+id/buttonsgridview"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/sudokuGridView"
-            android:numColumns="5" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/sudokuGridView">
 
-        <View.ButtonsGrid.ButtonsGridViewOptions
-            android:id="@+id/buttonsgridviewoptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/buttonsgridview"
-            android:numColumns="4" />
+            <View.ButtonsGrid.ButtonsGridViewNumbers
+                android:id="@+id/buttonsgridview"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:numColumns="3" />
 
+            <View.ButtonsGrid.ButtonsGridViewOptions
+                android:id="@+id/buttonsgridviewoptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-9dp"
+                android:layout_marginTop="-5dp"
+                android:layout_toRightOf="@id/buttonsgridview"
+                android:numColumns="1" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <ListView
