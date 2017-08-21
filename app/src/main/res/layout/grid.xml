@@ -21,25 +21,18 @@
             android:horizontalSpacing="0dp"
             android:verticalSpacing="0dp"> </View.SudokuGrid.SudokuGridView>
 
-        <!--<View.ButtonsGrid.ButtonsGridViewNumbers
+        <View.ButtonsGrid.ButtonsGridViewNumbers
             android:id="@+id/buttonsgridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/sudokuGridView"
-            android:numColumns="5" />-->
-
-        <NumberPicker
-            android:id="@+id/np"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/sudokuGridView"
-            />
+            android:numColumns="5" />
 
         <View.ButtonsGrid.ButtonsGridViewOptions
             android:id="@+id/buttonsgridviewoptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/np"
+            android:layout_below="@id/buttonsgridview"
             android:numColumns="4" />
 
     </RelativeLayout>
