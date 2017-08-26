@@ -55,11 +55,4 @@
                 android:id="@+id/evil_button" />
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:text="back"
-            android:id="@+id/back_button"/>
-
 </FrameLayout>

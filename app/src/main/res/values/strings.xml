@@ -2,4 +2,11 @@
     <string name="app_name">Sudoku Wars</string>
     <string name="singe_player">Single player</string>
     <string name="multiplayer">Multiplayer</string>
+    <string name="achievement">Achievements</string>
+    <string name="achievement_extremelyeasy">Locked Inverted Scheme (complete Extremely Easy)</string>
+    <string name="achievement_easy">Locked Teal Scheme (complete Easy)</string>
+    <string name="achievement_medium">Locked Red Scheme (complete Medium)</string>
+    <string name="achievement_difficult">Locked Green Scheme (complete Difficult)</string>
+    <string name="achievement_evil">Locked Yellow Scheme (complete Evil)</string>
+
 </resources>

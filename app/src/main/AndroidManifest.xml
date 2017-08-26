@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".difficulty_Menu" />
+        <activity android:name=".achievement_Menu" />
         <activity android:name=".Grid" />
     </application>
 
