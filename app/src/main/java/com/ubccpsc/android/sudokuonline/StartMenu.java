@@ -12,6 +12,7 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
     private Button single_player_button;
     private Button multiplayer_button;
     private Button achievement_button;
+    private TextView appname;
 
 
     @Override
@@ -24,7 +25,9 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
         achievement_button = (Button) findViewById(R.id.achievement_button);
 
         //Instantiate fonts and apply to title
-
+        appname = (TextView) findViewById(R.id.app_name);
+        Typeface font = Typeface.createFromAsset(getAssets(),"Junge-Regular.ttf");
+        appname.setTypeface(font);
         //Set listeners for buttons
         single_player_button.setOnClickListener(this);
         multiplayer_button.setOnClickListener(this);
