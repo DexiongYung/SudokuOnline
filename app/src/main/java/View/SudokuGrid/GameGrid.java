@@ -49,7 +49,7 @@ public class GameGrid {
         }
     }
 
-    private SudokuCell getItem(int position) {
+    public SudokuCell getItem(int position) {
         int x = position % 9;
         int y = position / 9;
 

@@ -11,8 +11,6 @@ import android.widget.GridView;
 
 import com.ubccpsc.android.sudokuonline.R;
 
-import static android.R.drawable.ic_menu_delete;
-
 /**
  * Created by Adi on 2017-08-09.
  */
@@ -54,6 +52,8 @@ public class ButtonsGridViewOptions extends GridView {
                 LayoutInflater inflater = ((Activity)context).getLayoutInflater();
                 v = inflater.inflate(R.layout.button, parent, false);
 
+                //TODO
+                //Add timer in between undo, redo and delete, draft
                 NumberButton btn;
                 btn = (NumberButton) v;
                 btn.setTextSize(10);
@@ -62,27 +62,23 @@ public class ButtonsGridViewOptions extends GridView {
 
                 switch (position) {
                     case 0: {
-                        //btn.setText("Del");
-                        btn.setBackgroundResource(R.drawable.ic_cancel_black_24dp);
-                        btn.setNumber(0, 9);
-                        break;
-                    }
-                    case 1: {
-                        //btn.setText("Undo");
                         btn.setBackgroundResource(R.drawable.ic_rotate_left_black_24dp);
                         btn.setNumber(0, 10);
                         break;
                     }
-                    case 2: {
-                        //btn.setText("Redo");
+                    case 1: {
                         btn.setBackgroundResource(R.drawable.ic_rotate_right_black_24dp);
                         btn.setNumber(0, 11);
                         break;
                     }
-                    case 3: {
-                        //btn.setText("Draft");
+                    case 2: {
                         btn.setBackgroundResource(R.drawable.ic_grid_off_black_24dp);
                         btn.setNumber(0, 12);
+                        break;
+                    }
+                    case 3: {
+                        btn.setBackgroundResource(R.drawable.ic_cancel_black_24dp);
+                        btn.setNumber(0, 9);
                         break;
                     }
                 }
