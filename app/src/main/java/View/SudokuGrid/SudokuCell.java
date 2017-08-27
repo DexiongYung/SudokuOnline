@@ -75,11 +75,12 @@ public class SudokuCell extends BaseSudokuCell {
     }
 
     private void drawLines(Canvas canvas){
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(Color.LTGRAY);
         mPaint.setStrokeWidth(getResources().getDimension(R.dimen.standardLineSize));
         mPaint.setStyle(Paint.Style.STROKE);
         canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
 
+        mPaint.setColor(Color.BLACK);
         if ((getXCoordinate() == 2) || (getXCoordinate() == 5)) {
             mPaint.setStrokeWidth(getResources().getDimension(R.dimen.thickerLineSize));
             canvas.drawLine(getWidth(), 0, getWidth(), getHeight(), mPaint);
