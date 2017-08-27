@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
+import com.ubccpsc.android.sudokuonline.R;
 
 import SudokuGenerator.GameEngine;
 
@@ -36,9 +37,12 @@ public class NumberButton extends AppCompatButton implements View.OnClickListene
             GameEngine.getInstance().draftModeSetter();
 
             if (GameEngine.getInstance().getDraftModeSetting())
-                v.getBackground().setColorFilter(Color.rgb(255, 182, 193), PorterDuff.Mode.ADD);
-            else
-                v.getBackground().clearColorFilter();
+                v.setBackgroundResource(R.drawable.ic_grid_on_black_24dp);
+                //v.getBackground().setColorFilter(Color.rgb(255, 182, 193), PorterDuff.Mode.ADD);
+            else{
+                v.setBackgroundResource(R.drawable.ic_grid_off_black_24dp);
+            }
+                //v.getBackground().clearColorFilter();
         }
     }
 

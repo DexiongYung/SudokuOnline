@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.ubccpsc.android.sudokuonline.R;
+
 import java.util.ArrayList;
 
 /**
@@ -34,7 +36,7 @@ public class SudokuCell extends BaseSudokuCell {
 
         if(getValue() == - 1)
         {
-            mPaint.setTextSize(20);
+            mPaint.setTextSize(getResources().getDimension(R.dimen.draftsize));
             mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
             ArrayList<Integer> list = getDraft();
 
@@ -62,7 +64,7 @@ public class SudokuCell extends BaseSudokuCell {
         }
         else if(getValue() != 0){
             mPaint.setStyle(Paint.Style.FILL);
-            mPaint.setTextSize(60);
+            mPaint.setTextSize(getResources().getDimension(R.dimen.gridsize));
             mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
 
             if (!isModifiable())

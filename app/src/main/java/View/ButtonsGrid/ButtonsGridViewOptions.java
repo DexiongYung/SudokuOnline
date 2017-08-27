@@ -11,6 +11,8 @@ import android.widget.GridView;
 
 import com.ubccpsc.android.sudokuonline.R;
 
+import static android.R.drawable.ic_menu_delete;
+
 /**
  * Created by Adi on 2017-08-09.
  */
@@ -55,26 +57,31 @@ public class ButtonsGridViewOptions extends GridView {
                 NumberButton btn;
                 btn = (NumberButton) v;
                 btn.setTextSize(10);
+                btn.setWidth(5);
                 btn.setId(position);
 
                 switch (position) {
                     case 0: {
-                        btn.setText("Del");
+                        //btn.setText("Del");
+                        btn.setBackgroundResource(R.drawable.ic_cancel_black_24dp);
                         btn.setNumber(0, 9);
                         break;
                     }
                     case 1: {
-                        btn.setText("Undo");
+                        //btn.setText("Undo");
+                        btn.setBackgroundResource(R.drawable.ic_rotate_left_black_24dp);
                         btn.setNumber(0, 10);
                         break;
                     }
                     case 2: {
-                        btn.setText("Redo");
+                        //btn.setText("Redo");
+                        btn.setBackgroundResource(R.drawable.ic_rotate_right_black_24dp);
                         btn.setNumber(0, 11);
                         break;
                     }
                     case 3: {
-                        btn.setText("Draft");
+                        //btn.setText("Draft");
+                        btn.setBackgroundResource(R.drawable.ic_grid_off_black_24dp);
                         btn.setNumber(0, 12);
                         break;
                     }
