@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/extremelyeasy_achievement"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:drawable/ic_secure" />
+
+        <TextView
+            android:id="@+id/extremelyeasy_achievement_text"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:text="@string/achievement_extremelyeasy" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/easy_achievement"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:drawable/ic_secure" />
+
+        <TextView
+            android:id="@+id/easy_achievement_text"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:text="@string/achievement_easy" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/medium_achievement"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:drawable/ic_secure" />
+
+        <TextView
+            android:id="@+id/medium_achievement_text"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:text="@string/achievement_medium" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/difficult_achievement"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:drawable/ic_secure" />
+
+        <TextView
+            android:id="@+id/difficult_achievement_text"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:text="@string/achievement_difficult" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/evil_achievement"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:drawable/ic_secure" />
+
+        <TextView
+            android:id="@+id/evil_achievement_text"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:text="@string/achievement_evil" />
+    </LinearLayout>
+
+</LinearLayout>

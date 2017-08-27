@@ -11,7 +11,6 @@ import android.widget.Button;
  */
 
 public class difficulty_Menu extends AppCompatActivity implements View.OnClickListener {
-    private Button back_button;
     private Button extremely_easy_button;
     private Button easy_button;
     private Button medium_button;
@@ -24,7 +23,6 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.difficulty_selection);
 
         //Instantiating buttons
-        back_button = (Button) findViewById(R.id.back_button);
         extremely_easy_button = (Button) findViewById(R.id.extremely_easy_button);
         easy_button = (Button) findViewById(R.id.easy_button);
         medium_button = (Button) findViewById(R.id.medium_button);
@@ -32,7 +30,6 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
         evil_button = (Button) findViewById(R.id.evil_button);
 
         //Setting listeners to buttons
-        back_button.setOnClickListener(this);
         extremely_easy_button.setOnClickListener(this);
         easy_button.setOnClickListener(this);
         medium_button.setOnClickListener(this);
@@ -43,11 +40,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
     //Click listener
     @Override
     public void onClick(View v) {
-        if(v == back_button){
-            Intent myIntent = new Intent(this, StartMenu.class);
-            startActivity(myIntent);
-        }
-        else if(v == extremely_easy_button){
+        if(v == extremely_easy_button){
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level" , 0);
             startActivity(myIntent);
