@@ -36,7 +36,7 @@ public class SudokuCell extends BaseSudokuCell {
 
         if(getValue() == - 1)
         {
-            mPaint.setTextSize(getResources().getDimension(R.dimen.draftsize));
+            mPaint.setTextSize(getResources().getDimension(R.dimen.draftTextSize));
             mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
             ArrayList<Integer> list = getDraft();
 
@@ -64,7 +64,7 @@ public class SudokuCell extends BaseSudokuCell {
         }
         else if(getValue() != 0){
             mPaint.setStyle(Paint.Style.FILL);
-            mPaint.setTextSize(getResources().getDimension(R.dimen.gridsize));
+            mPaint.setTextSize(getResources().getDimension(R.dimen.textSize));
             mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
 
             if (!isModifiable())
@@ -76,16 +76,16 @@ public class SudokuCell extends BaseSudokuCell {
 
     private void drawLines(Canvas canvas){
         mPaint.setColor(Color.BLACK);
-        mPaint.setStrokeWidth(1);
+        mPaint.setStrokeWidth(getResources().getDimension(R.dimen.standardLineSize));
         mPaint.setStyle(Paint.Style.STROKE);
         canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
 
         if ((getXCoordinate() == 2) || (getXCoordinate() == 5)) {
-            mPaint.setStrokeWidth(6);
+            mPaint.setStrokeWidth(getResources().getDimension(R.dimen.thickerLineSize));
             canvas.drawLine(getWidth(), 0, getWidth(), getHeight(), mPaint);
         }
         if ((getYCoordinate() == 2) || (getYCoordinate() == 5)) {
-            mPaint.setStrokeWidth(6);
+            mPaint.setStrokeWidth(getResources().getDimension(R.dimen.thickerLineSize));
             canvas.drawLine(0, getHeight(), getWidth(), getHeight(), mPaint);
         }
     }

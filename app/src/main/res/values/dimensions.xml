@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="draftTextSize">10sp</dimen>
+    <dimen name="textSize">30sp</dimen>
+    <dimen name="standardLineSize">.5sp</dimen>
+    <dimen name="thickerLineSize">3sp</dimen>
+</resources>
