@@ -46,9 +46,7 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
         }
         else if(v == multiplayer_button){
             //!!!
-        }
-        else if( v== achievement_button) {
-
+        } else if (v == achievement_button) {
             Intent myIntent = new Intent(this, achievement_Menu.class);
             startActivity(myIntent);
         }

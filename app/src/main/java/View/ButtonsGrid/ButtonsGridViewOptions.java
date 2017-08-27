@@ -63,22 +63,22 @@ public class ButtonsGridViewOptions extends GridView {
                 switch (position) {
                     case 0: {
                         btn.setBackgroundResource(R.drawable.ic_rotate_left_black_24dp);
-                        btn.setNumber(0, 10);
+                        btn.setNumber(0, 9);
                         break;
                     }
                     case 1: {
                         btn.setBackgroundResource(R.drawable.ic_rotate_right_black_24dp);
-                        btn.setNumber(0, 11);
+                        btn.setNumber(0, 10);
                         break;
                     }
                     case 2: {
                         btn.setBackgroundResource(R.drawable.ic_grid_off_black_24dp);
-                        btn.setNumber(0, 12);
+                        btn.setNumber(0, 11);
                         break;
                     }
                     case 3: {
                         btn.setBackgroundResource(R.drawable.ic_cancel_black_24dp);
-                        btn.setNumber(0, 9);
+                        btn.setNumber(0, 12);
                         break;
                     }
                 }
