@@ -36,50 +36,68 @@ public class SudokuCell extends BaseSudokuCell {
 
         if(getValue() == - 1)
         {
+            //Draft value getter and draft text size
             mPaint.setTextSize(getResources().getDimension(R.dimen.draftTextSize));
             mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
             ArrayList<Integer> list = getDraft();
 
+            //Setting coordinates of draft numbers
             for(int i = 0 ; i < list.size(); i++){
-                if(list.get(i) == 1){
-                    canvas.drawText(String.valueOf(1), (getWidth() - bounds.width())*100 / 500 , (getHeight() + bounds.height())*100 / 500, mPaint);
-                } else if (list.get(i) == 2){
-                    canvas.drawText(String.valueOf(2), (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 500, mPaint);
-                } else if (list.get(i) == 3){
-                    canvas.drawText(String.valueOf(3), (getWidth() - bounds.width()) * 100 / 125, (getHeight() + bounds.height()) * 100 / 500, mPaint);
-                }else if (list.get(i) == 4){
-                    canvas.drawText(String.valueOf(4), (getWidth() - bounds.width())*100 / 500 , (getHeight() + bounds.height())*100 / 200, mPaint);
-                }else if (list.get(i) == 5){
-                    canvas.drawText(String.valueOf(5), (getWidth() - bounds.width())*100 / 200 , (getHeight() + bounds.height())*100 / 200, mPaint);
-                }else if (list.get(i) == 6){
-                    canvas.drawText(String.valueOf(6), (getWidth() - bounds.width())*100 / 125 , (getHeight() + bounds.height())*100 / 200, mPaint);
-                }else if (list.get(i) == 7){
-                    canvas.drawText(String.valueOf(7), (getWidth() - bounds.width())*100 / 500 , (getHeight() + bounds.height())*100 / 125, mPaint);
-                }else if (list.get(i) == 8){
-                    canvas.drawText(String.valueOf(8), (getWidth() - bounds.width())*100 / 200 , (getHeight() + bounds.height())*100 / 125, mPaint);
-                }else if (list.get(i) == 9){
-                    canvas.drawText(String.valueOf(9), (getWidth() - bounds.width())*100 / 125 , (getHeight() + bounds.height())*100 / 125, mPaint);
+                switch (list.get(i)) {
+                    case 1:
+                        canvas.drawText(String.valueOf(1), (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 500, mPaint);
+                        break;
+                    case 2:
+                        canvas.drawText(String.valueOf(2), (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 500, mPaint);
+                        break;
+                    case 3:
+                        canvas.drawText(String.valueOf(4), (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        break;
+                    case 4:
+                        canvas.drawText(String.valueOf(4), (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        break;
+                    case 5:
+                        canvas.drawText(String.valueOf(5), (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        break;
+                    case 6:
+                        canvas.drawText(String.valueOf(6), (getWidth() - bounds.width()) * 100 / 125, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        break;
+                    case 7:
+                        canvas.drawText(String.valueOf(7), (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 125, mPaint);
+                        break;
+                    case 8:
+                        canvas.drawText(String.valueOf(8), (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 125, mPaint);
+                        break;
+                    case 9:
+                        canvas.drawText(String.valueOf(9), (getWidth() - bounds.width()) * 100 / 125, (getHeight() + bounds.height()) * 100 / 125, mPaint);
+                        break;
                 }
             }
         }
+        //Set value if it's not draft
         else if(getValue() != 0){
+            //Text settings
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setTextSize(getResources().getDimension(R.dimen.textSize));
             mPaint.getTextBounds(String.valueOf(getValue()) , 0 , String.valueOf(getValue()).length() , bounds);
 
+            //Change text color if it's an initial value
             if (!isModifiable())
                 mPaint.setColor(Color.BLUE);
 
+            //Set coordinate of number
             canvas.drawText(String.valueOf(getValue()), (getWidth() - bounds.width()) / 2 , (getHeight() + bounds.height()) / 2, mPaint);
         }
     }
 
     private void drawLines(Canvas canvas){
+        //Set square lines
         mPaint.setColor(Color.LTGRAY);
         mPaint.setStrokeWidth(getResources().getDimension(R.dimen.standardLineSize));
         mPaint.setStyle(Paint.Style.STROKE);
         canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
 
+        //Set square region lines
         mPaint.setColor(Color.BLACK);
         if ((getXCoordinate() == 2) || (getXCoordinate() == 5)) {
             mPaint.setStrokeWidth(getResources().getDimension(R.dimen.thickerLineSize));
