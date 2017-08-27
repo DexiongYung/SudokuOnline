@@ -17,6 +17,8 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO
+        //Remove External resources on deploy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_menu);
         //Instantiate buttons

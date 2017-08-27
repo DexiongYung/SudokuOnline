@@ -57,6 +57,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         Intent myIntent = getIntent();
         int level = myIntent.getIntExtra("level", 0);
 
+        //TODO
+        //Difficulty generator
         Random randomGenerator = new Random();
         int numRemoved = 0;
 
@@ -85,6 +87,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
     }
 
+    //TODO
+    //Add animation to notify user of existence
     private void addDrawerItems() {
         String[] osArray = { "Home", "Increase Difficulty", "Decrease Difficulty", "New Game", "Clear Grid" };
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
