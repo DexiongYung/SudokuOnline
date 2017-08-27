@@ -82,8 +82,6 @@ public class ButtonsGridViewOptions extends GridView {
                         break;
                     }
                 }
-
-
                 return btn;
             }
             return v;
