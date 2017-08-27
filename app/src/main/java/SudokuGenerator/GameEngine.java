@@ -31,7 +31,6 @@ public class GameEngine {
     public static GameEngine getInstance() {
         if (instance == null)
             instance = new GameEngine();
-
         return instance;
     }
 
@@ -250,7 +249,7 @@ public class GameEngine {
         }
     }
 
-    public void clearHighlightsHelper(ArrayList<xyCoordinates> a, int index) {
+    private void clearHighlightsHelper(ArrayList<xyCoordinates> a, int index) {
         int x = a.get(index).getX();
         int y = a.get(index).getY();
         getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.WHITE);

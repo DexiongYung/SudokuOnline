@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 
 import java.util.Random;
 
@@ -84,7 +83,6 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
     }
 
     private void addDrawerItems() {
