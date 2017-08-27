@@ -45,31 +45,40 @@ public class SudokuCell extends BaseSudokuCell {
             for(int i = 0 ; i < list.size(); i++){
                 switch (list.get(i)) {
                     case 1:
-                        canvas.drawText(String.valueOf(1), (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 500, mPaint);
+                        canvas.drawText(String.valueOf(1),
+                                (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 500, mPaint);
                         break;
                     case 2:
-                        canvas.drawText(String.valueOf(2), (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 500, mPaint);
+                        canvas.drawText(String.valueOf(2),
+                                (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 500, mPaint);
                         break;
                     case 3:
-                        canvas.drawText(String.valueOf(4), (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        canvas.drawText(String.valueOf(4),
+                                (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 200, mPaint);
                         break;
                     case 4:
-                        canvas.drawText(String.valueOf(4), (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        canvas.drawText(String.valueOf(4),
+                                (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 200, mPaint);
                         break;
                     case 5:
-                        canvas.drawText(String.valueOf(5), (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        canvas.drawText(String.valueOf(5),
+                                (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 200, mPaint);
                         break;
                     case 6:
-                        canvas.drawText(String.valueOf(6), (getWidth() - bounds.width()) * 100 / 125, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        canvas.drawText(String.valueOf(6),
+                                (getWidth() - bounds.width()) * 100 / 125, (getHeight() + bounds.height()) * 100 / 200, mPaint);
                         break;
                     case 7:
-                        canvas.drawText(String.valueOf(7), (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 125, mPaint);
+                        canvas.drawText(String.valueOf(7),
+                                (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 125, mPaint);
                         break;
                     case 8:
-                        canvas.drawText(String.valueOf(8), (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 125, mPaint);
+                        canvas.drawText(String.valueOf(8),
+                                (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 125, mPaint);
                         break;
                     case 9:
-                        canvas.drawText(String.valueOf(9), (getWidth() - bounds.width()) * 100 / 125, (getHeight() + bounds.height()) * 100 / 125, mPaint);
+                        canvas.drawText(String.valueOf(9),
+                                (getWidth() - bounds.width()) * 100 / 125, (getHeight() + bounds.height()) * 100 / 125, mPaint);
                         break;
                 }
             }
