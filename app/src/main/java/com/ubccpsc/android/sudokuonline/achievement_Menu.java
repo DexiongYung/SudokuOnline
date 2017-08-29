@@ -1,10 +1,14 @@
 package com.ubccpsc.android.sudokuonline;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -12,11 +16,13 @@ import android.widget.TextView;
  */
 
 public class achievement_Menu extends AppCompatActivity implements View.OnClickListener {
+    public static final String PREFS_NAME = "UI_File";
     private ImageButton extremely_easy_button;
     private ImageButton easy_button;
     private ImageButton medium_button;
     private ImageButton difficult_button;
     private ImageButton evil_button;
+    private LinearLayout background;
     private TextView extremely_easy_text;
     private TextView easy_text;
     private TextView medium_text;
@@ -27,9 +33,37 @@ public class achievement_Menu extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
+        // Set UI preferences
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String ui_interface = settings.getString("user_ui", "default");
+        if (ui_interface.equals("extremely_easy")) {
+            setTheme(R.style.ExtremelyEasy);
+        }
+        else if (ui_interface.equals("easy")) {
+            //TODO
+            setTheme(R.style.Holo_Dark);
+
+        }
+        else if (ui_interface.equals("medium")) {
+            //TODO
+            setTheme(R.style.Holo_Light);
+
+        }
+        else if (ui_interface.equals("difficult")) {
+            //TODO
+            setTheme(R.style.Material_dark);
+
+        }
+        else if (ui_interface.equals("evil")) {
+            //TODO
+        }
+
         super.onCreate(savedStateInstance);
         setContentView(R.layout.achievement_menu);
 
+
+        //Instantiate background
+        background = (LinearLayout) findViewById(R.id.achievement_background);
         //Instantiating buttons
         extremely_easy_button = (ImageButton) findViewById(R.id.extremelyeasy_achievement);
         easy_button = (ImageButton) findViewById(R.id.easy_achievement);
@@ -51,6 +85,7 @@ public class achievement_Menu extends AppCompatActivity implements View.OnClickL
         medium_button.setOnClickListener(this);
         difficult_button.setOnClickListener(this);
         evil_button.setOnClickListener(this);
+
     }
 
     //Click listener
@@ -58,22 +93,44 @@ public class achievement_Menu extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if(v == extremely_easy_button){
             // TODO: 2017-08-25
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("user_ui", "extremely_easy");
+            // Commit the edits!
+            editor.commit();
         }
         else if(v == easy_button){
             // TODO: 2017-08-25
-
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("user_ui", "easy");
+            // Commit the edits!
+            editor.commit();
         }
         else if(v == medium_button){
             // TODO: 2017-08-25
-
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("user_ui", "medium");
+            // Commit the edits!
+            editor.commit();
         }
         else if(v == difficult_button){
             // TODO: 2017-08-25
-
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("user_ui", "difficult");
+            // Commit the edits!
+            editor.commit();
         }
         else if(v == evil_button){
             // TODO: 2017-08-25
-
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("user_ui", "evil");
+            // Commit the edits!
+            editor.commit();
         }
+        this.recreate();
     }
 }
