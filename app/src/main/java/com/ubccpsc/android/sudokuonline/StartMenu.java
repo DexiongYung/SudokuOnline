@@ -21,6 +21,50 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        pageCreation();
+        super.onCreate(savedInstanceState);
+        //Remove External resources on deploy
+        setContentView(R.layout.activity_start_menu);
+        //Instantiate buttons
+        single_player_button = (Button) findViewById(R.id.single_player_button);
+        multiplayer_button = (Button) findViewById(R.id.multiplayer_button);
+        achievement_button = (Button) findViewById(R.id.achievement_button);
+
+        //Instantiate fonts and apply to title
+        appname = (TextView) findViewById(R.id.app_name);
+        Typeface font = Typeface.createFromAsset(getAssets(),"Junge-Regular.ttf");
+        appname.setTypeface(font);
+
+        //Set listeners for buttons
+        single_player_button.setOnClickListener(this);
+        multiplayer_button.setOnClickListener(this);
+        achievement_button.setOnClickListener(this);
+
+    }
+    //Refresh page after back button is pressed
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
+    //On click listeners
+    @Override
+    public void onClick(View v) {
+        if(v == single_player_button){
+            Intent myIntent = new Intent(this, difficulty_Menu.class);
+            startActivity(myIntent);
+        }
+        else if(v == multiplayer_button){
+            //!!!
+        } else if (v == achievement_button) {
+            Intent myIntent = new Intent(this, achievement_Menu.class);
+            startActivity(myIntent);
+        }
+    }
+    public void pageCreation(){
         // Set UI preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String ui_interface = settings.getString("user_ui", "default");
@@ -44,41 +88,6 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
         }
         else if (ui_interface.equals("evil")) {
             //TODO
-        }
-
-        //Remove External resources on deploy
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_menu);
-        //Instantiate buttons
-        single_player_button = (Button) findViewById(R.id.single_player_button);
-        multiplayer_button = (Button) findViewById(R.id.multiplayer_button);
-        achievement_button = (Button) findViewById(R.id.achievement_button);
-
-        //Instantiate fonts and apply to title
-        appname = (TextView) findViewById(R.id.app_name);
-        Typeface font = Typeface.createFromAsset(getAssets(),"Junge-Regular.ttf");
-        appname.setTypeface(font);
-
-        //Set listeners for buttons
-        single_player_button.setOnClickListener(this);
-        multiplayer_button.setOnClickListener(this);
-        achievement_button.setOnClickListener(this);
-
-
-    }
-
-    //On click listeners
-    @Override
-    public void onClick(View v) {
-        if(v == single_player_button){
-            Intent myIntent = new Intent(this, difficulty_Menu.class);
-            startActivity(myIntent);
-        }
-        else if(v == multiplayer_button){
-            //!!!
-        } else if (v == achievement_button) {
-            Intent myIntent = new Intent(this, achievement_Menu.class);
-            startActivity(myIntent);
         }
     }
 }
