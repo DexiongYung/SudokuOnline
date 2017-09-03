@@ -24,7 +24,7 @@ public class GameEngine {
     private ArrayList<xyCoordinates> highlightRowsPosition = new ArrayList<>();
     private ArrayList<xyCoordinates> hightlightColsPosition = new ArrayList<>();
     private ArrayList<xyCoordinates> highlightRegionPosition = new ArrayList<>();
-
+    private int level;
     private GameEngine() {
     }
 
@@ -34,7 +34,9 @@ public class GameEngine {
         return instance;
     }
 
-    public void createGrid(Context context, int numberRemoved) {
+    public void createGrid(Context context, int numberRemoved, int difficulty) {
+        //Set level on creation
+        level = difficulty;
         //Create 2D int Array of Sudoku Grid
         int[][] Sudoku = SudokuGenerator.getInstance().generateGrid();
         Sudoku = SudokuGenerator.getInstance().removeElements(Sudoku, numberRemoved);
@@ -64,7 +66,7 @@ public class GameEngine {
             highlightCells(selectedPosX, selectedPosY);
             undoStorage.push(new xyCoordinates(selectedPosX, selectedPosY));
             redoStorage.clear();
-            grid.checkGame();
+            grid.checkGame(level);
         }
     }
 

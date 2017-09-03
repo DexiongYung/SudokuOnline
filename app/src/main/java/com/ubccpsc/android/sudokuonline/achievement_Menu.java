@@ -33,31 +33,8 @@ public class achievement_Menu extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
-        // Set UI preferences
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String ui_interface = settings.getString("user_ui", "default");
-        if (ui_interface.equals("extremely_easy")) {
-            setTheme(R.style.ExtremelyEasy);
-        }
-        else if (ui_interface.equals("easy")) {
-            //TODO
-            setTheme(R.style.Holo_Dark);
-
-        }
-        else if (ui_interface.equals("medium")) {
-            //TODO
-            setTheme(R.style.Holo_Light);
-
-        }
-        else if (ui_interface.equals("difficult")) {
-            //TODO
-            setTheme(R.style.Material_dark);
-
-        }
-        else if (ui_interface.equals("evil")) {
-            //TODO
-        }
-
+        //Set Theme
+        pageCreation();
         super.onCreate(savedStateInstance);
         setContentView(R.layout.achievement_menu);
 
@@ -132,5 +109,31 @@ public class achievement_Menu extends AppCompatActivity implements View.OnClickL
             editor.commit();
         }
         this.recreate();
+    }
+    public void pageCreation(){
+        // Set UI preferences
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String ui_interface = settings.getString("user_ui", "default");
+        if (ui_interface.equals("extremely_easy")) {
+            setTheme(R.style.ExtremelyEasy);
+        }
+        else if (ui_interface.equals("easy")) {
+            //TODO
+            setTheme(R.style.Holo_Dark);
+
+        }
+        else if (ui_interface.equals("medium")) {
+            //TODO
+            setTheme(R.style.Holo_Light);
+
+        }
+        else if (ui_interface.equals("difficult")) {
+            //TODO
+            setTheme(R.style.Material_dark);
+
+        }
+        else if (ui_interface.equals("evil")) {
+            //TODO
+        }
     }
 }

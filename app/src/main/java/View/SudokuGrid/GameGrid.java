@@ -2,8 +2,11 @@ package View.SudokuGrid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+
 
 import com.ubccpsc.android.sudokuonline.StartMenu;
 
@@ -13,11 +16,13 @@ import SudokuGenerator.SudokuChecker;
  * Created by Adi on 2017-08-07.
  */
 
-public class GameGrid {
+public class GameGrid extends AppCompatActivity{
     private SudokuCell[][] Sudoku = new SudokuCell[9][9];
     private int[][] SudokuArray = new int[9][9];
     private Context context;
     private boolean solved = false;
+    public static final String PREFS_NAME = "UI_File";
+
 
     public GameGrid(Context context){
         this.context = context;
@@ -61,13 +66,37 @@ public class GameGrid {
         SudokuArray[x][y] = Sudoku[x][y].getValue();
     }
 
-    public void checkGame(){
+    public void checkGame(int level){
         if (SudokuChecker.getInstance().checkSudoku(SudokuArray)) {
             Toast.makeText(context, "CONGRATS! You solved the Sudoku puzzle!", Toast.LENGTH_LONG).show();
+            if (level == 0){
+                setAchievement("extremely_easy_unlock");
+            }
+            else if(level == 1){
+                setAchievement("easy_unlock");
+            }
+            else if(level == 2){
+                setAchievement("medium_unlock");
 
-            //TODO
+            }
+            else if(level == 3){
+                setAchievement("difficult_unlock");
+            }
+
+            else if(level == 4){
+                setAchievement("evil_unlock");
+            }
+
             //Maybe a celebration activity?
             context.startActivity(new Intent(context, StartMenu.class));
         }
+    }
+    //Setting achievement in application
+    private void setAchievement(String difficulty) {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(difficulty, true);
+        // Commit the edits!
+        editor.commit();
     }
 }
