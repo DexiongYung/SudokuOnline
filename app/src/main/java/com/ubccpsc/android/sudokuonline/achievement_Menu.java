@@ -54,6 +54,11 @@ public class achievement_Menu extends AppCompatActivity implements View.OnClickL
         medium_text = (TextView) findViewById(R.id.medium_achievement_text);
         difficult_text = (TextView) findViewById(R.id.difficult_achievement_text);
         evil_text = (TextView) findViewById(R.id.evil_achievement_text);
+        //Checking and updating text and button if unlocked
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        unlock(settings);
+
+        //Checking and updating buttons if unlocked
 
 
         //Setting listeners to buttons
@@ -62,6 +67,7 @@ public class achievement_Menu extends AppCompatActivity implements View.OnClickL
         medium_button.setOnClickListener(this);
         difficult_button.setOnClickListener(this);
         evil_button.setOnClickListener(this);
+
 
     }
 
@@ -134,6 +140,32 @@ public class achievement_Menu extends AppCompatActivity implements View.OnClickL
         }
         else if (ui_interface.equals("evil")) {
             //TODO
+        }
+    }
+    private void unlock(SharedPreferences settings){
+        if (settings.getBoolean("extremely_easy_unlock", false)){
+            extremely_easy_text.setText("Unlocked ___ theme");
+            extremely_easy_button.setClickable(true);
+            extremely_easy_button.setImageResource(android.R.drawable.ic_partial_secure);
+        }
+        else if(settings.getBoolean("easy_unlock", false)) {
+            easy_text.setText("Unlocked ___ theme");
+            easy_button.setClickable(true);
+            easy_button.setImageResource(android.R.drawable.ic_partial_secure);
+        }
+        else if(settings.getBoolean("extremely_easy_unlock", false)) {
+            medium_text.setText("Unlocked ___ theme");
+            medium_button.setClickable(true);
+            medium_button.setImageResource(android.R.drawable.ic_partial_secure);
+        }
+        else if(settings.getBoolean("difficult_unlock", false)) {
+            difficult_text.setText("Unlocked ___ theme");
+            difficult_button.setImageResource(android.R.drawable.ic_partial_secure);
+        }
+        else if(settings.getBoolean("evil_unlock", false)) {
+            evil_text.setText("Unlocked ___ theme");
+            evil_button.setClickable(true);
+            evil_button.setImageResource(android.R.drawable.ic_partial_secure);
         }
     }
 }

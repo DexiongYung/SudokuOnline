@@ -88,12 +88,14 @@ public class GameGrid extends AppCompatActivity{
             }
 
             //Maybe a celebration activity?
+            //Or stats boards
+            //TODO
             context.startActivity(new Intent(context, StartMenu.class));
         }
     }
     //Setting achievement in application
     private void setAchievement(String difficulty) {
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(difficulty, true);
         // Commit the edits!
