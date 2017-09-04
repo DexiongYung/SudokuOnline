@@ -64,7 +64,6 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onPause() {
-
         super.onPause();
     }
 

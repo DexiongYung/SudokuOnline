@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-
 /**
  * Created by Dylan on 2017-08-03.
  * Not my code taken from github.com/mfgravesjr to create Sudoku puzzle
@@ -102,7 +101,7 @@ public class SudokuGenerator {
      */
 
 
-    private void generateGrid(int level) {
+    public void generateGrid(int level) {
         ArrayList<Integer> arr = new ArrayList<Integer>(9);
         int[] grid = new int[81];
         for (int i = 1; i <= 9; i++) arr.add(i);
