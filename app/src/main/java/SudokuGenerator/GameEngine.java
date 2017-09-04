@@ -34,10 +34,10 @@ public class GameEngine {
         return instance;
     }
 
-    public void createGrid(Context context, int numberRemoved) {
+    public void createGrid(Context context, int level) {
         //Create 2D int Array of Sudoku Grid
-        int[][] Sudoku = SudokuGenerator.getInstance().generateGrid();
-        Sudoku = SudokuGenerator.getInstance().removeElements(Sudoku, numberRemoved);
+        SudokuGenerator.getInstance().generateGrid(level);
+        int[][] Sudoku = SudokuGenerator.getInstance().getGrid();
 
         //Set draftMode to false on new grid generation
         draftMode = false;
