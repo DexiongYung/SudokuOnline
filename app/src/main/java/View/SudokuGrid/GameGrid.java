@@ -32,6 +32,10 @@ public class GameGrid {
         return Sudoku;
     }
 
+    public void setSudokuCellGrid(SudokuCell[][] file) {
+        this.Sudoku = file;
+    }
+
     public void setGrid(int[][] grid){
         SudokuArray = grid;
 

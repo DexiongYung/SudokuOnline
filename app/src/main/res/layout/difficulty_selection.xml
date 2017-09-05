@@ -1,58 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/difficulty_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/difficulty_fragment"
     android:theme="@style/AppTheme">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select a difficulty"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
+                android:text="Select a difficulty" />
 
             <Button
+                android:id="@+id/extremely_easy_button"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Extremely Easy"
                 android:layout_gravity="center"
-                android:id="@+id/extremely_easy_button"/>
+                android:text="Extremely Easy" />
 
             <Button
+                android:id="@+id/easy_button"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Easy"
                 android:layout_gravity="center"
-                android:id="@+id/easy_button"/>
+                android:text="Easy" />
 
             <Button
+                android:id="@+id/medium_button"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="medium"
                 android:layout_gravity="center"
-                android:id="@+id/medium_button" />
+                android:text="medium" />
 
             <Button
+                android:id="@+id/difficult_button"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Difficult"
                 android:layout_gravity="center"
-                android:id="@+id/difficult_button"/>
+                android:text="Difficult" />
 
             <Button
+                android:id="@+id/evil_button"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="evil"
                 android:layout_gravity="center"
-                android:id="@+id/evil_button" />
+                android:text="evil" />
+
+            <Button
+                android:id="@+id/continue_button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="200dp"
+                android:text="continue" />
         </LinearLayout>
 
 </FrameLayout>

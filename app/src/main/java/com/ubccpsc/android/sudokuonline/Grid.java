@@ -1,5 +1,6 @@
 package com.ubccpsc.android.sudokuonline;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import SudokuGenerator.GameEngine;
+import View.SudokuGrid.SudokuCell;
 
 /**
  * Created by Dylan on 2017-08-07.
@@ -55,7 +62,19 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         Intent myIntent = getIntent();
         int level = myIntent.getIntExtra("level", 1);
 
-        GameEngine.getInstance().createGrid(this, level);
+        if (level != -1)
+            GameEngine.getInstance().createGrid(this, level);
+        else {
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("grid_file"));
+                SudokuCell[][] file = (SudokuCell[][]) ois.readObject();
+                GameEngine.getInstance().setGrid(this, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -64,7 +83,20 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onPause() {
+        try {
+            save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         super.onPause();
+    }
+
+    private void save() throws IOException {
+        String fileName = "grid_file";
+        SudokuCell[][] file = GameEngine.getInstance().getGameGrid().getSudokuCellGrid();
+        FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
+        //fos.write();
+        //fos.close();
     }
 
     //TODO

@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 /**
  * Created by Dylan on 2017-08-05.
  */
@@ -16,6 +20,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
     private Button medium_button;
     private Button difficult_button;
     private Button evil_button;
+    private Button continue_button;
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
@@ -28,6 +33,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
         medium_button = (Button) findViewById(R.id.medium_button);
         difficult_button = (Button) findViewById(R.id.difficult_button);
         evil_button = (Button) findViewById(R.id.evil_button);
+        continue_button = (Button) findViewById(R.id.continue_button);
 
         //Setting listeners to buttons
         extremely_easy_button.setOnClickListener(this);
@@ -35,6 +41,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
         medium_button.setOnClickListener(this);
         difficult_button.setOnClickListener(this);
         evil_button.setOnClickListener(this);
+        continue_button.setOnClickListener(this);
     }
 
     //Click listener
@@ -64,6 +71,17 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level", 5);
             startActivity(myIntent);
+        } else if (v == continue_button) {
+            ObjectInputStream ois = null;
+            try {
+                ois = new ObjectInputStream(new FileInputStream("grid_file"));
+                if (ois != null) {
+                    Intent myIntent = new Intent(this, Grid.class);
+                    myIntent.putExtra("level", -1);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
