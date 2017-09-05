@@ -54,7 +54,7 @@ public class ButtonsGridViewNumbers extends GridView {
 
                 NumberButton btn;
                 btn = (NumberButton) v;
-                btn.setTextSize(10);
+                btn.setTextSize(14);
                 btn.setId(position);
 
                 if(position < 9){
