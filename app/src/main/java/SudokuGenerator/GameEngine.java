@@ -109,7 +109,11 @@ public class GameEngine {
             for (int y = 0; y < 9; y++) {
                 if ((getGameGrid().getSudokuCellGrid()[x][y].getValue() != 0) && (getGameGrid().getSudokuCellGrid()[x][y].getValue() != -1)) {
                     if (getGameGrid().getSudokuCellGrid()[x][y].getValue() == getGameGrid().getSudokuCellGrid()[xPos][yPos].getValue()) {
-                        getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.parseColor("#89cff0"));
+                        if (x == xPos || y == yPos || ((x / 3) + 3 * (y / 3) + 1) == ((xPos / 3) + 3 * (yPos / 3) + 1)) {
+                            getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.parseColor("#FF6666"));
+                        } else {
+                            getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.parseColor("#89cff0"));
+                        }
                         highlightDuplicatesPosition.add(new xyCoordinates(x, y));
                     }
                 }
