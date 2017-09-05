@@ -53,8 +53,8 @@ public class SudokuCell extends BaseSudokuCell {
                                 (getWidth() - bounds.width()) * 100 / 200, (getHeight() + bounds.height()) * 100 / 500, mPaint);
                         break;
                     case 3:
-                        canvas.drawText(String.valueOf(4),
-                                (getWidth() - bounds.width()) * 100 / 500, (getHeight() + bounds.height()) * 100 / 200, mPaint);
+                        canvas.drawText(String.valueOf(3),
+                                (getWidth() - bounds.width()) * 100 / 125, (getHeight() + bounds.height()) * 100 / 500, mPaint);
                         break;
                     case 4:
                         canvas.drawText(String.valueOf(4),
