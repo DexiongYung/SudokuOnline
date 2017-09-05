@@ -289,7 +289,6 @@ public class SudokuGenerator {
 
             if (grid[x][y] != 0) {
                 this.grid[x][y] = 0;
-                addToRemoved(index);
                 n--;
             }
         }
@@ -328,6 +327,21 @@ public class SudokuGenerator {
                 this.grid[x][y] = this.solution[x][y];
             }
         }
+
+        if (lower == 0) {
+            int random = new Random().nextInt(9);
+            int rowOrColumn = new Random().nextInt(2);
+
+            if (rowOrColumn == 0) {
+                for (int i = 0; i < 9; i++) {
+                    grid[i][random] = 0;
+                }
+            } else {
+                for (int i = 0; i < 9; i++) {
+                    grid[random][i] = 0;
+                }
+            }
+        }
     }
 
     //Convert from 1D to 2D
@@ -347,15 +361,6 @@ public class SudokuGenerator {
         return this.grid;
     }
 
-    private void addToRemains(int i) {
-        remains.add(Integer.valueOf(i));
-        removed.remove(Integer.valueOf(i));
-    }
-
-    private void addToRemoved(int i) {
-        removed.add(Integer.valueOf(i));
-        remains.remove(Integer.valueOf(i));
-    }
 
     private int[][] copyArray(int[][] a) {
         int[][] v = new int[9][9];
