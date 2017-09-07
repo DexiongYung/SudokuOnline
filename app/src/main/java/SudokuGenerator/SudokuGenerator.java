@@ -16,6 +16,7 @@ public class SudokuGenerator {
     private int[][] grid;
     private int[][] solution;
     private ArrayList<Integer> remains = new ArrayList<>();
+    private HashSet<Integer> doNotTouch = new HashSet<>();
 
     private SudokuGenerator(){}
 
@@ -105,13 +106,13 @@ public class SudokuGenerator {
                 break;
             }
             case 2: {
-                int n = new Random().nextInt(14) + 34;
+                int n = new Random().nextInt(14) + 35;
                 removeElements(n);
                 for (int x = 0; x < 9; x++) {
                     for (int y = 0; y < 9; y++) {
                         if (getGrid()[x][y] == 0) {
                             if (singleCandidate(x, y)) {
-                                //singleCandidateDestroyer(x, y);
+                                singleCandidateDestroyer(x, y);
                             }
                         }
                     }
@@ -120,16 +121,14 @@ public class SudokuGenerator {
                 break;
             }
             case 3: {
-                int n = new Random().nextInt(4) + 48;
+                int n = new Random().nextInt(4) + 45;
                 removeElements(n);
 
                 for (int x = 0; x < 9; x++) {
                     for (int y = 0; y < 9; y++) {
                         if (getGrid()[x][y] == 0) {
                             if (singleCandidate(x, y)) {
-                                //singleCandidateDestroyer(x, y);
-                            } else {
-                                singlePositionDestroyer(x, y);
+                                singleCandidateDestroyer(x, y);
                             }
                         }
                     }
@@ -138,14 +137,14 @@ public class SudokuGenerator {
                 break;
             }
             case 4: {
-                int n = new Random().nextInt(4) + 52;
+                int n = new Random().nextInt(4) + 50;
                 removeElements(n);
                 lowestBoundGenerator(2);
 
                 break;
             }
             case 5: {
-                int n = new Random().nextInt(5) + 56;
+                int n = new Random().nextInt(5) + 54;
                 removeElements(n);
                 lowestBoundGenerator(0);
                 break;
@@ -159,7 +158,7 @@ public class SudokuGenerator {
      * @return a filled valid 9 x 9 Sudoku
      */
     private int[][] generateFullGrid() {
-        ArrayList<Integer> arr = new ArrayList<Integer>(9);
+        ArrayList<Integer> arr = new ArrayList<>(9);
         int[] grid = new int[81];
         for (int i = 1; i <= 9; i++) arr.add(i);
 
@@ -321,7 +320,7 @@ public class SudokuGenerator {
      * Makes sure lower bound of the level chosen are not violated
      * @param lower
      */
-    public void lowestBoundGenerator(int lower) {
+    private void lowestBoundGenerator(int lower) {
         for (int x = 0; x < 9; x++) {
             ArrayList<Integer> indexesOfEmptyRowCells = new ArrayList<>();
             ArrayList<Integer> indexesOfEmptyColumnCells = new ArrayList<>();
@@ -337,14 +336,16 @@ public class SudokuGenerator {
                 Collections.shuffle(indexesOfEmptyRowCells);
                 int i = indexesOfEmptyRowCells.get(0);
                 indexesOfEmptyRowCells.remove(0);
-                this.grid[x][i] = this.solution[x][i];
+                if (!doNotTouch.contains(i))
+                    this.grid[x][i] = this.solution[x][i];
             }
 
             while (9 - indexesOfEmptyColumnCells.size() < lower) {
                 Collections.shuffle(indexesOfEmptyColumnCells);
                 int i = indexesOfEmptyColumnCells.get(0);
                 indexesOfEmptyColumnCells.remove(0);
-                this.grid[i][x] = this.solution[i][x];
+                if (!doNotTouch.contains(i))
+                    this.grid[i][x] = this.solution[i][x];
             }
         }
 
@@ -548,9 +549,7 @@ public class SudokuGenerator {
         int[][] v = new int[9][9];
 
         for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                v[x][y] = a[x][y];
-            }
+            v[x] = a[x].clone();
         }
         return v;
     }
@@ -563,41 +562,45 @@ public class SudokuGenerator {
         Collections.shuffle(filledEntries);
         int xPos = filledEntries.get(0) % 9;
         int yPos = filledEntries.get(0) / 9;
+        filledEntries.remove(0);
         while (!singleCandidate(xPos, yPos) && !filledEntries.isEmpty()) {
-            filledEntries.remove(0);
             Collections.shuffle(filledEntries);
             xPos = filledEntries.get(0) % 9;
             yPos = filledEntries.get(0) / 9;
+            filledEntries.remove(0);
         }
-        if (!filledEntries.isEmpty())
+        if (!filledEntries.isEmpty()) {
             this.grid[xPos][yPos] = 0;
+            doNotTouch.add(yPos * 9 + xPos);
+        }
     }
 
     private void singlePositionDestroyer(int x, int y) {
         boolean regionSP = singlePosition(x, y, 2);
-
         if (regionSP) {
             ArrayList<Integer> regions = filledRegions(x, y);
             Collections.shuffle(regions);
             int index = regions.get(0);
             this.grid[index % 9][index / 9] = 0;
-        }
-
-        boolean rowSP = singlePosition(x, y, 0);
-        boolean columnSP = singlePosition(x, y, 1);
-
-        if (rowSP) {
-            ArrayList<Integer> rows = filledRows(x, y);
-            Collections.shuffle(rows);
-            int index = rows.get(0);
-            this.grid[index % 9][index / 9] = 0;
-        }
-
-        if (columnSP) {
-            ArrayList<Integer> columns = filledColums(x, y);
-            Collections.shuffle(columns);
-            int index = columns.get(0);
-            this.grid[index % 9][index / 9] = 0;
+            doNotTouch.add(index);
+        } else {
+            boolean rowSP = singlePosition(x, y, 0);
+            if (rowSP) {
+                ArrayList<Integer> rows = filledRows(x, y);
+                Collections.shuffle(rows);
+                int index = rows.get(0);
+                this.grid[index % 9][index / 9] = 0;
+                doNotTouch.add(index);
+            } else {
+                boolean columnSP = singlePosition(x, y, 1);
+                if (columnSP) {
+                    ArrayList<Integer> columns = filledColums(x, y);
+                    Collections.shuffle(columns);
+                    int index = columns.get(0);
+                    this.grid[index % 9][index / 9] = 0;
+                    doNotTouch.add(index);
+                }
+            }
         }
     }
 
