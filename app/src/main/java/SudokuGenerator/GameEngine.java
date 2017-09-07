@@ -119,7 +119,6 @@ public class GameEngine {
                 }
             }
         }
-
         //sets (x,y) position to light pink to signify it's the cell currently selected
         getGameGrid().getSudokuCellGrid()[xPos][yPos].setBackgroundColor(Color.parseColor("#ffb6c1"));
     }

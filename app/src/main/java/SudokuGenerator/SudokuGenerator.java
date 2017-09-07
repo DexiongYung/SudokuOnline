@@ -111,7 +111,7 @@ public class SudokuGenerator {
                     for (int y = 0; y < 9; y++) {
                         if (getGrid()[x][y] == 0) {
                             if (singleCandidate(x, y)) {
-                                singleCandidateDestroyer(x, y);
+                                //singleCandidateDestroyer(x, y);
                             }
                         }
                     }
@@ -127,7 +127,7 @@ public class SudokuGenerator {
                     for (int y = 0; y < 9; y++) {
                         if (getGrid()[x][y] == 0) {
                             if (singleCandidate(x, y)) {
-                                singleCandidateDestroyer(x, y);
+                                //singleCandidateDestroyer(x, y);
                             } else {
                                 singlePositionDestroyer(x, y);
                             }
