@@ -100,7 +100,7 @@ public class SudokuGenerator {
 
         switch (level) {
             case 1: {
-                int n = new Random().nextInt(12) + 30;
+                int n = new Random().nextInt(12) + 20;
                 removeElements(n);
                 lowestBoundGenerator(5);
                 break;
