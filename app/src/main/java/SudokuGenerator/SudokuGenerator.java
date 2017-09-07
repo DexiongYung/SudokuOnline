@@ -100,7 +100,7 @@ public class SudokuGenerator {
 
         switch (level) {
             case 1: {
-                int n = new Random().nextInt(12) + 25;
+                int n = new Random().nextInt(12) + 30;
                 removeElements(n);
                 lowestBoundGenerator(5);
                 break;
@@ -321,34 +321,6 @@ public class SudokuGenerator {
      * @param lower
      */
     private void lowestBoundGenerator(int lower) {
-        for (int x = 0; x < 9; x++) {
-            ArrayList<Integer> indexesOfEmptyRowCells = new ArrayList<>();
-            ArrayList<Integer> indexesOfEmptyColumnCells = new ArrayList<>();
-
-            for (int y = 0; y < 9; y++) {
-                if (grid[x][y] == 0)
-                    indexesOfEmptyRowCells.add(y);
-                if (grid[y][x] == 0)
-                    indexesOfEmptyColumnCells.add(y);
-            }
-
-            while (9 - indexesOfEmptyRowCells.size() < lower) {
-                Collections.shuffle(indexesOfEmptyRowCells);
-                int i = indexesOfEmptyRowCells.get(0);
-                indexesOfEmptyRowCells.remove(0);
-                if (!doNotTouch.contains(i))
-                    this.grid[x][i] = this.solution[x][i];
-            }
-
-            while (9 - indexesOfEmptyColumnCells.size() < lower) {
-                Collections.shuffle(indexesOfEmptyColumnCells);
-                int i = indexesOfEmptyColumnCells.get(0);
-                indexesOfEmptyColumnCells.remove(0);
-                if (!doNotTouch.contains(i))
-                    this.grid[i][x] = this.solution[i][x];
-            }
-        }
-
         if (lower == 0) {
             boolean needed = true;
             for (int x = 0; x < 9; x++) {
@@ -375,6 +347,38 @@ public class SudokuGenerator {
                 } else {
                     for (int i = 0; i < 9; i++)
                         grid[random][i] = 0;
+                }
+            }
+        } else {
+            for (int x = 0; x < 9; x++) {
+                ArrayList<Integer> indexesOfEmptyRowCells = new ArrayList<>();
+                ArrayList<Integer> indexesOfEmptyColumnCells = new ArrayList<>();
+                ArrayList<Integer> indexesOfEmptyRegionCells = new ArrayList<>();
+
+                for (int y = 0; y < 9; y++) {
+                    if (grid[x][y] == 0)
+                        indexesOfEmptyRowCells.add(y);
+                }
+
+                while (9 - indexesOfEmptyRowCells.size() < lower) {
+                    Collections.shuffle(indexesOfEmptyRowCells);
+                    int i = indexesOfEmptyRowCells.get(0);
+                    indexesOfEmptyRowCells.remove(0);
+                    if (!doNotTouch.contains(i))
+                        this.grid[x][i] = this.solution[x][i];
+                }
+
+                for (int y = 0; y < 9; y++) {
+                    if (grid[y][x] == 0)
+                        indexesOfEmptyColumnCells.add(y);
+                }
+
+                while (9 - indexesOfEmptyColumnCells.size() < lower) {
+                    Collections.shuffle(indexesOfEmptyColumnCells);
+                    int i = indexesOfEmptyColumnCells.get(0);
+                    indexesOfEmptyColumnCells.remove(0);
+                    if (!doNotTouch.contains(i))
+                        this.grid[i][x] = this.solution[i][x];
                 }
             }
         }
