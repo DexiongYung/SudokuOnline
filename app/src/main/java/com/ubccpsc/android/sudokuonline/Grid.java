@@ -3,8 +3,6 @@ package com.ubccpsc.android.sudokuonline;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,13 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.text.StringCharacterIterator;
 
 import SudokuGenerator.GameEngine;
 import SudokuGenerator.Objects.CountUpTimer;
@@ -86,8 +81,12 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
         new CountUpTimer(1000) {
             public void onTick(long n){
-                timer.setText((int)(n / 60000) + ":" + ((n / 1000) % 60));
-                timer.setTextSize(30);
+                String seconds = "" + ((n / 1000) % 60);
+                if (((n / 1000) % 60) < 10)
+                    seconds = 0 + seconds;
+
+                timer.setText((int) (n / 60000) + ":" + seconds);
+                timer.setTextSize(35);
             }
         }.start();
     }
@@ -98,6 +97,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onPause() {
+        String time = timer.getText().toString();
         try {
             save();
         } catch (IOException e) {

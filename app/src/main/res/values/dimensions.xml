@@ -4,4 +4,5 @@
     <dimen name="textSize">30dp</dimen>
     <dimen name="standardLineSize">.5dp</dimen>
     <dimen name="thickerLineSize">1dp</dimen>
+    <dimen name="timerTextSize">10dp</dimen>
 </resources>
