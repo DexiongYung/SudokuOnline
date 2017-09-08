@@ -352,9 +352,6 @@ public class SudokuGenerator {
         } else {
             for (int x = 0; x < 9; x++) {
                 ArrayList<Integer> indexesOfEmptyRowCells = new ArrayList<>();
-                ArrayList<Integer> indexesOfEmptyColumnCells = new ArrayList<>();
-                ArrayList<Integer> indexesOfEmptyRegionCells = new ArrayList<>();
-
                 for (int y = 0; y < 9; y++) {
                     if (grid[x][y] == 0)
                         indexesOfEmptyRowCells.add(y);
@@ -364,10 +361,13 @@ public class SudokuGenerator {
                     Collections.shuffle(indexesOfEmptyRowCells);
                     int i = indexesOfEmptyRowCells.get(0);
                     indexesOfEmptyRowCells.remove(0);
-                    if (!doNotTouch.contains(i))
+                    if (!doNotTouch.contains(i)){
                         this.grid[x][i] = this.solution[x][i];
+                        removalCompensationForAdding(lower);
+                    }
                 }
 
+                ArrayList<Integer> indexesOfEmptyColumnCells = new ArrayList<>();
                 for (int y = 0; y < 9; y++) {
                     if (grid[y][x] == 0)
                         indexesOfEmptyColumnCells.add(y);
@@ -377,9 +377,40 @@ public class SudokuGenerator {
                     Collections.shuffle(indexesOfEmptyColumnCells);
                     int i = indexesOfEmptyColumnCells.get(0);
                     indexesOfEmptyColumnCells.remove(0);
-                    if (!doNotTouch.contains(i))
+                    if (!doNotTouch.contains(i)) {
                         this.grid[i][x] = this.solution[i][x];
+                        removalCompensationForAdding(lower);
+                    }
                 }
+            }
+        }
+    }
+
+    /**
+     * remove 1 for every 1 added by lower bound
+     * @param low the required lower bound
+     */
+    public void removalCompensationForAdding(int low){
+        boolean compensated = false;
+        while(!compensated && !remains.isEmpty()){
+            Collections.shuffle(remains);
+            int i = remains.get(0);
+            int x = i % 9;
+            int y = i / 9;
+            remains.remove(0);
+
+            HashSet<Integer> rowHolder = new HashSet<>();
+            HashSet<Integer> colHolder = new HashSet<>();
+            for(int index = 0 ; index < 9 ; index++){
+                if(grid[x][index] != 0)
+                    rowHolder.add(grid[x][index]);
+                if(grid[index][y] != 0)
+                    colHolder.add(grid[index][y]);
+            }
+
+            if(rowHolder.size() > low && colHolder.size() > low){
+                this.grid[x][y] = 0;
+                compensated = true;
             }
         }
     }

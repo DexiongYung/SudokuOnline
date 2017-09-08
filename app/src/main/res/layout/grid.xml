@@ -49,7 +49,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:text="Timer" />
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:id="@+id/Timer"/>
 
                 <View.ButtonsGrid.ButtonsGridViewOptionsTwo
                     android:id="@+id/buttonsgridviewoptionstwo"

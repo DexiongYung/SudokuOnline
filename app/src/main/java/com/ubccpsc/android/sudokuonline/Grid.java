@@ -3,18 +3,25 @@ package com.ubccpsc.android.sudokuonline;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.text.StringCharacterIterator;
 
 import SudokuGenerator.GameEngine;
+import SudokuGenerator.Objects.CountUpTimer;
 import View.SudokuGrid.SudokuCell;
 
 /**
@@ -24,13 +31,14 @@ import View.SudokuGrid.SudokuCell;
 public class Grid extends AppCompatActivity implements View.OnClickListener {
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
-
+    private TextView timer;
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
         mDrawerList = (ListView)findViewById(R.id.navList);
+        timer = (TextView) findViewById(R.id.Timer);
 
         // Set the adapter for the list view
         addDrawerItems();
@@ -75,6 +83,13 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
+
+        new CountUpTimer(1000) {
+            public void onTick(long n){
+                timer.setText((int)(n / 60000) + ":" + ((n / 1000) % 60));
+                timer.setTextSize(30);
+            }
+        }.start();
     }
 
     @Override
