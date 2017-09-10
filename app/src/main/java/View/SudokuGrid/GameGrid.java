@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
-
+import android.widget.Toast;
 
 import com.ubccpsc.android.sudokuonline.StartMenu;
 
@@ -17,11 +16,11 @@ import SudokuGenerator.SudokuChecker;
  */
 
 public class GameGrid extends AppCompatActivity{
+    public static final String PREFS_NAME = "UI_File";
     private SudokuCell[][] Sudoku = new SudokuCell[9][9];
     private int[][] SudokuArray = new int[9][9];
     private Context context;
     private boolean solved = false;
-    public static final String PREFS_NAME = "UI_File";
 
 
     public GameGrid(Context context){
@@ -41,6 +40,10 @@ public class GameGrid extends AppCompatActivity{
         this.Sudoku = file;
     }
 
+    public int[][] getGrid() {
+        return SudokuArray;
+    }
+
     public void setGrid(int[][] grid){
         SudokuArray = grid;
 
@@ -58,10 +61,6 @@ public class GameGrid extends AppCompatActivity{
         }
     }
 
-    public int[][] getGrid(){
-        return SudokuArray;
-    }
-
     public SudokuCell getItem(int position) {
         int x = position % 9;
         int y = position / 9;
@@ -77,21 +76,16 @@ public class GameGrid extends AppCompatActivity{
     public void checkGame(int level){
         if (SudokuChecker.getInstance().checkSudoku(SudokuArray)) {
             Toast.makeText(context, "CONGRATS! You solved the Sudoku puzzle!", Toast.LENGTH_LONG).show();
-            if (level == 0){
+            if (level == 1) {
                 setAchievement("extremely_easy_unlock");
-            }
-            else if(level == 1){
+            } else if (level == 2) {
                 setAchievement("easy_unlock");
-            }
-            else if(level == 2){
+            } else if (level == 3) {
                 setAchievement("medium_unlock");
 
-            }
-            else if(level == 3){
+            } else if (level == 4) {
                 setAchievement("difficult_unlock");
-            }
-
-            else if(level == 4){
+            } else if (level == 5) {
                 setAchievement("evil_unlock");
             }
 

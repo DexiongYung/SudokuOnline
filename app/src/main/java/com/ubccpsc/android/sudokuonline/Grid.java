@@ -13,15 +13,12 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.Arrays;
 
 import SudokuGenerator.GameEngine;
 import SudokuGenerator.Objects.CountUpTimer;
-import SudokuGenerator.SudokuGenerator;
 import View.SudokuGrid.SudokuCell;
 
 /**
@@ -29,9 +26,9 @@ import View.SudokuGrid.SudokuCell;
  */
 
 public class Grid extends AppCompatActivity implements View.OnClickListener {
+    public static final String PREFS_NAME = "UI_File";
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
-    public static final String PREFS_NAME = "UI_File";
     private TextView timer;
 
 
@@ -165,6 +162,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
     }
+
     public void pageCreation(){
         // Set UI preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
