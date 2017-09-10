@@ -1,6 +1,5 @@
 package com.ubccpsc.android.sudokuonline;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,13 +12,10 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Arrays;
 
 import SudokuGenerator.GameEngine;
 import SudokuGenerator.Objects.CountUpTimer;
-import View.SudokuGrid.SudokuCell;
 
 /**
  * Created by Dylan on 2017-08-07.
@@ -30,12 +26,11 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private TextView timer;
+    private CountUpTimer oCountUpTimer;
 
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
-        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
         mDrawerList = (ListView)findViewById(R.id.navList);
@@ -54,23 +49,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                         break;}
                     //save game capability
                     case 1:{
-                        SharedPreferences.Editor editor = settings.edit();
-                        //turn the grid into a string value, then save
-                        String stringGrid = Arrays.toString(GameEngine.getInstance().getGameGrid().getGrid());
-                        int[][] firstArr = GameEngine.getInstance().getGameGrid().getGrid();
-                        JSONArray mainArr = new JSONArray();
-
-                        for(int r = 0; r<firstArr.length; r++){
-                            JSONArray innerArr = new JSONArray();
-                            for(int s = 0; s<firstArr[r].length; s++){
-                                innerArr.put(firstArr[r][s]);
-                            }
-                            mainArr.put(innerArr);
-                        }
-                        String convertedArr = mainArr.toString();
-                        editor.putString("savedGrid", convertedArr);
-                        // Commit the edits!
-                        editor.commit();
+                        saveGame();
                         break;}
                     case 3:{
                         break;}
@@ -86,41 +65,49 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         });
 
         Intent myIntent = getIntent();
-        int level = myIntent.getIntExtra("level", 1);
+        int level = myIntent.getIntExtra("level", 0);
 
-        //if (level != -1)
+        if (level > 0) {
             GameEngine.getInstance().createGrid(this, level);
-        //else {
+        } else {
             Bundle extras = getIntent().getExtras();
             String openedGrid;
+            String openedPositions;
             if (extras != null) {
                 openedGrid = extras.getString("showSavedGrid");
-                if(openedGrid != null){
+                openedPositions = extras.getString("showSavedPositions");
+                if (openedGrid != null) {
                     try {
                         JSONArray newJArray = new JSONArray(openedGrid);
+                        JSONArray newPositionsArray = new JSONArray(openedPositions);
                         int[][] transformedArr = new int[9][9];
+                        boolean[][] positionsArr = new boolean[9][9];
                         for (int j = 0; j < newJArray.length(); j++) {
                             for (int k = 0; k < newJArray.getJSONArray(j).length(); k++) {
-                                transformedArr[j][k] = newJArray.getJSONArray(j).getInt(k);
+                                positionsArr[j][k] = newPositionsArray.getJSONArray(j).getBoolean(k);
+                                if (newPositionsArray.getJSONArray(j).getBoolean(k))
+                                    transformedArr[j][k] = newJArray.getJSONArray(j).getInt(k);
+                                else
+                                    transformedArr[j][k] = 0;
                             }
                         }
+
                         GameEngine.getInstance().getGameGrid().setGrid(transformedArr);
-                    } catch(Exception e){
+
+                        for (int x = 0; x < 9; x++) {
+                            for (int y = 0; y < 9; y++) {
+                                if (!newPositionsArray.getJSONArray(x).getBoolean(y))
+                                    GameEngine.getInstance().getGameGrid().setItem(x, y, newJArray.getJSONArray(x).getInt(y));
+                            }
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-            /*try {
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("grid_file"));
-                SudokuCell[][] file = (SudokuCell[][]) ois.readObject();
-                GameEngine.getInstance().setGrid(this, file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }*/
+            }
         }
 
-        new CountUpTimer(1000) {
+        oCountUpTimer = new CountUpTimer(1000) {
             public void onTick(long n){
                 String seconds = "" + ((n / 1000) % 60);
                 if (((n / 1000) % 60) < 10)
@@ -129,7 +116,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                 timer.setText((int) (n / 60000) + ":" + seconds);
                 timer.setTextSize(35);
             }
-        }.start();
+        };
+        oCountUpTimer.start();
     }
 
     @Override
@@ -138,21 +126,16 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onPause() {
-        String time = timer.getText().toString();
-        try {
-            save();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        oCountUpTimer.pause();
+        saveGame();
         super.onPause();
     }
 
-    private void save() throws IOException {
-        String fileName = "grid_file";
-        SudokuCell[][] file = GameEngine.getInstance().getGameGrid().getSudokuCellGrid();
-        FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
-        //fos.write();
-        //fos.close();
+    @Override
+    protected void onResume() {
+        if (oCountUpTimer.getPaused())
+            oCountUpTimer.resume();
+        super.onResume();
     }
 
     //TODO
@@ -167,5 +150,46 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         // Set UI preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String ui_interface = settings.getString("user_ui", "default");
+    }
+
+    private void saveGame() {
+        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        //turn the grid into a string value, then save
+        String stringGrid = Arrays.toString(GameEngine.getInstance().getGameGrid().getGrid());
+        int[][] firstArr = GameEngine.getInstance().getGameGrid().getGrid();
+        boolean[][] oInitialValues = new boolean[9][9];
+
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                oInitialValues[x][y] = !GameEngine.getInstance().getGameGrid().getSudokuCellGrid()[x][y].isModifiable();
+            }
+        }
+
+        JSONArray mainArr = new JSONArray();
+        JSONArray positionArr = new JSONArray();
+
+        for (int r = 0; r < firstArr.length; r++) {
+            JSONArray innerArr = new JSONArray();
+            for (int s = 0; s < firstArr[r].length; s++) {
+                innerArr.put(firstArr[r][s]);
+            }
+            mainArr.put(innerArr);
+        }
+
+        for (int r = 0; r < oInitialValues.length; r++) {
+            JSONArray innerArr = new JSONArray();
+            for (int s = 0; s < oInitialValues[r].length; s++) {
+                innerArr.put(oInitialValues[r][s]);
+            }
+            positionArr.put(innerArr);
+        }
+
+        String convertedArr = mainArr.toString();
+        String convertedPositionArr = positionArr.toString();
+        editor.putString("savedGrid", convertedArr);
+        editor.putString("savedPositions", convertedPositionArr);
+        // Commit the edits!
+        editor.commit();
     }
 }

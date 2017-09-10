@@ -7,21 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-
 /**
  * Created by Dylan on 2017-08-05.
  */
 
 public class difficulty_Menu extends AppCompatActivity implements View.OnClickListener {
+    public static final String PREFS_NAME = "UI_File";
     private Button extremely_easy_button;
     private Button easy_button;
     private Button medium_button;
     private Button difficult_button;
     private Button evil_button;
-    public static final String PREFS_NAME = "UI_File";
     private Button continue_button;
 
     @Override
@@ -78,23 +74,13 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
         } else if (v == continue_button) {
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
             String retrieveGrid = settings.getString("savedGrid", "Nothing is Saved!");
+            String retrievePositions = settings.getString("savedPositions", "Nothing is Saved!");
             Intent myIntent = new Intent(this, Grid.class);
 
             //put extra, put the string of the grid into this
             myIntent.putExtra("showSavedGrid", retrieveGrid);
+            myIntent.putExtra("showSavedPositions", retrievePositions);
             startActivity(myIntent);
-
-
-            /*ObjectInputStream ois = null;
-            try {
-                ois = new ObjectInputStream(new FileInputStream("grid_file"));
-                if (ois != null) {
-                    Intent myIntent = new Intent(this, Grid.class);
-                    myIntent.putExtra("level", -1);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
         }
     }
     public void pageCreation(){

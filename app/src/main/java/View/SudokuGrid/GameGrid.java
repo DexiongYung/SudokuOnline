@@ -36,10 +36,6 @@ public class GameGrid extends AppCompatActivity{
         return Sudoku;
     }
 
-    public void setSudokuCellGrid(SudokuCell[][] file) {
-        this.Sudoku = file;
-    }
-
     public int[][] getGrid() {
         return SudokuArray;
     }
@@ -56,6 +52,25 @@ public class GameGrid extends AppCompatActivity{
 
                 if(grid[x][y] != 0) {
                     Sudoku[x][y].setNotModifiable();
+                }
+            }
+        }
+    }
+
+    public void setSavedGrid(int[][] grid, boolean[][] initial) {
+        SudokuArray = grid;
+
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                Sudoku[x][y].setBackgroundColor(Color.WHITE);
+                Sudoku[x][y].setX(x);
+                Sudoku[x][y].setY(y);
+
+                if (initial[x][y]) {
+                    Sudoku[x][y].setInitialValue(grid[x][y]);
+                    Sudoku[x][y].setNotModifiable();
+                } else {
+                    Sudoku[x][y].setValue(grid[x][y]);
                 }
             }
         }

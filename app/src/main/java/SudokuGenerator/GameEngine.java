@@ -8,7 +8,6 @@ import java.util.Stack;
 
 import SudokuGenerator.Objects.xyCoordinates;
 import View.SudokuGrid.GameGrid;
-import View.SudokuGrid.SudokuCell;
 
 /**
  * Created by Dylan on 2017-08-07.
@@ -33,12 +32,6 @@ public class GameEngine {
         if (instance == null)
             instance = new GameEngine();
         return instance;
-    }
-
-    public void setGrid(Context context, SudokuCell[][] file) {
-        draftMode = false;
-        grid = new GameGrid(context);
-        this.grid.setSudokuCellGrid(file);
     }
 
     public void createGrid(Context context, int difficulty) {
