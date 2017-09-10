@@ -11,13 +11,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Arrays;
 
 import SudokuGenerator.GameEngine;
 import SudokuGenerator.Objects.CountUpTimer;
+import SudokuGenerator.SudokuGenerator;
 import View.SudokuGrid.SudokuCell;
 
 /**
@@ -33,7 +37,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
-        pageCreation();
+        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
         mDrawerList = (ListView)findViewById(R.id.navList);
@@ -50,16 +55,33 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                         Intent myIntent = new Intent(Grid.this, StartMenu.class);
                         startActivity(myIntent);
                         break;}
+                    //save game capability
                     case 1:{
+                        SharedPreferences.Editor editor = settings.edit();
+                        //turn the grid into a string value, then save
+                        String stringGrid = Arrays.toString(GameEngine.getInstance().getGameGrid().getGrid());
+                        int[][] firstArr = GameEngine.getInstance().getGameGrid().getGrid();
+                        JSONArray mainArr = new JSONArray();
 
-                        break;}
-                    case 2:{
+                        for(int r = 0; r<firstArr.length; r++){
+                            JSONArray innerArr = new JSONArray();
+                            for(int s = 0; s<firstArr[r].length; s++){
+                                innerArr.put(firstArr[r][s]);
+                            }
+                            mainArr.put(innerArr);
+                        }
+                        String convertedArr = mainArr.toString();
+                        editor.putString("savedGrid", convertedArr);
+                        // Commit the edits!
+                        editor.commit();
                         break;}
                     case 3:{
+                        break;}
+                    case 4:{
                         startActivity(new Intent(Grid.this,Grid.class));
                         finish();
                         break;}
-                    case 4:{
+                    case 5:{
                         GameEngine.getInstance().clearGrid();
                         break;}
                 }
@@ -69,10 +91,28 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         Intent myIntent = getIntent();
         int level = myIntent.getIntExtra("level", 1);
 
-        if (level != -1)
+        //if (level != -1)
             GameEngine.getInstance().createGrid(this, level);
-        else {
-            try {
+        //else {
+            Bundle extras = getIntent().getExtras();
+            String openedGrid;
+            if (extras != null) {
+                openedGrid = extras.getString("showSavedGrid");
+                if(openedGrid != null){
+                    try {
+                        JSONArray newJArray = new JSONArray(openedGrid);
+                        int[][] transformedArr = new int[9][9];
+                        for (int j = 0; j < newJArray.length(); j++) {
+                            for (int k = 0; k < newJArray.getJSONArray(j).length(); k++) {
+                                transformedArr[j][k] = newJArray.getJSONArray(j).getInt(k);
+                            }
+                        }
+                        GameEngine.getInstance().getGameGrid().setGrid(transformedArr);
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            /*try {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream("grid_file"));
                 SudokuCell[][] file = (SudokuCell[][]) ois.readObject();
                 GameEngine.getInstance().setGrid(this, file);
@@ -80,7 +120,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
 
         new CountUpTimer(1000) {
@@ -121,7 +161,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     //TODO
     //Add animation to notify user of existence
     private void addDrawerItems() {
-        String[] osArray = { "Home", "Increase Difficulty", "Decrease Difficulty", "New Game", "Clear Grid" };
+        String[] osArray = { "Home", "Save Game", "Increase Difficulty", "Decrease Difficulty", "New Game", "Clear Grid" };
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
     }
@@ -129,26 +169,5 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         // Set UI preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String ui_interface = settings.getString("user_ui", "default");
-        if (ui_interface.equals("extremely_easy")) {
-            setTheme(R.style.ExtremelyEasy);
-        }
-        else if (ui_interface.equals("easy")) {
-            //TODO
-            setTheme(R.style.Holo_Dark);
-
-        }
-        else if (ui_interface.equals("medium")) {
-            //TODO
-            //setTheme(R.style.Holo_Light);
-
-        }
-        else if (ui_interface.equals("difficult")) {
-            //TODO
-           // setTheme(R.style.Material_dark);
-
-        }
-        else if (ui_interface.equals("evil")) {
-            //TODO
-        }
     }
 }

@@ -76,7 +76,16 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
             myIntent.putExtra("level", 5);
             startActivity(myIntent);
         } else if (v == continue_button) {
-            ObjectInputStream ois = null;
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            String retrieveGrid = settings.getString("savedGrid", "Nothing is Saved!");
+            Intent myIntent = new Intent(this, Grid.class);
+
+            //put extra, put the string of the grid into this
+            myIntent.putExtra("showSavedGrid", retrieveGrid);
+            startActivity(myIntent);
+
+
+            /*ObjectInputStream ois = null;
             try {
                 ois = new ObjectInputStream(new FileInputStream("grid_file"));
                 if (ois != null) {
@@ -85,7 +94,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
     public void pageCreation(){

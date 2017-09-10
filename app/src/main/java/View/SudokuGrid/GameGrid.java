@@ -58,6 +58,10 @@ public class GameGrid extends AppCompatActivity{
         }
     }
 
+    public int[][] getGrid(){
+        return SudokuArray;
+    }
+
     public SudokuCell getItem(int position) {
         int x = position % 9;
         int y = position / 9;
