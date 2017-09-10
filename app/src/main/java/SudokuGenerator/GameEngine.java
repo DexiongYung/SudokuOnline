@@ -41,7 +41,7 @@ public class GameEngine {
         this.grid.setSudokuCellGrid(file);
     }
 
-    public void createGrid(Context context, int level, int difficulty) {
+    public void createGrid(Context context, int difficulty) {
         //Create 2D int Array of Sudoku Grid
         level = difficulty;
 

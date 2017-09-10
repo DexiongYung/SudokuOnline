@@ -78,12 +78,12 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
         }
         else if (ui_interface.equals("medium")) {
             //TODO
-            setTheme(R.style.Holo_Light);
+            //setTheme(R.style.Holo_Light);
 
         }
         else if (ui_interface.equals("difficult")) {
             //TODO
-            setTheme(R.style.Material_dark);
+            //setTheme(R.style.Material_dark);
 
         }
         else if (ui_interface.equals("evil")) {
