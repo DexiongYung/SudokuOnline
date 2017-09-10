@@ -2,6 +2,7 @@ package com.ubccpsc.android.sudokuonline;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,10 +27,13 @@ import View.SudokuGrid.SudokuCell;
 public class Grid extends AppCompatActivity implements View.OnClickListener {
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
+    public static final String PREFS_NAME = "UI_File";
     private TextView timer;
+
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
+        pageCreation();
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
         mDrawerList = (ListView)findViewById(R.id.navList);
@@ -120,5 +124,31 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         String[] osArray = { "Home", "Increase Difficulty", "Decrease Difficulty", "New Game", "Clear Grid" };
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
+    }
+    public void pageCreation(){
+        // Set UI preferences
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String ui_interface = settings.getString("user_ui", "default");
+        if (ui_interface.equals("extremely_easy")) {
+            setTheme(R.style.ExtremelyEasy);
+        }
+        else if (ui_interface.equals("easy")) {
+            //TODO
+            setTheme(R.style.Holo_Dark);
+
+        }
+        else if (ui_interface.equals("medium")) {
+            //TODO
+            setTheme(R.style.Holo_Light);
+
+        }
+        else if (ui_interface.equals("difficult")) {
+            //TODO
+            setTheme(R.style.Material_dark);
+
+        }
+        else if (ui_interface.equals("evil")) {
+            //TODO
+        }
     }
 }

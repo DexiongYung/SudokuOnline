@@ -25,7 +25,7 @@ public class GameEngine {
     private ArrayList<xyCoordinates> highlightRowsPosition = new ArrayList<>();
     private ArrayList<xyCoordinates> hightlightColsPosition = new ArrayList<>();
     private ArrayList<xyCoordinates> highlightRegionPosition = new ArrayList<>();
-
+    private int level;
     private GameEngine() {
     }
 
@@ -41,8 +41,10 @@ public class GameEngine {
         this.grid.setSudokuCellGrid(file);
     }
 
-    public void createGrid(Context context, int level) {
+    public void createGrid(Context context, int level, int difficulty) {
         //Create 2D int Array of Sudoku Grid
+        level = difficulty;
+
         SudokuGenerator.getInstance().generateGrid(level);
         int[][] Sudoku = SudokuGenerator.getInstance().getGrid();
 
@@ -71,7 +73,7 @@ public class GameEngine {
             highlightCells(selectedPosX, selectedPosY);
             undoStorage.push(new xyCoordinates(selectedPosX, selectedPosY));
             redoStorage.clear();
-            grid.checkGame();
+            grid.checkGame(level);
         }
     }
 
@@ -119,6 +121,7 @@ public class GameEngine {
                 }
             }
         }
+
         //sets (x,y) position to light pink to signify it's the cell currently selected
         getGameGrid().getSudokuCellGrid()[xPos][yPos].setBackgroundColor(Color.parseColor("#ffb6c1"));
     }

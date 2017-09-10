@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/achievement_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
@@ -15,7 +17,8 @@
             android:id="@+id/extremelyeasy_achievement"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@android:drawable/ic_secure"
+            tools:clickable="false" />
 
         <TextView
             android:id="@+id/extremelyeasy_achievement_text"
@@ -34,7 +37,8 @@
             android:id="@+id/easy_achievement"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@android:drawable/ic_secure"
+            tools:clickable="false" />
 
         <TextView
             android:id="@+id/easy_achievement_text"
@@ -53,7 +57,8 @@
             android:id="@+id/medium_achievement"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@android:drawable/ic_secure"
+            tools:clickable="false" />
 
         <TextView
             android:id="@+id/medium_achievement_text"
@@ -72,7 +77,8 @@
             android:id="@+id/difficult_achievement"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@android:drawable/ic_secure"
+            tools:clickable="false" />
 
         <TextView
             android:id="@+id/difficult_achievement_text"
@@ -91,7 +97,8 @@
             android:id="@+id/evil_achievement"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            app:srcCompat="@android:drawable/ic_secure" />
+            app:srcCompat="@android:drawable/ic_secure"
+            tools:clickable="false" />
 
         <TextView
             android:id="@+id/evil_achievement_text"
