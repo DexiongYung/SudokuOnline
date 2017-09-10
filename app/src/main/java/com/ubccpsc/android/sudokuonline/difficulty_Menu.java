@@ -78,6 +78,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
             Intent myIntent = new Intent(this, Grid.class);
 
             //put extra, put the string of the grid into this
+            myIntent.putExtra("level", -1);
             myIntent.putExtra("showSavedGrid", retrieveGrid);
             myIntent.putExtra("showSavedPositions", retrievePositions);
             startActivity(myIntent);

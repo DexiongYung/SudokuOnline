@@ -65,7 +65,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         });
 
         Intent myIntent = getIntent();
-        int level = myIntent.getIntExtra("level", 0);
+        int level = myIntent.getIntExtra("level", 1);
 
         if (level > 0) {
             GameEngine.getInstance().createGrid(this, level);
