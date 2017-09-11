@@ -8,6 +8,7 @@
     <string name="achievement_medium">Locked Red Scheme (complete Medium)</string>
     <string name="achievement_difficult">Locked Green Scheme (complete Difficult)</string>
     <string name="achievement_evil">Locked Yellow Scheme (complete Evil)</string>
-
-
+    <string name="duplicate_error_color">"#89cff0"</string>
+    <string name="duplicate_color">"#FF6666"</string>
+    <string name="region_row_column_highlight">"#ffffe0"</string>
 </resources>
