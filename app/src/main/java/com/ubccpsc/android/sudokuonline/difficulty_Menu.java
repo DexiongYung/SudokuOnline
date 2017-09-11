@@ -51,8 +51,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level", 1);
             startActivity(myIntent);
-        }
-        else if(v == easy_button){
+        } else if (v == easy_button) {
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level", 2);
             startActivity(myIntent);
@@ -61,29 +60,21 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level", 3);
             startActivity(myIntent);
-        }
-        else if(v == difficult_button){
+        } else if (v == difficult_button) {
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level", 4);
             startActivity(myIntent);
-        }
-        else if(v == evil_button){
+        } else if (v == evil_button) {
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level", 5);
             startActivity(myIntent);
         } else if (v == continue_button) {
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            String retrieveGrid = settings.getString("savedGrid", "Nothing is Saved!");
-            String retrievePositions = settings.getString("savedPositions", "Nothing is Saved!");
             Intent myIntent = new Intent(this, Grid.class);
-
-            //put extra, put the string of the grid into this
-            myIntent.putExtra("level", -1);
-            myIntent.putExtra("showSavedGrid", retrieveGrid);
-            myIntent.putExtra("showSavedPositions", retrievePositions);
+            myIntent.putExtra("level", 0);
             startActivity(myIntent);
         }
     }
+
     public void pageCreation(){
         // Set UI preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);

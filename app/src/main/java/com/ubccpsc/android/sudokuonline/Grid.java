@@ -28,7 +28,6 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     private TextView timer;
     private CountUpTimer oCountUpTimer;
 
-
     @Override
     protected void onCreate(Bundle savedStateInstance){
         super.onCreate(savedStateInstance);
@@ -67,44 +66,10 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         Intent myIntent = getIntent();
         int level = myIntent.getIntExtra("level", 1);
 
-        if (level > 0) {
+        if (level != 0) {
             GameEngine.getInstance().createGrid(this, level);
         } else {
-            Bundle extras = getIntent().getExtras();
-            String openedGrid;
-            String openedPositions;
-            if (extras != null) {
-                openedGrid = extras.getString("showSavedGrid");
-                openedPositions = extras.getString("showSavedPositions");
-                if (openedGrid != null) {
-                    try {
-                        JSONArray newJArray = new JSONArray(openedGrid);
-                        JSONArray newPositionsArray = new JSONArray(openedPositions);
-                        int[][] transformedArr = new int[9][9];
-                        boolean[][] positionsArr = new boolean[9][9];
-                        for (int j = 0; j < newJArray.length(); j++) {
-                            for (int k = 0; k < newJArray.getJSONArray(j).length(); k++) {
-                                positionsArr[j][k] = newPositionsArray.getJSONArray(j).getBoolean(k);
-                                if (newPositionsArray.getJSONArray(j).getBoolean(k))
-                                    transformedArr[j][k] = newJArray.getJSONArray(j).getInt(k);
-                                else
-                                    transformedArr[j][k] = 0;
-                            }
-                        }
-
-                        GameEngine.getInstance().getGameGrid().setGrid(transformedArr);
-
-                        for (int x = 0; x < 9; x++) {
-                            for (int y = 0; y < 9; y++) {
-                                if (!newPositionsArray.getJSONArray(x).getBoolean(y))
-                                    GameEngine.getInstance().getGameGrid().setItem(x, y, newJArray.getJSONArray(x).getInt(y));
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+            pullPreviousGrid();
         }
 
         oCountUpTimer = new CountUpTimer(1000) {
@@ -112,7 +77,6 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                 String seconds = "" + ((n / 1000) % 60);
                 if (((n / 1000) % 60) < 10)
                     seconds = 0 + seconds;
-
                 timer.setText((int) (n / 60000) + ":" + seconds);
                 timer.setTextSize(35);
             }
@@ -191,5 +155,37 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         editor.putString("savedPositions", convertedPositionArr);
         // Commit the edits!
         editor.commit();
+    }
+
+    private void pullPreviousGrid() {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String sPreviousGrid = settings.getString("savedGrid", "null");
+        String sBooleanGrid = settings.getString("savedPositions", "null");
+        if (!sPreviousGrid.equals("null") && !sBooleanGrid.equals("null")) {
+            try {
+                JSONArray oSavedGrid = new JSONArray(sPreviousGrid);
+                JSONArray oBooleanGrid = new JSONArray(sBooleanGrid);
+                int[][] oValueArray = new int[9][9];
+                boolean[][] oBooleanArray = new boolean[9][9];
+                for (int j = 0; j < oSavedGrid.length(); j++) {
+                    for (int k = 0; k < oSavedGrid.getJSONArray(j).length(); k++) {
+                        oBooleanArray[j][k] = oBooleanGrid.getJSONArray(j).getBoolean(k);
+                        if (oBooleanArray[j][k])
+                            oValueArray[j][k] = oSavedGrid.getJSONArray(j).getInt(k);
+                        else
+                            oValueArray[j][k] = 0;
+                    }
+                }
+                GameEngine.getInstance().getGameGrid().setGrid(oValueArray);
+                for (int x = 0; x < 9; x++) {
+                    for (int y = 0; y < 9; y++) {
+                        if (!oBooleanArray[x][y])
+                            GameEngine.getInstance().getGameGrid().setItem(x, y, oSavedGrid.getJSONArray(x).getInt(y));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

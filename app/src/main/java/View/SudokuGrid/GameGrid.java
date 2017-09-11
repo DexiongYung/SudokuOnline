@@ -20,7 +20,6 @@ public class GameGrid extends AppCompatActivity{
     private SudokuCell[][] Sudoku = new SudokuCell[9][9];
     private int[][] SudokuArray = new int[9][9];
     private Context context;
-    private boolean solved = false;
 
 
     public GameGrid(Context context){
@@ -57,25 +56,6 @@ public class GameGrid extends AppCompatActivity{
         }
     }
 
-    public void setSavedGrid(int[][] grid, boolean[][] initial) {
-        SudokuArray = grid;
-
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                Sudoku[x][y].setBackgroundColor(Color.WHITE);
-                Sudoku[x][y].setX(x);
-                Sudoku[x][y].setY(y);
-
-                if (initial[x][y]) {
-                    Sudoku[x][y].setInitialValue(grid[x][y]);
-                    Sudoku[x][y].setNotModifiable();
-                } else {
-                    Sudoku[x][y].setValue(grid[x][y]);
-                }
-            }
-        }
-    }
-
     public SudokuCell getItem(int position) {
         int x = position % 9;
         int y = position / 9;
@@ -97,7 +77,6 @@ public class GameGrid extends AppCompatActivity{
                 setAchievement("easy_unlock");
             } else if (level == 3) {
                 setAchievement("medium_unlock");
-
             } else if (level == 4) {
                 setAchievement("difficult_unlock");
             } else if (level == 5) {
