@@ -102,7 +102,7 @@ public class GameEngine {
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
                 if ((getGameGrid().getGrid()[x][y] > 0) && (getGameGrid().getGrid()[x][y] == getGameGrid().getGrid()[xPos][yPos])) {
-                    if (x != xPos || y != yPos || ((x / 3) + 3 * (y / 3) + 1) != ((xPos / 3) + 3 * (yPos / 3) + 1))
+                    if (x == xPos || y == yPos || ((x / 3) + 3 * (y / 3) + 1) == ((xPos / 3) + 3 * (yPos / 3) + 1))
                         oSudokuCellGrid[x][y].setBackgroundColor(Color.parseColor("#FF6666"));
                     else
                         oSudokuCellGrid[x][y].setBackgroundColor(Color.parseColor("#89cff0"));
