@@ -200,7 +200,7 @@ public class GameEngine {
         if (!undoStorage.isEmpty()) {
             int t = undoStorage.pop();
             redoStorage.push(t);
-            grid.getSudokuCellGrid()[t % 9][t / 9].undo();
+            grid.undo(t);
             highlightCells(selectedPosX, selectedPosY);
         }
     }
@@ -209,7 +209,7 @@ public class GameEngine {
         if (!redoStorage.isEmpty()) {
             int t = redoStorage.pop();
             undoStorage.push(t);
-            grid.getSudokuCellGrid()[t % 9][t / 9].redo();
+            grid.redo(t);
             highlightCells(selectedPosX, selectedPosY);
         }
     }

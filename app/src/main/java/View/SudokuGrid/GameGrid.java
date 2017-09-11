@@ -68,6 +68,22 @@ public class GameGrid extends AppCompatActivity{
         SudokuArray[x][y] = Sudoku[x][y].getValue();
     }
 
+    public void undo(int i) {
+        int x = i % 9;
+        int y = i / 9;
+
+        Sudoku[x][y].undo();
+        SudokuArray[x][y] = Sudoku[x][y].getValue();
+    }
+
+    public void redo(int i) {
+        int x = i % 9;
+        int y = i / 9;
+
+        Sudoku[x][y].redo();
+        SudokuArray[x][y] = Sudoku[x][y].getValue();
+    }
+
     public void checkGame(int level){
         if (SudokuChecker.getInstance().checkSudoku(SudokuArray)) {
             Toast.makeText(context, "CONGRATS! You solved the Sudoku puzzle!", Toast.LENGTH_LONG).show();
