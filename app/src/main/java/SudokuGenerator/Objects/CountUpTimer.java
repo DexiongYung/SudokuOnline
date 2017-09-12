@@ -35,6 +35,14 @@ public abstract class CountUpTimer {
         handler.sendMessage(handler.obtainMessage(MSG));
     }
 
+    public long getTime() {
+        return SystemClock.elapsedRealtime() - base;
+    }
+
+    public void setTime(long t) {
+        base = SystemClock.elapsedRealtime() - t;
+    }
+
     public void pause() {
         lTimePrePause = SystemClock.elapsedRealtime() - base;
         paused = true;

@@ -70,16 +70,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         Intent myIntent = getIntent();
         int level = myIntent.getIntExtra("level", 1);
 
-        if (level != 0) {
-            GameEngine.getInstance().createGrid(this, level);
-        } else {
-            pullPreviousGrid();
-        }
-
-        checkIfFirstTime();
-
         oCountUpTimer = new CountUpTimer(1000) {
-            public void onTick(long n){
+            public void onTick(long n) {
                 String seconds = "" + ((n / 1000) % 60);
                 if (((n / 1000) % 60) < 10)
                     seconds = 0 + seconds;
@@ -88,6 +80,14 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
             }
         };
         oCountUpTimer.start();
+
+        if (level != 0) {
+            GameEngine.getInstance().createGrid(this, level);
+        } else {
+            pullPreviousGrid();
+        }
+
+        checkIfFirstTime();
     }
 
     @Override
@@ -165,6 +165,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         editor.clear();
         editor.putString("savedGrid", convertedArr);
         editor.putString("savedPositions", convertedPositionArr);
+        editor.putLong("time", oCountUpTimer.getTime());
         // Commit the edits!
         editor.commit();
 
@@ -218,5 +219,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                 Log.e("Error", "exception", e);
             }
         }
+        Long time = settings.getLong("time", 0);
+        oCountUpTimer.setTime(time);
     }
 }
