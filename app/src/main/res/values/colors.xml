@@ -6,5 +6,8 @@
     <color name="chocolate">#D2691E</color>
     <color name="lightPink">#ffb6c1</color>
     <color name="background_material_light">#000000</color>
+    <color name="duplicate_error_color">#89cff0</color>
+    <color name="duplicate_color">#FF6666</color>
+    <color name="region_row_column_highlight">#ffffe0</color>
 
 </resources>
