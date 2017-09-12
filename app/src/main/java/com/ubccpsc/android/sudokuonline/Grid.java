@@ -3,7 +3,6 @@ package com.ubccpsc.android.sudokuonline;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,6 +29,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     private TextView timer;
     private CountUpTimer oCountUpTimer;
     private DrawerLayout mDrawerLayout;
+    private int level;
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
@@ -68,7 +68,12 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         });
 
         Intent myIntent = getIntent();
-        int level = myIntent.getIntExtra("level", 1);
+        if (myIntent.getIntExtra("level", 1) < 1) {
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            this.level = settings.getInt("level", 1);
+        } else {
+            this.level = myIntent.getIntExtra("level", 1);
+        }
 
         oCountUpTimer = new CountUpTimer(1000) {
             public void onTick(long n) {
@@ -81,7 +86,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         };
         oCountUpTimer.start();
 
-        if (level != 0) {
+        if (myIntent.getIntExtra("level", 1) != 0) {
             GameEngine.getInstance().createGrid(this, level);
         } else {
             pullPreviousGrid();
@@ -129,7 +134,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void saveGame() {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         //turn the grid into a string value, then save
         int[][] firstArr = GameEngine.getInstance().getGameGrid().getGrid();
@@ -162,17 +167,13 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
         String convertedArr = mainArr.toString();
         String convertedPositionArr = positionArr.toString();
-        editor.clear();
         editor.putString("savedGrid", convertedArr);
         editor.putString("savedPositions", convertedPositionArr);
+        editor.putInt("level", this.level);
         editor.putLong("time", oCountUpTimer.getTime());
+        editor.putBoolean("saveGame", true);
         // Commit the edits!
         editor.commit();
-
-        SharedPreferences saveGame = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor e = saveGame.edit();
-        e.putBoolean("saveGame", true);
-        e.commit();
     }
 
     private void checkIfFirstTime() {
@@ -188,8 +189,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void pullPreviousGrid() {
-        GameEngine.getInstance().createGrid(this, 5);
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        GameEngine.getInstance().createGrid(this, this.level);
         String sPreviousGrid = settings.getString("savedGrid", "null");
         String sBooleanGrid = settings.getString("savedPositions", "null");
         if (!sPreviousGrid.equals("null") && !sBooleanGrid.equals("null")) {
