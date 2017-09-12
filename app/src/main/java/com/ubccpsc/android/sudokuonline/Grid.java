@@ -167,6 +167,11 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         editor.putString("savedPositions", convertedPositionArr);
         // Commit the edits!
         editor.commit();
+
+        SharedPreferences saveGame = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor e = saveGame.edit();
+        e.putBoolean("saveGame", true);
+        e.commit();
     }
 
     private void checkIfFirstTime() {

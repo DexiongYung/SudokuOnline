@@ -68,9 +68,14 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
             myIntent.putExtra("level", 5);
             startActivity(myIntent);
         } else if (v == continue_button) {
-            Intent myIntent = new Intent(this, Grid.class);
-            myIntent.putExtra("level", 0);
-            startActivity(myIntent);
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            boolean bSaveGameExist = settings.getBoolean("saveGame", false);
+
+            if (bSaveGameExist) {
+                Intent myIntent = new Intent(this, Grid.class);
+                myIntent.putExtra("level", 0);
+                startActivity(myIntent);
+            }
         }
     }
 
