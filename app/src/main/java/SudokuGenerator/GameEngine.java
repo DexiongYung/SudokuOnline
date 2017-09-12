@@ -16,12 +16,11 @@ import View.SudokuGrid.SudokuCell;
 public class GameEngine {
     private static GameEngine instance;
     private GameGrid grid = null;
-    private int selectedPosX = -1, selectedPosY = -1;
+    private int selectedPosX = -1, selectedPosY = -1, level;
     private boolean draftMode;
     private Stack<Integer> undoStorage = new Stack<>(), redoStorage = new Stack<>();
     private ArrayList<Integer> highlightDuplicatesPosition = new ArrayList<>(), highlightRowsPosition = new ArrayList<>(),
             hightlightColsPosition = new ArrayList<>(), highlightRegionPosition = new ArrayList<>();
-    private int level;
 
     private GameEngine() {
     }
