@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -181,6 +182,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void pullPreviousGrid() {
+        GameEngine.getInstance().createGrid(this, 5);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String sPreviousGrid = settings.getString("savedGrid", "null");
         String sBooleanGrid = settings.getString("savedPositions", "null");
@@ -207,6 +209,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                     }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Error", "exception", e);
             }
         }
     }
