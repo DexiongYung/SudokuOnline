@@ -190,7 +190,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     private void pullPreviousGrid() {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        GameEngine.getInstance().createGrid(this, this.level);
+        GameEngine.getInstance().continueGrid(this);
         String sPreviousGrid = settings.getString("savedGrid", "null");
         String sBooleanGrid = settings.getString("savedPositions", "null");
         if (!sPreviousGrid.equals("null") && !sBooleanGrid.equals("null")) {

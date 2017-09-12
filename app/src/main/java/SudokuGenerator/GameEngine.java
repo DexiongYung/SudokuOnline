@@ -47,6 +47,11 @@ public class GameEngine {
         grid.setGrid(Sudoku);
     }
 
+    public void continueGrid(Context context) {
+        grid = new GameGrid(context);
+        draftMode = false;
+    }
+
     //Grid related functions
     public GameGrid getGameGrid() {
         return grid;
@@ -255,5 +260,9 @@ public class GameEngine {
         int x = a.get(index) % 9;
         int y = a.get(index) / 9;
         getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.WHITE);
+    }
+
+    public int getLevel() {
+        return level;
     }
 }
