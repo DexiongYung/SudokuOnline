@@ -55,8 +55,7 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level", 2);
             startActivity(myIntent);
-        }
-        else if(v == medium_button){
+        } else if (v == medium_button) {
             Intent myIntent = new Intent(this, Grid.class);
             myIntent.putExtra("level", 3);
             startActivity(myIntent);

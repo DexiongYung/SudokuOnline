@@ -71,7 +71,6 @@ public class GameGrid extends AppCompatActivity{
     public void undo(int i) {
         int x = i % 9;
         int y = i / 9;
-
         Sudoku[x][y].undo();
         SudokuArray[x][y] = Sudoku[x][y].getValue();
     }
@@ -79,7 +78,6 @@ public class GameGrid extends AppCompatActivity{
     public void redo(int i) {
         int x = i % 9;
         int y = i / 9;
-
         Sudoku[x][y].redo();
         SudokuArray[x][y] = Sudoku[x][y].getValue();
     }

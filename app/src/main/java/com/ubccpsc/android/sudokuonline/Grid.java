@@ -3,7 +3,10 @@ package com.ubccpsc.android.sudokuonline;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,8 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
-
-import java.util.Arrays;
 
 import SudokuGenerator.GameEngine;
 import SudokuGenerator.Objects.CountUpTimer;
@@ -27,13 +28,15 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     private ArrayAdapter<String> mAdapter;
     private TextView timer;
     private CountUpTimer oCountUpTimer;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
-        mDrawerList = (ListView)findViewById(R.id.navList);
+        mDrawerList = (ListView) findViewById(R.id.navList);
         timer = (TextView) findViewById(R.id.Timer);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Set the adapter for the list view
         addDrawerItems();
@@ -72,6 +75,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
             pullPreviousGrid();
         }
 
+        checkIfFirstTime();
+
         oCountUpTimer = new CountUpTimer(1000) {
             public void onTick(long n){
                 String seconds = "" + ((n / 1000) % 60);
@@ -96,6 +101,12 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     }
 
     @Override
+    protected void onStop() {
+        saveGame();
+        super.onStop();
+    }
+
+    @Override
     protected void onResume() {
         if (oCountUpTimer.getPaused())
             oCountUpTimer.resume();
@@ -117,10 +128,9 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void saveGame() {
-        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
         //turn the grid into a string value, then save
-        String stringGrid = Arrays.toString(GameEngine.getInstance().getGameGrid().getGrid());
         int[][] firstArr = GameEngine.getInstance().getGameGrid().getGrid();
         boolean[][] oInitialValues = new boolean[9][9];
 
@@ -151,14 +161,27 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
         String convertedArr = mainArr.toString();
         String convertedPositionArr = positionArr.toString();
+        editor.clear();
         editor.putString("savedGrid", convertedArr);
         editor.putString("savedPositions", convertedPositionArr);
         // Commit the edits!
         editor.commit();
     }
 
-    private void pullPreviousGrid() {
+    private void checkIfFirstTime() {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        boolean isFirstStart = settings.getBoolean("key", true);
+
+        if (isFirstStart) {
+            mDrawerLayout.openDrawer(Gravity.START);
+            SharedPreferences.Editor e = settings.edit();
+            e.putBoolean("key", false);
+            e.commit();
+        }
+    }
+
+    private void pullPreviousGrid() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String sPreviousGrid = settings.getString("savedGrid", "null");
         String sBooleanGrid = settings.getString("savedPositions", "null");
         if (!sPreviousGrid.equals("null") && !sBooleanGrid.equals("null")) {
@@ -184,7 +207,6 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
