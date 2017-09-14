@@ -33,6 +33,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedStateInstance){
+        pageCreation();
         super.onCreate(savedStateInstance);
         setContentView(R.layout.grid);
         mDrawerList = (ListView) findViewById(R.id.navList);
@@ -131,7 +132,29 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         // Set UI preferences
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String ui_interface = settings.getString("user_ui", "default");
+        if (ui_interface.equals("extremely_easy")) {
+            setTheme(R.style.Holo_Dark);
+        }
+        else if (ui_interface.equals("easy")) {
+            //TODO
+            setTheme(R.style.Material_Dark);
+        }
+        else if (ui_interface.equals("medium")) {
+            //TODO
+            setTheme(R.style.Material_Light);
+
+        }
+        else if (ui_interface.equals("difficult")) {
+            //TODO
+            setTheme(R.style.Holo_Light);
+
+        }
+        else if (ui_interface.equals("evil")) {
+            //TODO
+            setTheme(R.style.Nicky);
+        }
     }
+
 
     private void saveGame() {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
