@@ -50,19 +50,10 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                         Intent myIntent = new Intent(Grid.this, StartMenu.class);
                         startActivity(myIntent);
                         break;}
-                    //save game capability
                     case 1:{
-                        saveGame();
-                        break;}
-                    case 3:{
-                        break;}
-                    case 4:{
-                        startActivity(new Intent(Grid.this,Grid.class));
-                        finish();
-                        break;}
-                    case 5:{
                         GameEngine.getInstance().clearGrid();
-                        break;}
+                        break;
+                    }
                 }
             }
         });
@@ -118,11 +109,9 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
             oCountUpTimer.resume();
         super.onResume();
     }
-
-    //TODO
-    //Add animation to notify user of existence
+    
     private void addDrawerItems() {
-        String[] osArray = { "Home", "Save Game", "Increase Difficulty", "Decrease Difficulty", "New Game", "Clear Grid" };
+        String[] osArray = {"Home", "Clear Grid(Cannot Be Undone)"};
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
     }
