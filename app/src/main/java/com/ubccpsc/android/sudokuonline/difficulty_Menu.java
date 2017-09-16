@@ -84,25 +84,26 @@ public class difficulty_Menu extends AppCompatActivity implements View.OnClickLi
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String ui_interface = settings.getString("user_ui", "default");
         if (ui_interface.equals("extremely_easy")) {
-            setTheme(R.style.ExtremelyEasy);
+            setTheme(R.style.Holo_Dark);
         }
         else if (ui_interface.equals("easy")) {
             //TODO
-            setTheme(R.style.Holo_Dark);
-
+            setTheme(R.style.Material_Dark);
         }
         else if (ui_interface.equals("medium")) {
             //TODO
-            //setTheme(R.style.Holo_Light);
+            setTheme(R.style.Material_Light);
 
         }
         else if (ui_interface.equals("difficult")) {
             //TODO
-            //setTheme(R.style.Material_dark);
+            setTheme(R.style.Holo_Light);
 
         }
         else if (ui_interface.equals("evil")) {
             //TODO
+            setTheme(R.style.Nicky);
         }
     }
+
 }

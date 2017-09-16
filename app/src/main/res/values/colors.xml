@@ -2,12 +2,14 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ad5e79</color>
     <color name="chocolate">#D2691E</color>
     <color name="lightPink">#ffb6c1</color>
     <color name="background_material_light">#000000</color>
     <color name="duplicate_error_color">#89cff0</color>
-    <color name="duplicate_color">#FF6666</color>
+    <color name="duplicate_color">#000000</color>
     <color name="region_row_column_highlight">#ffffe0</color>
+    <color name="primary_dark_material_dark">#b82a2a</color>
+    <color name="primary_material_dark">#2196f3</color>
 
 </resources>

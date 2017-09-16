@@ -21,6 +21,13 @@
         <item name="android:colorForeground">@android:color/holo_purple</item>
     </style>
 
-    <style name="Holo_Dark" parent="android:Theme.Holo" />
+    <style name="Holo_Dark" parent="android:Theme.Holo.NoActionBar" />
+
+    <style name="Holo_Light" parent="android:Theme.Holo.Light.NoActionBar" />
+
+    <style name="Nicky" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:colorBackground">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/duplicate_color</item>
+    </style>
 
 </resources>
