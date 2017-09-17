@@ -42,8 +42,8 @@ public class GameGrid extends AppCompatActivity{
     public void setGrid(int[][] grid){
         SudokuArray = grid;
 
-        for(int x = 0; x<9; x++){
-            for (int y = 0; y<9; y++){
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
                 Sudoku[x][y].setInitialValue(grid[x][y]);
                 Sudoku[x][y].setBackgroundColor(Color.WHITE);
                 Sudoku[x][y].setX(x);

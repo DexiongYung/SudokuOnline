@@ -42,6 +42,13 @@ public class BaseSudokuCell extends View {
         redoStack = null;
     }
 
+    public void setModifiable() {
+        modifiable = true;
+        draft = new ArrayList<Integer>();
+        undoStack = new Stack<tuple>();
+        redoStack = new Stack<tuple>();
+    }
+
     public void setInitialValue(int value) {
         this.value = value;
         if(undoStack != null){

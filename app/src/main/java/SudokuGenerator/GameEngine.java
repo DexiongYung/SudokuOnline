@@ -248,7 +248,7 @@ public class GameEngine {
                     if (grid.getSudokuCellGrid()[x][y].isModifiable()) {
                         grid.getSudokuCellGrid()[x][y].emptyUndoRedoStack();
                         grid.getSudokuCellGrid()[x][y].emptyDraft();
-                        grid.getSudokuCellGrid()[x][y].setValue(0);
+                        grid.setItem(x, y, 0);
                     }
                 }
             }
@@ -261,7 +261,34 @@ public class GameEngine {
         getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.WHITE);
     }
 
-    public int getLevel() {
-        return level;
+    public void increaseDifficulty() {
+        if (level < 5) {
+            SudokuGenerator.getInstance().generateGrid(level + 1);
+            replaceBoard(SudokuGenerator.getInstance().getGrid());
+            this.level++;
+        }
+    }
+
+    public void decreaseDifficulty() {
+        if (level > 1) {
+            SudokuGenerator.getInstance().generateGrid(level - 1);
+            replaceBoard(SudokuGenerator.getInstance().getGrid());
+            this.level--;
+        }
+    }
+
+    public void replaceBoard(int[][] array) {
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                getGameGrid().getSudokuCellGrid()[x][y].setModifiable();
+                getGameGrid().setItem(x, y, 0);
+                getGameGrid().getSudokuCellGrid()[x][y].emptyUndoRedoStack();
+                getGameGrid().getSudokuCellGrid()[x][y].emptyDraft();
+                if (array[x][y] != 0) {
+                    getGameGrid().setItem(x, y, array[x][y]);
+                    getGameGrid().getSudokuCellGrid()[x][y].setNotModifiable();
+                }
+            }
+        }
     }
 }

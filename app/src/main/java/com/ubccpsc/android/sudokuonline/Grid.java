@@ -55,6 +55,16 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                         GameEngine.getInstance().clearGrid();
                         break;
                     }
+                    case 2: {
+                        GameEngine.getInstance().increaseDifficulty();
+                        oCountUpTimer.restart();
+                        break;
+                    }
+                    case 3: {
+                        GameEngine.getInstance().decreaseDifficulty();
+                        oCountUpTimer.restart();
+                        break;
+                    }
                 }
             }
         });
@@ -112,7 +122,7 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
     }
     
     private void addDrawerItems() {
-        String[] osArray = {"Home", "Clear Grid(Cannot Be Undone)"};
+        String[] osArray = {"Home", "Restart", "Increase Difficulty", "Decrease Difficulty"};
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
     }

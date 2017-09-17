@@ -35,6 +35,10 @@ public abstract class CountUpTimer {
         handler.sendMessage(handler.obtainMessage(MSG));
     }
 
+    public void restart() {
+        base = SystemClock.elapsedRealtime();
+    }
+
     public long getTime() {
         return SystemClock.elapsedRealtime() - base;
     }
