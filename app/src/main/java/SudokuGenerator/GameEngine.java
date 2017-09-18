@@ -228,7 +228,7 @@ public class GameEngine {
     }
 
     //Clear Grid
-    public void clearGrid() {
+    public void restartGrid() {
         if (!highlightRegionPosition.isEmpty() && !highlightRowsPosition.isEmpty() && !hightlightColsPosition.isEmpty()) {
             undoStorage.clear();
             redoStorage.clear();
@@ -261,20 +261,28 @@ public class GameEngine {
         getGameGrid().getSudokuCellGrid()[x][y].setBackgroundColor(Color.WHITE);
     }
 
-    public void increaseDifficulty() {
+    public boolean increaseDifficulty() {
         if (level < 5) {
+            undoStorage.clear();
+            redoStorage.clear();
             SudokuGenerator.getInstance().generateGrid(level + 1);
             replaceBoard(SudokuGenerator.getInstance().getGrid());
             this.level++;
+            return true;
         }
+        return false;
     }
 
-    public void decreaseDifficulty() {
+    public boolean decreaseDifficulty() {
         if (level > 1) {
+            undoStorage.clear();
+            redoStorage.clear();
             SudokuGenerator.getInstance().generateGrid(level - 1);
             replaceBoard(SudokuGenerator.getInstance().getGrid());
             this.level--;
+            return true;
         }
+        return false;
     }
 
     public void replaceBoard(int[][] array) {

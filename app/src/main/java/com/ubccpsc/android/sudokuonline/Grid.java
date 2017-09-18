@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 
@@ -52,17 +53,23 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
                         startActivity(myIntent);
                         break;}
                     case 1:{
-                        GameEngine.getInstance().clearGrid();
+                        GameEngine.getInstance().restartGrid();
                         break;
                     }
                     case 2: {
-                        GameEngine.getInstance().increaseDifficulty();
-                        oCountUpTimer.restart();
+                        if (GameEngine.getInstance().increaseDifficulty()) {
+                            oCountUpTimer.restart();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "You're already at the highest level", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     }
                     case 3: {
-                        GameEngine.getInstance().decreaseDifficulty();
-                        oCountUpTimer.restart();
+                        if (GameEngine.getInstance().decreaseDifficulty()) {
+                            oCountUpTimer.restart();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "You're already at the lowest level", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     }
                 }
