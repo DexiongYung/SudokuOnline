@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sudoku Wars</string>
+    <string name="app_name">Sudoku wars</string>
     <string name="singe_player">Single player</string>
     <string name="multiplayer">Multiplayer</string>
     <string name="achievement">Achievements</string>

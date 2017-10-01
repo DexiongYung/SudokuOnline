@@ -32,7 +32,7 @@ public class StartMenu extends AppCompatActivity implements View.OnClickListener
 
         //Instantiate fonts and apply to title
         appname = (TextView) findViewById(R.id.app_name);
-        Typeface font = Typeface.createFromAsset(getAssets(),"Junge-Regular.ttf");
+        Typeface font = Typeface.createFromAsset(getAssets(),"Last King Quest.ttf");
         appname.setTypeface(font);
 
         //Set listeners for buttons

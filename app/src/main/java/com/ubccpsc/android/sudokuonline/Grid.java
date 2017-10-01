@@ -3,6 +3,7 @@ package com.ubccpsc.android.sudokuonline;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -132,6 +133,14 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         String[] osArray = {"Home", "Restart", "Increase Difficulty", "Decrease Difficulty"};
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String ui_interface = settings.getString("user_ui", "default");
+        if (ui_interface.equals("extremely_easy")) {
+            mDrawerList.setBackgroundColor(getResources().getColor(android.R.color.black));
+        }
+        else if (ui_interface.equals("easy")) {
+            mDrawerList.setBackgroundColor(getResources().getColor(android.R.color.black));
+        }
     }
 
     public void pageCreation(){
@@ -144,6 +153,8 @@ public class Grid extends AppCompatActivity implements View.OnClickListener {
         else if (ui_interface.equals("easy")) {
             //TODO
             setTheme(R.style.Material_Dark);
+
+
         }
         else if (ui_interface.equals("medium")) {
             //TODO
