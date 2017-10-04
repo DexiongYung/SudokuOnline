@@ -20,6 +20,7 @@
         <activity android:name=".achievement_Menu" />
         <activity android:name=".Grid" />
         <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".BasicVersusGridView" />
     </application>
 
 </manifest>

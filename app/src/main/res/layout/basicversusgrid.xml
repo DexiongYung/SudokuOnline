@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- The main content view -->
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View.SudokuGrid.SudokuGridView
+            android:id="@+id/sudokuGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="0dp"
+            android:numColumns="9"
+            android:verticalSpacing="0dp"></View.SudokuGrid.SudokuGridView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/sudokuGridView"
+            android:gravity="center">
+
+            <View.ButtonsGrid.ButtonsGridViewNumbers
+                android:id="@+id/buttonsgridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonsgridview"
+                android:layout_marginTop="-7dp"
+                android:orientation="horizontal">
+
+                <View.ButtonsGrid.ButtonsGridViewOptions
+                    android:id="@+id/buttonsgridviewoptions"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:columnWidth="30dp"
+                    android:numColumns="2" />
+
+                <TextView
+                    android:id="@+id/Timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:text="" />
+
+                <View.ButtonsGrid.ButtonsGridViewOptionsTwo
+                    android:id="@+id/buttonsgridviewoptionstwo"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:columnWidth="30dp"
+                    android:numColumns="2" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/navList"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|start"
+        android:background="#ffeeeeee" />
+</android.support.v4.widget.DrawerLayout>
