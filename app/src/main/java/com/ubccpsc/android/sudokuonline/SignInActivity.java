@@ -23,18 +23,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity {
 
     private SignInButton mGoogleButton;
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
     private static final String TAG = "sign_in_activity";
     private FirebaseUser user = mAuth.getCurrentUser();
     private String userID = user.getUid();
-    //FirebaseUser user = mAuth.getCurrentUser();
-    private DatabaseReference myRef;
+    private DatabaseReference myRef = mFirebaseDatabase.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,6 @@ public class SignInActivity extends AppCompatActivity {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
-                //User user = new User("test", "test");
                 //myRef.child("users").child(userID).setValue(userInformation);
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
@@ -114,7 +114,8 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            User userInfo = new User(user.getEmail());
+                            myRef.child("users").child(userID).setValue(userInfo);
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
